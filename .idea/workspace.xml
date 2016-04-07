@@ -87,15 +87,74 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JdbcUserDAO.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JdbcUserDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/dao/impl/JdbcUserDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.7064935" vertical-offset="544" max-vertical-offset="1071">
+            <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1071">
               <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1460020117032" expanded="true" signature="466:540" placeholder="INSERT INTO ..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DATABASE/a631469b-f6f3-45fc-a6a4-457a5a9cdadf.schema:DZINHALA" pinned="false" current-in-tab="true">
+        <entry file="uml://DATABASE/a631469b-f6f3-45fc-a6a4-457a5a9cdadf.schema:DZINHALA">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>DATABASE</ID>
+              <OriginalElement>a631469b-f6f3-45fc-a6a4-457a5a9cdadf.schema:DZINHALA</OriginalElement>
+              <nodes>
+                <node x="0.0" y="377.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.USERS</node>
+                <node x="576.25" y="235.5">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_TAG</node>
+                <node x="631.5" y="44.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.TAG</node>
+                <node x="282.25" y="0.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS</node>
+                <node x="68.25" y="235.5">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_AUTHOR</node>
+                <node x="0.0" y="33.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.AUTHOR</node>
+                <node x="20.0" y="539.0997304582211">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.ROLES</node>
+                <node x="289.25" y="213.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.COMMENTS</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_AUTHOR" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS">
+                  <point x="50.25" y="-37.0" />
+                  <point x="219.0" y="188.0" />
+                  <point x="329.0833333333333" y="188.0" />
+                  <point x="-93.66666666666669" y="81.5" />
+                </edge>
+                <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_AUTHOR" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.AUTHOR">
+                  <point x="-50.25" y="-37.0" />
+                  <point x="0.0" y="48.5" />
+                </edge>
+                <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_TAG" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.TAG">
+                  <point x="50.25" y="-37.0" />
+                  <point x="0.0" y="37.5" />
+                </edge>
+                <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.ROLES" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.USERS">
+                  <point x="0.0" y="-37.0" />
+                  <point x="0.0" y="59.5" />
+                </edge>
+                <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_TAG" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS">
+                  <point x="-50.25" y="-37.0" />
+                  <point x="626.5" y="188.0" />
+                  <point x="516.4166666666667" y="188.0" />
+                  <point x="93.66666666666674" y="81.5" />
+                </edge>
+                <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.COMMENTS" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS">
+                  <point x="0.0" y="-59.5" />
+                  <point x="0.0" y="81.5" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="0.5796875" x="411.5" y="310.0" />
+              <SelectedNodes>
+                <node>a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.ROLES</node>
+              </SelectedNodes>
+              <Categories>
+                <Category>Key columns</Category>
+                <Category>Columns</Category>
+              </Categories>
             </state>
           </provider>
         </entry>
@@ -124,16 +183,6 @@
           </provider>
           <provider editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Oracle - XE@localhost" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://db-console:/e56fe048/a631469b-f6f3-45fc-a6a4-457a5a9cdadf/">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -931,12 +980,12 @@
       <workItem from="1459951973055" duration="9674000" />
       <workItem from="1459970132188" duration="121000" />
       <workItem from="1459970265126" duration="4072000" />
-      <workItem from="1460010607769" duration="1964000" />
+      <workItem from="1460010607769" duration="2295000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24157000" />
+    <option name="totallyTimeSpent" value="24488000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -997,16 +1046,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/md5util/MD5Hashing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="646">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="1105">
@@ -1383,12 +1422,69 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/dao/impl/JdbcUserDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.7064935" vertical-offset="544" max-vertical-offset="1071">
+        <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1071">
           <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1460020117032" expanded="true" signature="466:540" placeholder="INSERT INTO ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://DATABASE/a631469b-f6f3-45fc-a6a4-457a5a9cdadf.schema:DZINHALA">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>a631469b-f6f3-45fc-a6a4-457a5a9cdadf.schema:DZINHALA</OriginalElement>
+          <nodes>
+            <node x="0.0" y="377.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.USERS</node>
+            <node x="576.25" y="235.5">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_TAG</node>
+            <node x="631.5" y="44.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.TAG</node>
+            <node x="282.25" y="0.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS</node>
+            <node x="68.25" y="235.5">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_AUTHOR</node>
+            <node x="0.0" y="33.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.AUTHOR</node>
+            <node x="20.0" y="539.0997304582211">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.ROLES</node>
+            <node x="289.25" y="213.0">a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.COMMENTS</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_AUTHOR" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS">
+              <point x="50.25" y="-37.0" />
+              <point x="219.0" y="188.0" />
+              <point x="329.0833333333333" y="188.0" />
+              <point x="-93.66666666666669" y="81.5" />
+            </edge>
+            <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_AUTHOR" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.AUTHOR">
+              <point x="-50.25" y="-37.0" />
+              <point x="0.0" y="48.5" />
+            </edge>
+            <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_TAG" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.TAG">
+              <point x="50.25" y="-37.0" />
+              <point x="0.0" y="37.5" />
+            </edge>
+            <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.ROLES" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.USERS">
+              <point x="0.0" y="-37.0" />
+              <point x="0.0" y="59.5" />
+            </edge>
+            <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS_TAG" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS">
+              <point x="-50.25" y="-37.0" />
+              <point x="626.5" y="188.0" />
+              <point x="516.4166666666667" y="188.0" />
+              <point x="93.66666666666674" y="81.5" />
+            </edge>
+            <edge source="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.COMMENTS" target="a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.NEWS">
+              <point x="0.0" y="-59.5" />
+              <point x="0.0" y="81.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.5796875" x="411.5" y="310.0" />
+          <SelectedNodes>
+            <node>a631469b-f6f3-45fc-a6a4-457a5a9cdadf.table:DZINHALA.ROLES</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
         </state>
       </provider>
     </entry>
