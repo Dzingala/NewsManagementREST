@@ -7,12 +7,13 @@ public class Author {
     private long authorId;
     private String authorName;
     private Timestamp expired;
-
+    public Author(){}
     public Author(long authorId, String authorName, Timestamp expired) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.expired = expired;
     }
+
 
     public long getAuthorId() {
         return authorId;
@@ -57,5 +58,13 @@ public class Author {
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (expired != null ? expired.hashCode() : 0);
         return result;
+    }
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorId=" + authorId +
+                ", authorName='" + authorName + '\'' +
+                ", expired=" + expired +
+                '}';
     }
 }

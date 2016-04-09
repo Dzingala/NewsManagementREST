@@ -4,7 +4,7 @@ package by.epam.lab.task1.model;
 public class Tag {
     private long tagId;
     private String tagName;
-
+    public Tag(){}
     public Tag(long tagId, String tagName) {
         this.tagId = tagId;
         this.tagName = tagName;

@@ -10,7 +10,7 @@ public class News {
     private String fullText;
     private Timestamp creationDate;
     private Date modificationDate;
-
+    public News(){}
     public News(long newsId, String title, String shortText, String fullText, Timestamp creationDate, Date modificationDate) {
         this.newsId = newsId;
         this.title = title;

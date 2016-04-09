@@ -2,20 +2,20 @@ package by.epam.lab.task1.model;
 
 
 public class Role {
-    private long userId;
+    private long roleId;
     private String roleName;
-
-    public Role(long userId, String roleName) {
-        this.userId = userId;
+    public Role(){}
+    public Role(long roleId, String roleName) {
+        this.roleId = roleId;
         this.roleName = roleName;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
     }
 
     public String getRoleName() {
@@ -25,6 +25,7 @@ public class Role {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,7 +33,7 @@ public class Role {
 
         Role role = (Role) o;
 
-        if (userId != role.userId) return false;
+        if (roleId != role.roleId) return false;
         if (roleName != null ? !roleName.equals(role.roleName) : role.roleName != null) return false;
 
         return true;
@@ -40,7 +41,7 @@ public class Role {
 
     @Override
     public int hashCode() {
-        int result = (int) (userId ^ (userId >>> 32));
+        int result = (int) (roleId ^ (roleId >>> 32));
         result = 31 * result + (roleName != null ? roleName.hashCode() : 0);
         return result;
     }

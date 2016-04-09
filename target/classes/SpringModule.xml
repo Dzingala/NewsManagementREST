@@ -5,6 +5,5 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
     <import resource="database/SpringDatasource.xml" />
-    <import resource="SpringCustomer.xml" />
 
 </beans>

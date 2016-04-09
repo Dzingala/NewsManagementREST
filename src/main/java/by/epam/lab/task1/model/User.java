@@ -7,12 +7,12 @@ public class User {
     private String userName;
     private String login;
     private String password;
-
-    public User(long userId, String userName, String login, String password) {
+    public User(){}
+    public User(String userName, String login, String password) {
         this.userId = userId;
         this.userName = userName;
         this.login = login;
-        this.password = password;
+        this.password = MD5Hashing.md5(password);
     }
 
     public long getUserId() {

@@ -8,7 +8,7 @@ public class Comment {
     private long newsId;
     private String commentText;
     private Timestamp creationDate;
-
+    public Comment(){}
     public Comment(long commentId, long newsId, String commentText, Timestamp creationDate) {
         this.commentId = commentId;
         this.newsId = newsId;
