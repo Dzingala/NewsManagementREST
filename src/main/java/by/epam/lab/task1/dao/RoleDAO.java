@@ -1,11 +1,7 @@
 package by.epam.lab.task1.dao;
 
 
-import by.epam.lab.task1.model.Role;
+import by.epam.lab.task1.entity.Role;
 
-public interface RoleDAO {
-    public boolean createRole(Role role);
-    public Role readRoleById(long roleId);
-    public boolean updateRoleById(Role role);
-    public boolean deleteRoleById(long roleId);
+public interface RoleDAO extends GenericDAO<Role>{
 }

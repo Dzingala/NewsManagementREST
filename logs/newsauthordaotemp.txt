@@ -1,0 +1,276 @@
+package by.epam.lab.task1.dao.impl;
+
+import by.epam.lab.task1.dao.NewsAuthorDAO;
+import by.epam.lab.task1.exceptions.DAOException;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import sun.reflect.generics.tree.Tree;
+
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+@Component
+public class JdbcNewsAuthorDAO implements NewsAuthorDAO{
+    private final static Logger logger= Logger.getLogger(JdbcNewsAuthorDAO.class);
+    private final static String CREATE_NEWS_AUTHOR_QUERY="INSERT INTO DZINHALA.NEWS_AUTHOR(NEWS_ID,AUTHOR_ID) VALUES (?,?)";
+    private final static String READ_NEWS_BY_AUTHOR_QUERY="SELECT * FROM DZINHALA.NEWS_AUTHOR WHERE AUTHOR_ID=?";
+    private final static String UPDATE_NEWS_AUTHOR_QUERY="UPDATE DZINHALA.NEWS_AUTHOR SET AUTHOR_ID=? WHERE NEWS_ID=?";
+    private final static String DELETE_NEWS_AUTHOR_QUERY="DELETE FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID=?";//deletes 1 row
+    private final static String DELETE_AUTHOR_NEWS_QUERY="DELETE FROM DZINHALA.NEWS_AUTHOR WHERE AUTHOR_ID=?";//deletes all news of certain author
+
+    private final static String CHECK_AUTHORS_AMOUNT_QUERY="SELECT COUNT(AUTHOR_ID) FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID=?";
+    private final static String READ_ALL_QUERY="SELECT * FROM DZINHALA.NEWS_AUTHOR";
+    public JdbcNewsAuthorDAO() {
+    }
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Override
+    public Long create(Object o) throws DAOException {
+        return null;
+    }
+
+    @Override
+    public Object read(long id) {
+        return null;
+    }
+
+    @Override
+    public long update(Object o) {
+        return 0;
+    }
+
+    @Override
+    public boolean delete(long id) {
+        return false;
+    }
+
+    @Override
+    public ArrayList readAll() {
+        return null;
+    }
+
+    /*@Override
+    public TreeMap<Long,Long> readAll() {
+        logger.debug("Getting the map of news' authors in NewsAuthorDAO");
+        TreeMap<Long,Long> news_author = null;//the key is news' id, value - author's id
+        Connection conn=null;
+        try{
+            conn=dataSource.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(READ_ALL_QUERY);
+            news_author=new TreeMap<Long, Long>();
+            while(rs.next()){
+                news_author.put(
+                        rs.getLong("NEWS_ID"),
+                        rs.getLong("AUTHOR_ID")
+                );
+            }
+        } catch (SQLException e) {
+            logger.error("SQLException while getting the map of news' authors");
+            throw new RuntimeException();
+        }
+        return news_author;
+    }*/
+
+    public boolean checkAuthorNewsAmount(long newsId){
+        logger.debug("Checking the amount of news authors in NewsAuthorDAO");
+        Connection conn = null;
+        long count;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(CHECK_AUTHORS_AMOUNT_QUERY);
+            ps.setLong(1, newsId);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                count=rs.getLong(1);
+                logger.debug("the number of authors for this news: "+count);
+                if(count>=1){
+                    return false;
+                }
+            }
+            ps.close();
+        } catch (SQLException e) {
+            logger.error("SQLException while creating news author");
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    logger.debug("SQLException while closing connection");
+                }
+            }
+        }
+        return true;
+    }
+    @Override
+    public boolean createNewsAuthor(long newsId, long authorId, ApplicationContext context) {
+        logger.debug("Creating news author in NewsAuthorDAO");
+        JdbcAuthorDAO authorDAO = context.getBean(JdbcAuthorDAO.class);//for checking either given news and author exist or not
+        if(authorDAO.readAuthorById(authorId)!=null) {
+            logger.debug("Author id="+authorId+" exists");
+            JdbcNewsDAO newsDAO=context.getBean(JdbcNewsDAO.class);
+            if(newsDAO.readNewsById(newsId)!=null) {
+                logger.debug("News id="+newsId+" exist");
+                if(checkAuthorNewsAmount(newsId)) {
+
+                    Connection conn = null;
+                    try {
+                        conn = dataSource.getConnection();
+                        PreparedStatement ps = conn.prepareStatement(CREATE_NEWS_AUTHOR_QUERY);
+                        ps.setLong(1, newsId);
+                        ps.setLong(2, authorId);
+                        ps.executeUpdate();
+                        ps.close();
+                    } catch (SQLException e) {
+                        logger.error("SQLException while creating news author");
+                        throw new RuntimeException(e);
+                    } finally {
+                        if (conn != null) {
+                            try {
+                                conn.close();
+                            } catch (SQLException e) {
+                                logger.debug("SQLException while closing connection");
+                            }
+                        }
+                    }
+                }else{
+                    logger.debug("News id="+newsId+" already have an author");
+                    return false;
+                }
+            }else{
+                logger.debug("News id="+newsId+" do not exist");
+                return false;
+            }
+        }else{
+            logger.debug("Author id="+authorId+" does not exist");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public ArrayList<Long> readNewsIdByAuthorId(long authorId) {
+        logger.debug("Reading author's news in AuthorDAO");
+        ArrayList<Long> authorNews=null;
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(READ_NEWS_BY_AUTHOR_QUERY);
+            ps.setLong(1, authorId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                authorNews=new ArrayList<Long>();
+                authorNews.add(rs.getLong("NEWS_ID"));
+                while(rs.next()){
+                    authorNews.add(rs.getLong("NEWS_ID"));
+                }
+            }
+            else{
+                logger.debug("Author id="+authorId+" does not exist");
+            }
+            ps.close();
+
+        } catch (SQLException e) {
+            logger.error("SQLException while reading author");
+            throw new RuntimeException(e);
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    logger.error("SQLException while closing connection");
+                }
+            }
+        }
+        return authorNews;
+    }
+
+    @Override
+    public boolean updateNewsAuthorId(long newsId, long newAuthorId) {
+        logger.debug("Updating news' author in NewsAuthorDAO");
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            if(readNewsIdByAuthorId(newAuthorId)!=null) {
+                PreparedStatement ps = conn.prepareStatement(UPDATE_NEWS_AUTHOR_QUERY);
+                ps.setLong(1, newAuthorId);
+                ps.setLong(2, newsId);
+                ps.executeUpdate();
+                ps.close();
+            }else{
+                logger.debug("Author with id="+newAuthorId+" does not have any news.");
+                return false;
+            }
+        } catch (SQLException e) {
+            logger.error("SQLException while updating news' author");
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    logger.error("SQLException while closing connection");
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteNewsAuthor(long newsId) {
+        logger.debug("Deleting NewsAuthor in NewsAuthorDAO");
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(DELETE_NEWS_AUTHOR_QUERY);
+            ps.setLong(1, newsId);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            logger.error("SQLException while deleting news author");
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    logger.error("SQLException while closing connection");
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteAuthorNews(long authorId) {
+        logger.debug("Deleting AuthorNews in NewsAuthorDAO");
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(DELETE_AUTHOR_NEWS_QUERY);
+            ps.setLong(1, authorId);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            logger.error("SQLException while deleting author news");
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    logger.error("SQLException while closing connection");
+                }
+            }
+        }
+        return true;
+    }
+}

@@ -1,12 +1,9 @@
 package by.epam.lab.task1.dao;
 
 
-import by.epam.lab.task1.model.User;
+import by.epam.lab.task1.entity.User;
+import by.epam.lab.task1.exceptions.DAOException;
 
-public interface UserDAO {
-    public boolean createUser(User user);
-    public User readUserById(long userId);
-    public boolean updateUserById(User user);
-    public boolean deleteUserById(long userId);
-
+public interface UserDAO extends GenericDAO<User>{
+    Long readIdByLogin(String login) throws DAOException;
 }

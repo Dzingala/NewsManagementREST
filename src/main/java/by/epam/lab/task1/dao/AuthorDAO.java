@@ -1,10 +1,11 @@
 package by.epam.lab.task1.dao;
 
-import by.epam.lab.task1.model.Author;
+import by.epam.lab.task1.entity.Author;
+import by.epam.lab.task1.exceptions.DAOException;
 
-public interface AuthorDAO {
-    public boolean createAuthor(Author author);
-    public Author readAuthorById(long roleId);
-    public boolean updateAuthorById(Author author);
-    public boolean deleteAuthorById(long roleId);
+import java.util.ArrayList;
+
+public interface AuthorDAO extends GenericDAO<Author>{
+    Long readAuthorIdByNewsId(Long newsId) throws DAOException;
+
 }

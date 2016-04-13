@@ -1,11 +1,11 @@
 package by.epam.lab.task1.dao;
 
 
-import by.epam.lab.task1.model.Tag;
+import by.epam.lab.task1.entity.Tag;
+import by.epam.lab.task1.exceptions.DAOException;
 
-public interface TagDAO {
-    public boolean createTag(Tag role);
-    public Tag readTagById(long roleId);
-    public boolean updateTagById(Tag tag);
-    public boolean deleteTagById(long roleId);
+import java.util.ArrayList;
+
+public interface TagDAO extends GenericDAO<Tag>{
+    ArrayList<Long> readTagsIdByNewsId(Long newsId) throws DAOException;
 }

@@ -1,123 +1,163 @@
 package by.epam.lab.task1.dao.impl;
 
 import by.epam.lab.task1.dao.AuthorDAO;
-import by.epam.lab.task1.model.Author;
+import by.epam.lab.task1.entity.Author;
+import by.epam.lab.task1.exceptions.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Component
 public class JdbcAuthorDAO implements AuthorDAO {
     private final static Logger logger= Logger.getLogger(JdbcAuthorDAO.class);
-    private final static String CREATE_AUTHOR_QUERY="INSERT INTO DZINHALA.AUTHOR(AUTHOR_NAME,EXPIRED) VALUES (?,?)";
-    private final static String READ_AUTHOR_QUERY="SELECT * FROM DZINHALA.AUTHOR WHERE AUTHOR_ID=?";
-    private final static String UPDATE_AUTHOR_QUERY="UPDATE DZINHALA.AUTHOR SET AUTHOR_NAME=?,EXPIRED=? WHERE AUTHOR_ID=?";
-    private final static String DELETE_AUTHOR_QUERY="DELETE FROM DZINHALA.AUTHOR WHERE AUTHOR_ID=?";
+    private static final String CREATE_AUTHOR_QUERY= " INSERT INTO DZINHALA.AUTHOR (AUTHOR_NAME) VALUES (?) ";
+    private static final String READ_AUTHOR_QUERY= " SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
+    private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = ? ";
+    private static final String UPDATE_AUTHOR_QUERY = " UPDATE DZINHALA.AUTHOR SET AUTHOR_NAME = ? ,EXPIRED = ?  WHERE AUTHOR_ID = ? ";
+    private static final String DELETE_AUTHOR_QUERY = " DELETE FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
+
+
+    private static final String COLUMN_NAME_AUTHOR_ID = "AUTHOR_ID";
+    private static final String COLUMN_NAME_AUTHOR_NAME = "AUTHOR_NAME";
+    private static final String COLUMN_NAME_EXPIRED = "EXPIRED";
+
+    private static final String COLUMN_NAME_NEWS_AUTHOR_AUTHOR_ID = "AUTHOR_ID";
+
 
     @Autowired
     private DataSource dataSource;
 
-    @Override
-    public boolean createAuthor(Author author) {
-        Connection conn = null;
+    public Long create(Author author) throws DAOException {
+        logger.debug("Creating author in JdbcAuthorDAO");
+        Connection conn=null;
+        Long authorId=null;
+        String[] keys = {COLUMN_NAME_AUTHOR_ID};
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(CREATE_AUTHOR_QUERY);
-            ps.setString(1, author.getAuthorName());
-            ps.setTimestamp(2,author.getExpired());
-            ps.executeUpdate();
-            ps.close();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {}
+            try (PreparedStatement ps = conn.prepareStatement(CREATE_AUTHOR_QUERY, keys)) {
+                ps.setString(1, author.getName());
+                ps.executeUpdate();
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    rs.next();
+                    authorId = rs.getLong(1);
+                }
+            }finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
             }
+        }catch (SQLException e){
+            logger.error("DAOException while creating author in JdbcAuthorDAO");
+            logger.debug("Author was not created");
+            throw new DAOException();
         }
-        return true;
+        return authorId;
     }
 
-    @Override
-    public Author readAuthorById(long authorId) {
-        Connection conn = null;
-        Author author=null;
+    public Author read(Long authorId) throws DAOException {
+        logger.debug("Reading author in JdbcAuthorDAO");
+        Connection conn=null;
+        Author author = null;
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(READ_AUTHOR_QUERY);
-            ps.setLong(1, authorId);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                author=new Author();
-                author.setAuthorName(rs.getString("AUTHOR_NAME"));
-                author.setAuthorId(rs.getLong("AUTHOR_ID"));
-                author.setExpired(rs.getTimestamp("EXPIRED"));
-                logger.debug( author);
+            try (PreparedStatement ps = conn.prepareStatement(READ_AUTHOR_QUERY)) {
+                ps.setLong(1, authorId);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        author = new Author(authorId,
+                                rs.getString(COLUMN_NAME_AUTHOR_NAME),
+                                rs.getTimestamp(COLUMN_NAME_EXPIRED)
+                        );
+                    }
+                    else{
+                        logger.debug("Author with id="+authorId+" does not exist");
+                    }
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
             }
-            ps.close();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {}
-            }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading author in JdbcAuthorDAO");
+            logger.debug("Author was not read");
+            throw new DAOException(e);
         }
         return author;
     }
 
-    @Override
-    public boolean updateAuthorById(Author author) {
-        Connection conn = null;
+
+    public void update(Long id, Author author) throws DAOException {
+        logger.debug("Updating author in JdbcAuthorDAO");
+        Connection conn =null;
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(UPDATE_AUTHOR_QUERY);
-            ps.setString(1, author.getAuthorName());
-            ps.setTimestamp(2, author.getExpired());
-            ps.setLong(3,author.getAuthorId());
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {}
+            try (PreparedStatement ps = conn.prepareStatement(UPDATE_AUTHOR_QUERY)) {
+
+                ps.setString(1, author.getName());
+                ps.setTimestamp(2, author.getExpired());
+                ps.setLong(3, id);
+                ps.executeUpdate();
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
             }
+        }catch (SQLException e) {
+            logger.error("DAOException while updating author in JdbcAuthorDAO");
+            logger.debug("Author was not updated");
+            throw new DAOException(e);
         }
-        return true;
+    }
+
+    public void delete(Long id) throws DAOException {
+        logger.debug("Deleting author in JdbcAuthorDAO");
+        Connection conn=null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(DELETE_AUTHOR_QUERY)) {
+                ps.setLong(1, id);
+                ps.executeUpdate();
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while deleting author in JdbcAuthorDAO");
+            logger.debug("Author was not deleted");
+            throw new DAOException(e);
+        }
+
     }
 
     @Override
-    public boolean deleteAuthorById(long authorId) {
-        Connection conn = null;
+    public Long readAuthorIdByNewsId(Long newsId) throws DAOException {
+        logger.debug("Reading author's id by news id in JdbcAuthorDAO");
+        Connection conn=null;
+        Long authorId = null;
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(DELETE_AUTHOR_QUERY);
-            ps.setLong(1, authorId);
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {}
+            try (PreparedStatement ps = conn.prepareStatement(READ_AUTHOR_ID_BY_NEWS_ID_QUERY)) {
+                ps.setLong(1, newsId);
+                try (ResultSet resultSet = ps.executeQuery()) {
+                    if (resultSet.next()) {
+                        authorId = resultSet.getLong(1);
+                    }
+                    else {
+                        logger.debug("News with id="+newsId+" have not author assigned");
+                    }
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
             }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading author's id by news id in JdbcAuthorDAO");
+            logger.debug("Author's id was not received");
+            throw new DAOException(e);
         }
-        return true;
+        if (authorId == null) {
+            throw new DAOException("News id="+newsId+" have not author assigned");
+        }
+        return authorId;
     }
+
+
+
 }
