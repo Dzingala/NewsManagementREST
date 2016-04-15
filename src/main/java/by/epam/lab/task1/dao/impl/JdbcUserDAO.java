@@ -53,6 +53,7 @@ public class JdbcUserDAO implements UserDAO {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     rs.next();
                     userId = rs.getLong(1);
+                    logger.debug("User id="+userId+" was created");
                 }
             } finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
@@ -75,6 +76,7 @@ public class JdbcUserDAO implements UserDAO {
                 ps.setLong(1, userId);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
+                        String password=rs.getString(COLUMN_NAME_USER_PASSWORD);
                         user = new User(
                                 rs.getLong(COLUMN_NAME_ROLE_ID),
                                 userId,
@@ -82,6 +84,7 @@ public class JdbcUserDAO implements UserDAO {
                                 rs.getString(COLUMN_NAME_USER_LOGIN),
                                 rs.getString(COLUMN_NAME_USER_PASSWORD)
                         );
+                        user.setReadyPassword(password);
                     }
                 }
             } finally {

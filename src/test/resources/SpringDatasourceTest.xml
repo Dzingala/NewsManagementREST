@@ -9,12 +9,13 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="by.epam.lab.task1"/>
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <!-- bean definitions go here -->
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@//localhost:1521/XE"/>
         <property name="username" value="dzinhala"/>
         <property name="password" value="pass"/>
-
     </bean>
 
     <bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
@@ -28,7 +29,7 @@
           class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="databaseConfig" ref="dbUnitDatabaseConfig" />
-        <property name="schema" value="oracle" />
+        <property name="schema" value="DZINHALA" />
     </bean>
 
 </beans>

@@ -44,6 +44,7 @@ public class JdbcTagDAO implements TagDAO{
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     rs.next();
                     tagId = rs.getLong(1);
+                    logger.debug("Tag id="+tagId+" was created");
                 }
             }finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
@@ -105,7 +106,7 @@ public class JdbcTagDAO implements TagDAO{
     }
 
     public void delete(Long id) throws DAOException {
-        logger.debug("Deleting tag in JdbcTagDAO");
+        logger.debug("Deleting tag id="+id+" in JdbcTagDAO");
         Connection conn=null;
         try {
             conn = dataSource.getConnection();

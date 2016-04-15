@@ -35,8 +35,8 @@ public class JdbcNewsDAO implements NewsDAO {
             " VALUES (?, ?) ";
 
 
-    private static final String DISCONNECT_NEWS_TAGS_QUERY = " DELETE FROM NEWS_TAG WHERE NEWS_ID = ? ";
-    private static final String DISCONNECT_NEWS_AUTHOR_QUERY = " DELETE FROM NEWS_AUTHOR WHERE NEWS_ID = ? ";
+    private static final String DISCONNECT_NEWS_TAG_QUERY = "  DELETE FROM NEWS_TAG WHERE NEWS_ID = ? AND TAG_ID=?  ";
+    private static final String DISCONNECT_NEWS_AUTHOR_QUERY = " DELETE FROM NEWS_AUTHOR WHERE NEWS_ID = ? AND AUTHOR_ID=? ";
 
 
     private static final String COLUMN_NAME_ID = "NEWS_ID";
@@ -89,6 +89,7 @@ public class JdbcNewsDAO implements NewsDAO {
                 ps.setLong(1, newsId);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
+                        logger.debug("News with id="+newsId+" was read");
                         news = new News(newsId,
                                 rs.getString(COLUMN_NAME_TITLE),
                                 rs.getString(COLUMN_NAME_SHORT_TEXT),
@@ -256,14 +257,15 @@ public class JdbcNewsDAO implements NewsDAO {
 
     }
 
-    public void disconnectNewsWithTags(Long newsId) throws DAOException {
+    public void disconnectNewsWithTag(Long newsId,Long tagId) throws DAOException {
         logger.debug("Disconnecting news with tags in JdbcNewsDAO");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
-            try (PreparedStatement statement = conn.prepareStatement(DISCONNECT_NEWS_TAGS_QUERY)) {
-                statement.setLong(1, newsId);
-                statement.executeUpdate();
+            try (PreparedStatement st = conn.prepareStatement(DISCONNECT_NEWS_TAG_QUERY)) {
+                st.setLong(1, newsId);
+                st.setLong(2,tagId);
+                st.executeUpdate();
             } finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
@@ -275,13 +277,14 @@ public class JdbcNewsDAO implements NewsDAO {
 
     }
 
-    public void disconnectNewsWithAuthor(Long newsId) throws DAOException {
+    public void disconnectNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Disconnecting news with author in JdbcNewsDAO");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
             try (PreparedStatement ps = conn.prepareStatement(DISCONNECT_NEWS_AUTHOR_QUERY)) {
                 ps.setLong(1, newsId);
+                ps.setLong(2, authorId);
                 ps.executeUpdate();
             } finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);

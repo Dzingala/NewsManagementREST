@@ -25,7 +25,6 @@ public class JdbcAuthorDAO implements AuthorDAO {
     private static final String COLUMN_NAME_AUTHOR_NAME = "AUTHOR_NAME";
     private static final String COLUMN_NAME_EXPIRED = "EXPIRED";
 
-    private static final String COLUMN_NAME_NEWS_AUTHOR_AUTHOR_ID = "AUTHOR_ID";
 
 
     @Autowired

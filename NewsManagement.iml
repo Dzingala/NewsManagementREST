@@ -7,15 +7,9 @@
           <file>file://$MODULE_DIR$/src/main/resources/ApplicationContext.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/SpringDatasource.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/database/SpringDatasourceTest.xml</file>
-        </fileset>
-        <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/database/SpringDatasource.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/SpringModule.xml</file>
-        </fileset>
-        <fileset id="fileset3" name="Spring Application Context (3)" removed="false">
           <file>file://$MODULE_DIR$/src/test/resources/SpringDatasourceTest.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/database/SpringDatasource.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/SpringDatasourceTest.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/database/SpringDatasource.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/SpringModule.xml</file>
         </fileset>
       </configuration>
@@ -28,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

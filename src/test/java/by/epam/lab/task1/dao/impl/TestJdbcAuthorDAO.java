@@ -18,6 +18,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.sql.Timestamp;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -34,43 +35,46 @@ public class TestJdbcAuthorDAO {
     @Autowired
     private AuthorDAO authorDAO;
 
+    private static final String tempName="tempname";
+
     @Test
     public void createTest() throws DAOException {
         Author author = new Author();
-        author.setName("tempname1");
+        author.setName(tempName);
         Long authorId = authorDAO.create(author);
-        author.setId(authorId);
-        Author authorExpected = authorDAO.read(authorId);
-        assertTrue(author.equals(authorExpected));
     }
 
-    /*@Test
+    @Test
     public void readTest() throws DAOException {
-        Author author = authorDAO.read(1L);
+        Author author = authorDAO.read(2L);
         assertNotNull(author);
     }
 
     @Test
     public void updateTest() throws DAOException {
-        Long authorId = 1L;
+        Long authorId = 3L;
         Author author = authorDAO.read(authorId);
-        author.setName("New Name");
-        author.setExpired(Timestamp.valueOf("2005-06-15 00:00:00"));
+        author.setName(tempName);
+        author.setExpired(new Timestamp(new java.util.Date().getTime()));
         authorDAO.update(authorId, author);
         Author authorExpected = authorDAO.read(authorId);
         assertTrue(author.equals(authorExpected));
     }
+
     @Test
-    public void deleteTest()throws DAOException{
-        Long authorId = 1L;
+    public void deleteTest() throws DAOException {
+        Long authorId = 3L;
         authorDAO.delete(authorId);
         assertNull(authorDAO.read(authorId));
     }
+
     @Test
-    public void findAuthorIdByNewsIdTest()throws DAOException{
-        Long newsId=1L;
+    public void readAuthorIdByNewsIdTest() throws DAOException {
+        Long newsId = 2L;
         Long authorId = authorDAO.readAuthorIdByNewsId(newsId);
         assertNotNull(authorId);
-    }*/
+    }
+
+
 
 }

@@ -50,6 +50,7 @@ public class User {
     public void setPassword(String password) {
         this.password = MD5Hashing.md5(password);
     }
+    public void setReadyPassword(String password){this.password=password;}
 
     public long getRoleId() {
         return roleId;

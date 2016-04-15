@@ -15,7 +15,7 @@ public interface NewsDAO extends GenericDAO<News>{
 
     void connectNewsWithAuthor(Long newsId, Long authorId) throws DAOException;
 
-    void disconnectNewsWithTags(Long newsId) throws DAOException;
+    void disconnectNewsWithTag(Long newsId, Long tagId) throws DAOException;
 
-    void disconnectNewsWithAuthor(Long newsId) throws DAOException;
+    void disconnectNewsWithAuthor(Long newsId, Long authorId) throws DAOException;
 }

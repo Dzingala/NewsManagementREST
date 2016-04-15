@@ -1,4 +1,4 @@
 package by.epam.lab.task1.service;
 
-public class CommentService {
+public interface CommentService {
 }

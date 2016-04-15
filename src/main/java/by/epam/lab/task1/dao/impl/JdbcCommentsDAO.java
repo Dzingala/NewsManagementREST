@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @Component
 public class JdbcCommentsDAO implements CommentsDAO{
     private final static Logger logger= Logger.getLogger(JdbcCommentsDAO.class);
-    private static final String CREATE_COMMENT_QUERY = " INSERT INTO DZINHALA.COMMENTS (COMMENT_TEXT,CREATION_DATE) VALUES (?,?)";
+    private static final String CREATE_COMMENT_QUERY = " INSERT INTO DZINHALA.COMMENTS (COMMENT_TEXT,CREATION_DATE,NEWS_ID) VALUES (?,?,?)";
     private static final String READ_COMMENT_QUERY = " SELECT COMMENT_ID,NEWS_ID,COMMENT_TEXT,CREATION_DATE FROM DZINHALA.COMMENTS WHERE COMMENT_ID = ?";
     private static final String UPDATE_COMMENT_QUERY = " UPDATE DZINHALA.COMMENTS SET COMMENT_TEXT = ?   WHERE COMMENT_ID = ?";
     private static final String DELETE_COMMENT_QUERY = " DELETE FROM DZINHALA.COMMENTS WHERE COMMENT_ID = ?";
@@ -42,10 +42,12 @@ public class JdbcCommentsDAO implements CommentsDAO{
             try (PreparedStatement ps = conn.prepareStatement(CREATE_COMMENT_QUERY, keys)) {
                 ps.setString(1, comment.getText());
                 ps.setTimestamp(2, comment.getCreationDate());
+                ps.setLong(3,comment.getNewsId());
                 ps.executeUpdate();
                 try (ResultSet resultSet = ps.getGeneratedKeys()) {
                     resultSet.next();
                     commentId = resultSet.getLong(1);
+                    logger.debug("Comment with id="+commentId+" was created");
                 }
             } finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
@@ -55,6 +57,7 @@ public class JdbcCommentsDAO implements CommentsDAO{
             logger.debug("Comment was not created");
             throw new DAOException(e);
         }
+
         return commentId;
     }
 
@@ -86,6 +89,10 @@ public class JdbcCommentsDAO implements CommentsDAO{
             logger.error("DAOException while reading comment in JdbcCommentsDAO");
             logger.debug("Comment was not read");
             throw new DAOException(e);
+        }
+        if(comment==null){
+            logger.debug("Here is no comment with id="+commentId);
+            throw new DAOException();
         }
         return comment;
     }

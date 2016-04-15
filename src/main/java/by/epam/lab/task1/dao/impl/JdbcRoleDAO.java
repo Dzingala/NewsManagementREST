@@ -41,6 +41,7 @@ public class JdbcRoleDAO implements RoleDAO {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     rs.next();
                     roleId = rs.getLong(1);
+                    logger.debug("Role id="+roleId+" was created");
                 }
             }finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
