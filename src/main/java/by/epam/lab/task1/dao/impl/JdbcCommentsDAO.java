@@ -21,6 +21,7 @@ public class JdbcCommentsDAO implements CommentsDAO{
     private static final String UPDATE_COMMENT_QUERY = " UPDATE DZINHALA.COMMENTS SET COMMENT_TEXT = ?   WHERE COMMENT_ID = ?";
     private static final String DELETE_COMMENT_QUERY = " DELETE FROM DZINHALA.COMMENTS WHERE COMMENT_ID = ?";
     private static final String FIND_COMMENTS_ID_BY_NEWS_ID_QUERY = " SELECT COMMENT_ID FROM DZINHALA.COMMENTS WHERE NEWS_ID = ?";
+    private static final String READ_ALL_COMMENTS_QUERY="SELECT COMMENT_ID,NEWS_ID,COMMENT_TEXT,CREATION_DATE FROM DZINHALA.COMMENTS";
 
 
     private static final String COLUMN_NAME_NEWS_ID = "NEWS_ID";
@@ -132,6 +133,50 @@ public class JdbcCommentsDAO implements CommentsDAO{
 
             throw new DAOException(e);
         }
+    }
+
+    @Override
+    public ArrayList<Comment> readAll() throws DAOException {
+        logger.debug("Reading all comments in JdbcCommentsDAO");
+        Connection conn=null;
+        ArrayList<Comment> comments = null;
+        try {
+            conn = dataSource.getConnection();
+
+            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_COMMENTS_QUERY)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        comments=new ArrayList<>();
+                        comments.add(new Comment(rs.getLong(COLUMN_NAME_COMMENT_ID),
+                                rs.getLong(COLUMN_NAME_NEWS_ID),
+                                rs.getString(COLUMN_NAME_COMMENTS_TEXT),
+                                rs.getTimestamp(COLUMN_NAME_COMMENTS_DATE)
+                        ));
+                        while (rs.next()){
+                            comments.add(new Comment(rs.getLong(COLUMN_NAME_COMMENT_ID),
+                                    rs.getLong(COLUMN_NAME_NEWS_ID),
+                                    rs.getString(COLUMN_NAME_COMMENTS_TEXT),
+                                    rs.getTimestamp(COLUMN_NAME_COMMENTS_DATE)
+                            ));
+                        }
+                    }
+                    else{
+                        logger.debug("There are no comments in database");
+                    }
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading comment in JdbcCommentsDAO");
+            logger.debug("Comments was not read");
+            throw new DAOException(e);
+        }
+        if(comments==null){
+            logger.debug("There are no comments in database");
+            throw new DAOException();
+        }
+        return comments;
     }
 
     @Override

@@ -83,6 +83,17 @@ public class TestJdbcCommentsDAO {
         ArrayList<Long> commentsId = commentDAO.readCommentsIdByNewsId(newsId);
         assertNotNull(commentsId);
     }
+    @Test
+    public void readAllTest() throws DAOException{
+        Comment comment = new Comment();
+        comment.setId(1L);
+        comment.setCreationDate(new Timestamp(new java.util.Date().getTime()));
+        comment.setNewsId(1l);
+        comment.setText(tempCommentText);
+        Long commentId=commentDAO.create(comment);
+        ArrayList<Comment> comments=commentDAO.readAll();
+        assertFalse(comments.isEmpty());
+    }
 
 }
 

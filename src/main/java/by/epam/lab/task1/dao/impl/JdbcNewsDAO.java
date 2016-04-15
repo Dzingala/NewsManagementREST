@@ -153,7 +153,7 @@ public class JdbcNewsDAO implements NewsDAO {
             throw new DAOException(e);
         }
     }
-
+    @Override
     public ArrayList<News> readAll() throws DAOException {
         logger.debug("Reading all news in JdbcNewsDAO");
         ArrayList<News> news = null;

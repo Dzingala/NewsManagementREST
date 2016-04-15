@@ -68,6 +68,15 @@ public class TestJdbcTagDAO {
         assertNotNull(tagsId);
 
     }
+    @Test
+    public void readAllTest() throws DAOException{
+        Tag tag = new Tag();
+        tag.setId(1L);
+        tag.setName(tempName);
+        Long tagId=tagDAO.create(tag);
+        ArrayList<Tag> tags=tagDAO.readAll();
+        assertFalse(tags.isEmpty());
+    }
 
 
 }

@@ -16,6 +16,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -87,5 +89,17 @@ public class TestJdbcUserDAO {
         Long userId=userDAO.create(user);
         Long newUserId = userDAO.readIdByLogin(tempLogin);
         assertTrue(userId.longValue()==newUserId.longValue());
+    }
+    @Test
+    public void readAllTest() throws DAOException{
+        User user = new User();
+        user.setId(1L);
+        user.setName(tempName);
+        user.setLogin(tempLogin);
+        user.setPassword(tempPass);
+
+        Long userId=userDAO.create(user);
+        ArrayList<User> users=userDAO.readAll();
+        assertFalse(users.isEmpty());
     }
 }

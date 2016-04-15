@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 
 @Component
 public class JdbcUserDAO implements UserDAO {
@@ -22,6 +23,9 @@ public class JdbcUserDAO implements UserDAO {
             " LOGIN = ?,PASSWORD = ? WHERE USER_ID = ? ";
     private static final String DELETE_USER_QUERY = " DELETE FROM DZINHALA.USERS  WHERE USER_ID = ? ";
     private static final String READ_USER_ID_BY_LOGIN_QUERY = "SELECT USER_ID FROM DZINHALA.USERS WHERE LOGIN = ? ";
+    private static final String READ_ALL_USERS_QUERY=" SELECT USER_ID, USER_NAME," +
+            " LOGIN, PASSWORD,ROLE_ID FROM DZINHALA.USERS";
+
     private static final String ORDER_BY_COMMENTS_QUERY = "SELECT NEWS.NEWS_ID,COUNT(NEWS.NEWS_ID) " +
             "NEWS_COUNT FROM DZINHALA.NEWS NS JOIN COMMENTS CS ON NS.NEWS_ID = CS.NEWS_ID " +
             "GROUP BY CS.NEWS_ID ORDER BY NEWS_COUNT DESC";
@@ -135,6 +139,52 @@ public class JdbcUserDAO implements UserDAO {
             logger.debug("User was not updated");
             throw new DAOException(e);
         }
+    }
+
+    @Override
+    public ArrayList<User> readAll() throws DAOException {
+        logger.debug("Reading all users in JdbcUserDAO");
+        Connection conn = null;
+        ArrayList<User> users = null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_USERS_QUERY)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        users= new ArrayList<>();
+                        String password=rs.getString(COLUMN_NAME_USER_PASSWORD);
+                        User user = new User(
+                                rs.getLong(COLUMN_NAME_ROLE_ID),
+                                rs.getLong(COLUMN_NAME_USER_ID),
+                                rs.getString(COLUMN_NAME_USER_NAME),
+                                rs.getString(COLUMN_NAME_USER_LOGIN),
+                                rs.getString(COLUMN_NAME_USER_PASSWORD)
+                        );
+                        user.setReadyPassword(password);
+                        users.add(user);
+                        while (rs.next()){
+                            String password1=rs.getString(COLUMN_NAME_USER_PASSWORD);
+                            User user1 = new User(
+                                    rs.getLong(COLUMN_NAME_ROLE_ID),
+                                    rs.getLong(COLUMN_NAME_USER_ID),
+                                    rs.getString(COLUMN_NAME_USER_NAME),
+                                    rs.getString(COLUMN_NAME_USER_LOGIN),
+                                    rs.getString(COLUMN_NAME_USER_PASSWORD)
+                            );
+                            user.setReadyPassword(password1);
+                            users.add(user1);
+                        }
+                    }
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading user in JdbcUserDAO");
+            logger.debug("Users was not read");
+            throw new DAOException(e);
+        }
+        return users;
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 
 @Component
 public class JdbcAuthorDAO implements AuthorDAO {
@@ -19,7 +20,7 @@ public class JdbcAuthorDAO implements AuthorDAO {
     private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = ? ";
     private static final String UPDATE_AUTHOR_QUERY = " UPDATE DZINHALA.AUTHOR SET AUTHOR_NAME = ? ,EXPIRED = ?  WHERE AUTHOR_ID = ? ";
     private static final String DELETE_AUTHOR_QUERY = " DELETE FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
-
+    private static final String READ_ALL_AUTHORS_QUERY="SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR";
 
     private static final String COLUMN_NAME_AUTHOR_ID = "AUTHOR_ID";
     private static final String COLUMN_NAME_AUTHOR_NAME = "AUTHOR_NAME";
@@ -124,6 +125,44 @@ public class JdbcAuthorDAO implements AuthorDAO {
             throw new DAOException(e);
         }
 
+    }
+
+    @Override
+    public ArrayList<Author> readAll() throws DAOException {
+        logger.debug("Reading all authors in JdbcAuthorDAO");
+        Connection conn=null;
+        ArrayList<Author> authors=null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_AUTHORS_QUERY)) {
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        authors=new ArrayList<>();
+                        authors.add(new Author(rs.getLong(COLUMN_NAME_AUTHOR_ID),
+                                rs.getString(COLUMN_NAME_AUTHOR_NAME),
+                                rs.getTimestamp(COLUMN_NAME_EXPIRED)
+                        ));
+                        while(rs.next()){
+                            authors.add(new Author(rs.getLong(COLUMN_NAME_AUTHOR_ID),
+                                    rs.getString(COLUMN_NAME_AUTHOR_NAME),
+                                    rs.getTimestamp(COLUMN_NAME_EXPIRED)
+                            ));
+                        }
+                    }
+                    else{
+                        logger.debug("There are no authors in database");
+                    }
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading author in JdbcAuthorDAO");
+            logger.debug("Authors was not read");
+            throw new DAOException(e);
+        }
+        return authors;
     }
 
     @Override

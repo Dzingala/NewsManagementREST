@@ -21,7 +21,7 @@ public class JdbcTagDAO implements TagDAO{
     private static final String UPDATE_TAG_QUERY = " UPDATE DZINHALA.TAG SET TAG_NAME = ? WHERE TAG_ID = ? ";
     private static final String DELETE_TAG_QUERY = " DELETE FROM DZINHALA.TAG  WHERE TAG_ID = ? ";
     private static final String READ_TAGS_ID_BY_NEWS_ID_QUERY = " SELECT TAG_ID FROM DZINHALA.NEWS_TAG WHERE NEWS_ID = ? ";
-
+    private static final String READ_ALL_TAGS_QUERY="SELECT TAG_ID, TAG_NAME FROM DZINHALA.TAG";
 
     private static final String COLUMN_NAME_TAG_NAME = "TAG_NAME";
     private static final String COLUMN_NAME_TAG_ID = "TAG_ID";
@@ -122,6 +122,42 @@ public class JdbcTagDAO implements TagDAO{
             throw new DAOException(e);
         }
 
+    }
+
+    @Override
+    public ArrayList<Tag> readAll() throws DAOException {
+        logger.debug("Reading all tags in JdbcTagDAO");
+        Connection conn=null;
+        ArrayList<Tag> tags = null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_TAGS_QUERY)){
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+
+                        tags =new ArrayList<>();
+                        tags.add(new Tag(rs.getLong(COLUMN_NAME_TAG_ID),
+                                rs.getString(COLUMN_NAME_TAG_NAME)
+                        ));
+                        while(rs.next()){
+                            tags.add(new Tag(rs.getLong(COLUMN_NAME_TAG_ID),
+                                    rs.getString(COLUMN_NAME_TAG_NAME)
+                            ));
+                        }
+                    }
+                    else{
+                        logger.debug("There are no tags in database");
+                    }
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading tag in JdbcTagDAO");
+            logger.debug("Tags was not read");
+            throw new DAOException(e);
+        }
+        return tags;
     }
 
     @Override

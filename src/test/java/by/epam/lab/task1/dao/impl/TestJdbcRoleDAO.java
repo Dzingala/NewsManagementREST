@@ -16,6 +16,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 
@@ -62,4 +64,13 @@ public class TestJdbcRoleDAO {
         assertNull(roleDAO.read(roleId));
     }
 
+    @Test
+    public void readAllTest() throws DAOException{
+        Role role = new Role();
+        role.setId(1L);
+        role.setName(tempName);
+        Long roleId=roleDAO.create(role);
+        ArrayList<Role> roles=roleDAO.readAll();
+        assertFalse(roles.isEmpty());
+    }
 }

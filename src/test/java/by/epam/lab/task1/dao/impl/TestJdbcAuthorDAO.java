@@ -18,10 +18,9 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:SpringDatasourceTest.xml")
@@ -75,6 +74,14 @@ public class TestJdbcAuthorDAO {
         assertNotNull(authorId);
     }
 
+    @Test
+    public void readAllTest() throws DAOException{
+        Author author = new Author();
+        author.setName(tempName);
+        Long authorId=authorDAO.create(author);
+        ArrayList<Author> authors=authorDAO.readAll();
+        assertFalse(authors.isEmpty());
+    }
 
 
 }

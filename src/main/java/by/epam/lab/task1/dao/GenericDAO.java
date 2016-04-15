@@ -10,4 +10,5 @@ public interface GenericDAO<Entity> {
     Entity read(Long id) throws DAOException;
     void update(Long id, Entity entity) throws DAOException;
     void delete(Long id) throws DAOException;
+    ArrayList<Entity> readAll() throws DAOException;
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 
 @Component
 public class JdbcRoleDAO implements RoleDAO {
@@ -19,6 +20,7 @@ public class JdbcRoleDAO implements RoleDAO {
     private static final String READ_ROLE_QUERY = " SELECT ROLE_ID, ROLE_NAME FROM DZINHALA.ROLES WHERE ROLE_ID = ? ";
     private static final String UPDATE_ROLE_QUERY = " UPDATE DZINHALA.ROLES SET ROLE_NAME = ? WHERE ROLE_ID = ? ";
     private static final String DELETE_ROLE_QUERY = " DELETE FROM DZINHALA.ROLES  WHERE ROLE_ID = ? ";
+    private static final String READ_ALL_ROLES_QUERY=" SELECT ROLE_NAME,ROLE_ID FROM DZINHALA.ROLES";
 
     private static final String COLUMN_NAME_ROLE_NAME = "ROLE_NAME";
     private static final String COLUMN_NAME_ROLE_ID = "ROLE_ID";
@@ -118,6 +120,41 @@ public class JdbcRoleDAO implements RoleDAO {
             logger.debug("Role was not deleted");
             throw new DAOException(e);
         }
+    }
+
+    @Override
+    public ArrayList<Role> readAll() throws DAOException {
+        logger.debug("Reading all roles in JdbcRoleDAO");
+        Connection conn=null;
+        ArrayList<Role> roles = null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_ROLES_QUERY)){
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        roles=new ArrayList<>();
+                        roles.add(new Role(rs.getLong(COLUMN_NAME_ROLE_ID),
+                                rs.getString(COLUMN_NAME_ROLE_NAME)
+                        ));
+                        while (rs.next()){
+                            roles.add(new Role(rs.getLong(COLUMN_NAME_ROLE_ID),
+                                    rs.getString(COLUMN_NAME_ROLE_NAME)
+                            ));
+                        }
+                    }
+                    else{
+                        logger.debug("There are no roles in database");
+                    }
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading role in JdbcRoleDAO");
+            logger.debug("Roles was not read");
+            throw new DAOException(e);
+        }
+        return roles;
     }
 
 }
