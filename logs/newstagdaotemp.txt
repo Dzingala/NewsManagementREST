@@ -1,7 +1,7 @@
-package by.epam.lab.task1.dao.impl;
+package by.epam.lab.task1.repository.impl;
 
 
-import by.epam.lab.task1.dao.NewsTagDAO;
+import by.epam.lab.task1.repository.NewsTagDAO;
 import by.epam.lab.task1.exceptions.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

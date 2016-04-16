@@ -3,27 +3,28 @@ package by.epam.lab.task1.entity;
 import by.epam.lab.task1.md5util.MD5Hashing;
 
 public class User {
-    private long id;
+    private Long id;
     private String name;
     private String login;
     private String password;
-    private long roleId;
+    private Long roleId;
 
     public User(){}
 
-    public User(long roleId, long id, String name, String login, String password) {
+    public User(Long roleId, Long id, String name, String login, String password) {
         this.roleId = roleId;
         this.id = id;
         this.name = name;
         this.login = login;
-        this.password = MD5Hashing.md5(password);
+        this.password = password;
     }
+    public void setReadyPassword(String password){this.password=password;}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,13 +51,12 @@ public class User {
     public void setPassword(String password) {
         this.password = MD5Hashing.md5(password);
     }
-    public void setReadyPassword(String password){this.password=password;}
 
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
@@ -67,22 +67,22 @@ public class User {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
-        if (roleId != user.roleId) return false;
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (roleId != null ? !roleId.equals(user.roleId) : user.roleId != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (int) (roleId ^ (roleId >>> 32));
+        result = 31 * result + (roleId != null ? roleId.hashCode() : 0);
         return result;
     }
 
