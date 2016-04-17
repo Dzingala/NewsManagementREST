@@ -2,7 +2,7 @@ package by.epam.lab.task1.service;
 
 
 import by.epam.lab.task1.entity.Tag;
-import by.epam.lab.task1.exceptions.ServiceException;
+import by.epam.lab.task1.exceptions.service.ServiceException;
 
 import java.util.ArrayList;
 /**

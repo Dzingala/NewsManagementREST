@@ -1,7 +1,7 @@
 package by.epam.lab.task1.repository;
 
 import by.epam.lab.task1.entity.Author;
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
 /**
  * @author Ivan Dzinhala
  * @see by.epam.lab.task1.repository.GenericRepository

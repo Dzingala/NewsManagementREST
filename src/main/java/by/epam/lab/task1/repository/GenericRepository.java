@@ -1,6 +1,6 @@
 package by.epam.lab.task1.repository;
 
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
 
 import java.util.ArrayList;
 /**

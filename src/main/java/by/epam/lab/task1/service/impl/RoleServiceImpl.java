@@ -1,9 +1,9 @@
 package by.epam.lab.task1.service.impl;
 
 import by.epam.lab.task1.entity.Role;
-import by.epam.lab.task1.exceptions.DAOException;
-import by.epam.lab.task1.exceptions.NoSuchEntityException;
-import by.epam.lab.task1.exceptions.ServiceException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
+import by.epam.lab.task1.exceptions.service.ServiceException;
 import by.epam.lab.task1.repository.RoleRepository;
 import by.epam.lab.task1.service.RolesService;
 import org.apache.log4j.Logger;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
  * @author Ivan Dzinhala
+ * @see RolesService
  */
 @Service("roleService")
 public class RoleServiceImpl implements RolesService{

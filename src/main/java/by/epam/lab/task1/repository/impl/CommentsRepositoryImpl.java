@@ -3,7 +3,7 @@ package by.epam.lab.task1.repository.impl;
 
 import by.epam.lab.task1.repository.CommentsRepository;
 import by.epam.lab.task1.entity.Comment;
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;

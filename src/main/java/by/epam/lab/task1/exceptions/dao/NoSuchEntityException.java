@@ -1,9 +1,8 @@
-package by.epam.lab.task1.exceptions;
+package by.epam.lab.task1.exceptions.dao;
 
 
-import java.sql.SQLException;
 
-public class NoSuchEntityException extends DAOException{
+public class NoSuchEntityException extends DAOException {
     public NoSuchEntityException(){}
     public NoSuchEntityException(String message, Throwable exception) {
         super(message, exception);

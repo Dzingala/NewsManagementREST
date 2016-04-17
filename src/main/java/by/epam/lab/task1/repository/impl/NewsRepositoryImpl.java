@@ -3,7 +3,7 @@ package by.epam.lab.task1.repository.impl;
 
 import by.epam.lab.task1.repository.NewsRepository;
 import by.epam.lab.task1.entity.News;
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -75,7 +75,7 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.debug("News was not created");
             throw new DAOException(e);
         }
-        if(rowsCount==0){
+        if(rowsCount==0){//The same with if(newsId==null) check
             logger.debug("0 rows were returned");
             throw new DAOException("News was not created");
         }

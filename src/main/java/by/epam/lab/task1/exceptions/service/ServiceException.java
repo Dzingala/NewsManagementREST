@@ -1,4 +1,4 @@
-package by.epam.lab.task1.exceptions;
+package by.epam.lab.task1.exceptions.service;
 
 public class ServiceException extends Exception{
     public ServiceException(){}

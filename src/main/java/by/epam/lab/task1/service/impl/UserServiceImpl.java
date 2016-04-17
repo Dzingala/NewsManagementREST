@@ -4,9 +4,9 @@ package by.epam.lab.task1.service.impl;
 import by.epam.lab.task1.entity.Role;
 import by.epam.lab.task1.entity.User;
 import by.epam.lab.task1.entity.dto.UserTO;
-import by.epam.lab.task1.exceptions.DAOException;
-import by.epam.lab.task1.exceptions.NoSuchEntityException;
-import by.epam.lab.task1.exceptions.ServiceException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
+import by.epam.lab.task1.exceptions.service.ServiceException;
 import by.epam.lab.task1.repository.UserRepository;
 import by.epam.lab.task1.service.RolesService;
 import by.epam.lab.task1.service.UserService;
@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Ivan Dzinhala
+ * @see UserService
  */
 @Service("userService")
 public class UserServiceImpl implements UserService{
@@ -28,6 +29,30 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private RolesService roleService;
 
+    /**
+     * Method checks if the role exists.
+     * If the role doesn't exist, both Repository and Service layers will throw NoSuchEntityException.
+     * That is why we decide what to return due to the fact of either exception was thrown or not
+     * @param role
+     * @return true if role does not exists and not null
+     */
+    private boolean checkRole(Role role) {
+        logger.debug("Checking if role exists in UserService");
+        if (role.getId() != null) {
+            try {
+                roleService.readById(role.getId());
+            }catch (NoSuchEntityException e){
+                logger.debug("Role does not exist and not null, creating...");
+                return true;
+            }catch (ServiceException e) {
+                logger.error("ServiceException with existing role in UserService");
+                return false;
+            }
+        }else{
+            return false;//if role == null then there is no need to create
+        }
+        return false;//if role exists then there is no need to create role
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -38,12 +63,14 @@ public class UserServiceImpl implements UserService{
         try {
             if( checkUser(login) ){//true if login is free
                 Role role = userTO.getRole();
-                if(checkRole(role)) {//true if role is not null and not exists ( means that we need to create it);
-                    Long roleId = roleService.create(role);
+                Long roleId=role.getId();
+                if(checkRole(role)) {//true if role.roleId is not null and not exists ( means that we need to create it);
+                    roleId = roleService.create(role);
                     role.setId(roleId);
-                    user.setRoleId(roleId);
                 }
+                user.setRoleId(roleId);
                 Long userId = userRepository.create(user);
+                userRepository.setRoleIdById(userId,roleId);
                 user.setId(userId);
                 userTO.setRole(role);
             }
@@ -98,30 +125,7 @@ public class UserServiceImpl implements UserService{
             throw new ServiceException("ServiceException while deleting user",e);
         }
     }
-    /**
-     * Method checks if the role exists.
-     * If the role doesn't exist, both Repository and Service layers will throw NoSuchEntityException.
-     * That is why we decide what to return due to the fact of either exception was thrown or not
-     * @param role
-     * @return true if role does not exists and not null
-     */
-    private boolean checkRole(Role role) {
-        logger.debug("Checking if role exists in UserService");
-        if (role != null) {
-            try {
-                roleService.readById(role.getId());
-            }catch (NoSuchEntityException e){
-                logger.debug("Role does not exist and not null, creating...");
-                return true;
-            }catch (ServiceException e) {
-                logger.error("ServiceException with existing role in UserService");
-                return false;
-            }
-        }else{
-            return false;//if role == null then there is no need to create
-        }
-        return false;//if role exists then there is no need to create role
-    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void edit (UserTO userTO) throws ServiceException {

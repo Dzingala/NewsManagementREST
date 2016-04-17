@@ -2,8 +2,8 @@ package by.epam.lab.task1.service;
 
 
 import by.epam.lab.task1.entity.Author;
-import by.epam.lab.task1.exceptions.DAOException;
-import by.epam.lab.task1.exceptions.ServiceException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
+import by.epam.lab.task1.exceptions.service.ServiceException;
 /**
  * @author Ivan Dzinhala
  */

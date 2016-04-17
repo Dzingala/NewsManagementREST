@@ -1,10 +1,10 @@
 package by.epam.lab.task1.repository.impl;
 
 
-import by.epam.lab.task1.exceptions.NoSuchEntityException;
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.RoleRepository;
 import by.epam.lab.task1.entity.Role;
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;

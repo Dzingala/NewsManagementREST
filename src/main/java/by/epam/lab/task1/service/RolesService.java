@@ -2,8 +2,8 @@ package by.epam.lab.task1.service;
 
 
 import by.epam.lab.task1.entity.Role;
-import by.epam.lab.task1.exceptions.NoSuchEntityException;
-import by.epam.lab.task1.exceptions.ServiceException;
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
+import by.epam.lab.task1.exceptions.service.ServiceException;
 /**
  * @author Ivan Dzinhala
  */

@@ -1,7 +1,8 @@
 package by.epam.lab.task1.repository.impl;
 
 import by.epam.lab.task1.entity.Role;
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -43,21 +44,21 @@ public class TestRoleRepository {
 
     @Test
     public void readTest() throws DAOException{
-        Long id=roleDAO.create(new Role(3,tempName));
+        Long id=roleDAO.create(new Role(3l,tempName));
         Role role = roleDAO.read(id);
         assertTrue(role.getId()==id);
     }
 
     @Test
     public void updateTest() throws DAOException {
-        Role role = new Role(1,tempName);
+        Role role = new Role(1l,tempName);
         role.setId(roleDAO.create(role));;
         roleDAO.update(role.getId(), role);
         Role roleExpected = roleDAO.read(role.getId());
         assertTrue(role.equals(roleExpected));
     }
 
-    @Test
+    @Test(expected = NoSuchEntityException.class)
     public void deleteTest() throws DAOException {
         Long roleId = 1L;
         roleDAO.delete(roleId);

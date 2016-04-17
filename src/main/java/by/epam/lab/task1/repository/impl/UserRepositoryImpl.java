@@ -2,7 +2,7 @@ package by.epam.lab.task1.repository.impl;
 
 import by.epam.lab.task1.repository.UserRepository;
 import by.epam.lab.task1.entity.User;
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -25,6 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String READ_USER_ID_BY_LOGIN_QUERY = "SELECT USER_ID FROM DZINHALA.USERS WHERE LOGIN = ? ";
     private static final String READ_ALL_USERS_QUERY=" SELECT USER_ID, USER_NAME," +
             " LOGIN, PASSWORD,ROLE_ID FROM DZINHALA.USERS";
+    private static final String SET_ROLE_QUERY="UPDATE DZINHALA.USERS SET ROLE_ID=? WHERE USER_ID=?";
 
     private static final String ORDER_BY_COMMENTS_QUERY = "SELECT NEWS.NEWS_ID,COUNT(NEWS.NEWS_ID) " +
             "NEWS_COUNT FROM DZINHALA.NEWS NS JOIN COMMENTS CS ON NS.NEWS_ID = CS.NEWS_ID " +
@@ -69,7 +70,25 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return userId;
     }
-
+    @Override
+    public void setRoleIdById(Long userId, Long roleId) throws DAOException {
+        logger.debug("Setting role to user in UserRepositoryImpl");
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(SET_ROLE_QUERY)) {
+                ps.setLong(1, roleId);
+                ps.setLong(2, userId);
+                ps.executeUpdate();
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while setting role to user in UserRepositoryImpl");
+            logger.debug("Role was not set to user");
+            throw new DAOException(e);
+        }
+    }
     public User read(Long userId) throws DAOException {
         logger.debug("Reading user in UserRepositoryImpl");
         Connection conn = null;
@@ -216,5 +235,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return userId;
     }
+
+
 
 }

@@ -2,20 +2,20 @@ package by.epam.lab.task1.entity;
 
 
 public class Role {
-    private long id;
+    private Long id;
     private String name;
     public Role(){}
 
-    public Role(long id, String name) {
+    public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public class Role {
 
         Role role = (Role) o;
 
-        if (id != role.id) return false;
+        if (id != null ? !id.equals(role.id) : role.id != null) return false;
         if (name != null ? !name.equals(role.name) : role.name != null) return false;
 
         return true;
@@ -42,7 +42,7 @@ public class Role {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

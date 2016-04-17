@@ -2,7 +2,7 @@ package by.epam.lab.task1.service;
 
 
 import by.epam.lab.task1.entity.dto.NewsTO;
-import by.epam.lab.task1.exceptions.ServiceException;
+import by.epam.lab.task1.exceptions.service.ServiceException;
 /**
  * @author Ivan Dzinhala
  */

@@ -2,7 +2,7 @@ package by.epam.lab.task1.repository.impl;
 
 import by.epam.lab.task1.repository.AuthorRepository;
 import by.epam.lab.task1.entity.Author;
-import by.epam.lab.task1.exceptions.DAOException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -31,7 +31,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Autowired
     private DataSource dataSource;
     /**
-     * @see by.epam.lab.task1.exceptions.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     public Long create(Author author) throws DAOException {
         logger.debug("Creating author in AuthorRepositoryImpl");

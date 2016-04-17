@@ -2,8 +2,8 @@ package by.epam.lab.task1.service.impl;
 
 import by.epam.lab.task1.repository.AuthorRepository;
 import by.epam.lab.task1.entity.Author;
-import by.epam.lab.task1.exceptions.DAOException;
-import by.epam.lab.task1.exceptions.ServiceException;
+import by.epam.lab.task1.exceptions.dao.DAOException;
+import by.epam.lab.task1.exceptions.service.ServiceException;
 import by.epam.lab.task1.service.AuthorService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 /**
  * @author Ivan Dzinhala
+ * @see AuthorService
  */
 @Service("authorService")
 public class AuthorServiceImpl implements AuthorService {
