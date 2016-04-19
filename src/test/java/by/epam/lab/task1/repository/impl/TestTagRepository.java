@@ -2,6 +2,7 @@ package by.epam.lab.task1.repository.impl;
 
 import by.epam.lab.task1.entity.Tag;
 import by.epam.lab.task1.exceptions.dao.DAOException;
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -54,7 +55,7 @@ public class TestTagRepository {
         assertTrue(tag.equals(tagExpected));
     }
 
-    @Test
+    @Test(expected = NoSuchEntityException.class)
     public void deleteTest() throws DAOException {
         Long tagId=tagDAO.create(new Tag(1,tempName));
         tagDAO.delete(tagId);

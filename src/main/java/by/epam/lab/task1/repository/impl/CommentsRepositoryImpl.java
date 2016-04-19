@@ -1,6 +1,7 @@
 package by.epam.lab.task1.repository.impl;
 
 
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.CommentsRepository;
 import by.epam.lab.task1.entity.Comment;
 import by.epam.lab.task1.exceptions.dao.DAOException;
@@ -33,6 +34,10 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public Long create(Comment comment) throws DAOException {
         logger.debug("Creating comment in CommentsRepositoryImpl");
         Connection conn = null;
@@ -61,7 +66,11 @@ public class CommentsRepositoryImpl implements CommentsRepository {
 
         return commentId;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
+    @Override
     public Comment read(Long commentId) throws DAOException {
         logger.debug("Reading comment in CommentsRepositoryImpl");
         Connection conn=null;
@@ -93,11 +102,14 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }
         if(comment==null){
             logger.debug("Here is no comment with id="+commentId);
-            throw new DAOException();
+            throw new NoSuchEntityException();
         }
         return comment;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void update(Long id, Comment comment) throws DAOException {
         logger.debug("Updating comment in CommentsRepositoryImpl");
         Connection conn=null;
@@ -117,7 +129,10 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }
 
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting comment in CommentsRepositoryImpl");
         Connection conn=null;
@@ -134,7 +149,10 @@ public class CommentsRepositoryImpl implements CommentsRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
     @Override
     public ArrayList<Comment> readAll() throws DAOException {
         logger.debug("Reading all comments in CommentsRepositoryImpl");
@@ -174,11 +192,13 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }
         if(comments==null){
             logger.debug("There are no comments in database");
-            throw new DAOException();
+            throw new NoSuchEntityException();
         }
         return comments;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public ArrayList<Long> readCommentsIdByNewsId(Long newsId) throws DAOException {
         logger.debug("Reading comments id list in CommentsRepositoryImpl");

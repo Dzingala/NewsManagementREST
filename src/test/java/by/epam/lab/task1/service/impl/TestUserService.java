@@ -34,67 +34,54 @@ public class TestUserService {
 
     private static final String testName="test";
 
-    /*@Test
+    @Test
     public void registrationTest() throws DAOException, ServiceException {
+        Role role = new Role(1l,testName);
         User user = new User();
-        Role role = new Role();
-        String login = user.getLogin();
-        UserTO userTO = new UserTO(user, role);
-
-        Mockito.when(userRepository.findId(login)).thenThrow(NoSuchEntityException.class);
+        user.setLogin(testName);
+        user.setPassword(testName);
+        user.setName(testName);
+        Long roleId = roleService.create(role);
+        user.setRoleId(roleId);
+        Mockito.when(userRepository.readIdByLogin(user.getLogin())).thenThrow(NoSuchEntityException.class);
+        Mockito.when(roleService.create(role)).thenReturn(role.getId());
         Mockito.when(userRepository.create(user)).thenReturn(user.getId());
-        Mockito.when(roleService.add(role)).thenReturn(role.getRoleId());
-
+        UserTO userTO=new UserTO(user,role);
         userService.registration(userTO);
-
-        Mockito.verify(userRepository).findId(login);
+        Mockito.verify(userRepository).readIdByLogin(user.getLogin());
         Mockito.verify(userRepository).create(user);
-        Mockito.verify(roleService).add(role);
-    }*/
+        Mockito.verify(roleService).create(role);
+    }
 
     @Test
     public void loginTest() throws ServiceException, DAOException {
-
-        User user = new User(1L,1L, testName, testName, testName);
         Role role = new Role(1L,testName);
-
+        User user = new User(role.getId(),1L, testName, testName, testName);
         Mockito.when(userRepository.readIdByLogin(user.getLogin())).thenReturn(user.getId());
         Mockito.when(userRepository.read(user.getId())).thenReturn(user);
-        //Mockito.when(roleService.findIdByUserId(user.getId())).thenReturn(role.getRoleId());
-        //Mockito.when(userRepository.read(user.getId()).getRoleId()).thenReturn(role.getId());
         Mockito.when(roleService.readById(role.getId())).thenReturn(role);
-
         userService.login(user.getLogin(), user.getPassword());
-
         Mockito.verify(userRepository).readIdByLogin(user.getLogin());
         Mockito.verify(userRepository).read(user.getId());
-
-        //Mockito.verify(roleService).findIdByUserId(user.getId());
-        //Mockito.verify(userRepository.read(user.getId()).getRoleId());
         Mockito.verify(roleService).readById(role.getId());
+
     }
 
     @Test
-    public void deleteTestWithUserId() throws ServiceException, DAOException {
-        User user = new User(1L,1L, testName, testName, testName);
-        Role role = new Role(1L, testName);
-        UserTO userTO = new UserTO(user, role);
-
+    public void deleteTest() throws ServiceException, DAOException {
+        UserTO userTO = new UserTO();
+        userTO.setUser(new User());
         userService.delete(userTO);
-
-        Mockito.verify(userRepository).delete(user.getId());
-        Mockito.verify(roleService).delete(role);
+        Mockito.verify(userRepository).delete(userTO.getUser().getId());
     }
 
     @Test
-    public void updateTestWithException() throws ServiceException, DAOException {
-        User user = new User(1L,1L,testName, testName, testName);
+    public void updateTest() throws ServiceException, DAOException {
         Role role = new Role(1L, testName);
+        User user = new User(role.getId(),1L,testName, testName, testName);
         UserTO userTO = new UserTO(user, role);
-
         userService.edit(userTO);
+        Mockito.verify(userRepository).update(userTO.getUser().getId(), userTO.getUser());
 
-        Mockito.verify(userRepository).update(user.getId(), user);
-        Mockito.verify(roleService).update(role);
     }
 }

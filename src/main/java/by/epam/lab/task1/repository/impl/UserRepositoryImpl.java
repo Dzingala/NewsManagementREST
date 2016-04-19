@@ -1,5 +1,6 @@
 package by.epam.lab.task1.repository.impl;
 
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.UserRepository;
 import by.epam.lab.task1.entity.User;
 import by.epam.lab.task1.exceptions.dao.DAOException;
@@ -42,7 +43,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private DataSource dataSource;
 
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public Long create(User user) throws DAOException {
         logger.debug("Creating user in UserRepositoryImpl");
         Connection conn =null;
@@ -70,6 +74,9 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return userId;
     }
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public void setRoleIdById(Long userId, Long roleId) throws DAOException {
         logger.debug("Setting role to user in UserRepositoryImpl");
@@ -89,6 +96,11 @@ public class UserRepositoryImpl implements UserRepository {
             throw new DAOException(e);
         }
     }
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
+    @Override
     public User read(Long userId) throws DAOException {
         logger.debug("Reading user in UserRepositoryImpl");
         Connection conn = null;
@@ -118,9 +130,16 @@ public class UserRepositoryImpl implements UserRepository {
             logger.debug("User was not read");
             throw new DAOException(e);
         }
+        if(user==null){
+            logger.debug("There is no user with id="+userId);
+            throw new NoSuchEntityException("There is no user with id="+userId);
+        }
         return user;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void update(Long id, User user) throws DAOException {
         logger.debug("Updating user in UserRepositoryImpl");
         Connection conn = null;
@@ -141,7 +160,10 @@ public class UserRepositoryImpl implements UserRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting user in UserRepositoryImpl");
         Connection conn = null;
@@ -159,7 +181,9 @@ public class UserRepositoryImpl implements UserRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public ArrayList<User> readAll() throws DAOException {
         logger.debug("Reading all users in UserRepositoryImpl");
@@ -205,7 +229,10 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return users;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
     @Override
     public Long readIdByLogin(String login) throws DAOException {
         Connection conn=null;
@@ -230,7 +257,9 @@ public class UserRepositoryImpl implements UserRepository {
             throw new DAOException(e);
         }
         if (userId == null) {
-            throw new DAOException("User does not exist");
+            logger.debug("Here is no user with login="+login);
+            logger.error("NoSuchEntity while reading user id by login in UserRepositoryImpl");
+            throw new NoSuchEntityException("User does not exist");
 
         }
         return userId;

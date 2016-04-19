@@ -2,6 +2,7 @@ package by.epam.lab.task1.repository.impl;
 
 import by.epam.lab.task1.entity.User;
 import by.epam.lab.task1.exceptions.dao.DAOException;
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -90,7 +91,7 @@ public class TestUserRepository {
 
     }
 
-    @Test
+    @Test(expected = NoSuchEntityException.class)
     public void deleteTest() throws DAOException {
         Long userId = 1L;
         userRepository.delete(userId);

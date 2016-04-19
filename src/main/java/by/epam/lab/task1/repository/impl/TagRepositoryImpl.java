@@ -1,6 +1,7 @@
 package by.epam.lab.task1.repository.impl;
 
 
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.TagRepository;
 import by.epam.lab.task1.entity.Tag;
 import by.epam.lab.task1.exceptions.dao.DAOException;
@@ -31,6 +32,10 @@ public class TagRepositoryImpl implements TagRepository {
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public Long create(Tag tag) throws DAOException {
         logger.debug("Creating tag in TagRepositoryImpl");
         Connection conn=null;
@@ -56,7 +61,10 @@ public class TagRepositoryImpl implements TagRepository {
         }
         return tagId;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public Tag read(Long tagId) throws DAOException {
         logger.debug("Reading tag in TagRepositoryImpl");
         Connection conn=null;
@@ -83,9 +91,16 @@ public class TagRepositoryImpl implements TagRepository {
             logger.debug("Tag was not read");
             throw new DAOException(e);
         }
+        if(tag==null){
+            logger.debug("Tag with id="+tagId+" does not exist");
+            throw new NoSuchEntityException("Tag with id="+tagId+" does not exist");
+        }
         return tag;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void update(Long id, Tag tag) throws DAOException {
         logger.debug("Updating tag in TagRepositoryImpl");
         Connection conn =null;
@@ -104,7 +119,10 @@ public class TagRepositoryImpl implements TagRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting tag id="+id+" in TagRepositoryImpl");
         Connection conn=null;
@@ -123,7 +141,9 @@ public class TagRepositoryImpl implements TagRepository {
         }
 
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public ArrayList<Tag> readAll() throws DAOException {
         logger.debug("Reading all tags in TagRepositoryImpl");
@@ -159,7 +179,10 @@ public class TagRepositoryImpl implements TagRepository {
         }
         return tags;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
     @Override
     public ArrayList<Long> readTagsIdByNewsId(Long newsId) throws DAOException {
         Connection conn=null;
@@ -188,7 +211,7 @@ public class TagRepositoryImpl implements TagRepository {
             throw new DAOException(e);
         }
         if (tagsIdList == null) {
-            throw new DAOException("News id="+newsId+" have no tags assigned");
+            throw new NoSuchEntityException("News id="+newsId+" have no tags assigned");
         }
         return tagsIdList;
     }

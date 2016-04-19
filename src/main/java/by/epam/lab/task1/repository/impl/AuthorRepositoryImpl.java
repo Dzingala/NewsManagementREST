@@ -1,5 +1,6 @@
 package by.epam.lab.task1.repository.impl;
 
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.AuthorRepository;
 import by.epam.lab.task1.entity.Author;
 import by.epam.lab.task1.exceptions.dao.DAOException;
@@ -33,6 +34,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     /**
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
+    @Override
     public Long create(Author author) throws DAOException {
         logger.debug("Creating author in AuthorRepositoryImpl");
         Connection conn=null;
@@ -57,7 +59,11 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
         return authorId;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
+    @Override
     public Author read(Long authorId) throws DAOException {
         logger.debug("Reading author in AuthorRepositoryImpl");
         Connection conn=null;
@@ -85,10 +91,17 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             logger.debug("Author was not read");
             throw new DAOException(e);
         }
+        if(author==null){
+            logger.debug("Author with id="+authorId+" does not exist");
+            throw new NoSuchEntityException("Author with id="+authorId+" does not exist");
+        }
         return author;
     }
 
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void update(Long id, Author author) throws DAOException {
         logger.debug("Updating author in AuthorRepositoryImpl");
         Connection conn =null;
@@ -109,7 +122,10 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting author in AuthorRepositoryImpl");
         Connection conn=null;
@@ -128,7 +144,9 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
 
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public ArrayList<Author> readAll() throws DAOException {
         logger.debug("Reading all authors in AuthorRepositoryImpl");
@@ -166,7 +184,10 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
         return authors;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
     @Override
     public Long readAuthorIdByNewsId(Long newsId) throws DAOException {
         logger.debug("Reading author's id by news id in AuthorRepositoryImpl");

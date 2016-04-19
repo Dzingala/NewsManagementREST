@@ -1,6 +1,7 @@
 package by.epam.lab.task1.repository.impl;
 
 
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.NewsRepository;
 import by.epam.lab.task1.entity.News;
 import by.epam.lab.task1.exceptions.dao.DAOException;
@@ -44,9 +45,14 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String COLUMN_NAME_FULL_TEXT = "FULL_TEXT";
     private static final String COLUMN_NAME_CREATION_DATE = "CREATION_DATE";
     private static final String COLUMN_NAME_MODIFICATION_DATE = "MODIFICATION_DATE";
+
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public Long create(News news) throws DAOException {
         logger.debug("Creating news in NewsRepository");
         Connection conn =null;
@@ -81,7 +87,11 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
         return newsId;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
+    @Override
     public News read(Long newsId) throws DAOException {
         logger.debug("Reading news in NewsRepository");
         Connection conn = null;
@@ -100,7 +110,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                                 rs.getTimestamp(COLUMN_NAME_CREATION_DATE),
                                 rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
                         );
-                    }
+                    }else throw new NoSuchEntityException("News do not exist");
                 }
             } finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
@@ -113,7 +123,10 @@ public class NewsRepositoryImpl implements NewsRepository {
         return news;
     }
 
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void update(Long id, News news) throws DAOException {
         logger.debug("Updating news in NewsRepository");
         Connection conn = null;
@@ -138,7 +151,10 @@ public class NewsRepositoryImpl implements NewsRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting news in NewsRepository");
         Connection conn = null;
@@ -156,6 +172,9 @@ public class NewsRepositoryImpl implements NewsRepository {
             throw new DAOException(e);
         }
     }
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public ArrayList<News> readAll() throws DAOException {
         logger.debug("Reading all news in NewsRepository");
@@ -198,7 +217,9 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
         return news;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     public Long countNews() throws DAOException {
         Long newsAmount = null;
         logger.debug("Counting news in NewsRepository");
@@ -219,7 +240,9 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
         return newsAmount;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     public void joinNewsWithTag(Long newsId, Long tagId) throws DAOException {
         logger.debug("Connecting news with tags in NewsRepository");
         Connection conn = null;
@@ -239,7 +262,9 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
 
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     public void joinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Connecting news with author in NewsRepository");
         Connection conn = null;
@@ -259,7 +284,9 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
 
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     public void disjoinNewsWithTag(Long newsId, Long tagId) throws DAOException {
         logger.debug("Disconnecting news with tags in NewsRepository");
         Connection conn = null;
@@ -279,7 +306,9 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
 
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     public void disjoinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Disconnecting news with author in NewsRepository");
         Connection conn = null;

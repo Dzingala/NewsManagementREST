@@ -1,5 +1,6 @@
 package by.epam.lab.task1.repository.impl;
 
+import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.AuthorRepository;
 import by.epam.lab.task1.entity.Author;
 import by.epam.lab.task1.exceptions.dao.DAOException;
@@ -59,7 +60,7 @@ public class TestAuthorRepository {
         assertTrue(author.equals(authorExpected));
     }
 
-    @Test
+    @Test(expected = NoSuchEntityException.class)
     public void deleteTest() throws DAOException {
         Long authorId = 3L;
         authorRepository.delete(authorId);

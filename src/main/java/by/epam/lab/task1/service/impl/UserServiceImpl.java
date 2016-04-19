@@ -65,12 +65,16 @@ public class UserServiceImpl implements UserService{
                 Role role = userTO.getRole();
                 Long roleId=role.getId();
                 if(checkRole(role)) {//true if role.roleId is not null and not exists ( means that we need to create it);
+                    logger.debug("Role does not exist, creating..");
                     roleId = roleService.create(role);
                     role.setId(roleId);
                 }
+                else {
+                    logger.debug("Role exists with id="+roleId);
+                }
                 user.setRoleId(roleId);
                 Long userId = userRepository.create(user);
-                userRepository.setRoleIdById(userId,roleId);
+                userRepository.setRoleIdById(userId, roleId);
                 user.setId(userId);
                 userTO.setRole(role);
             }
@@ -85,7 +89,7 @@ public class UserServiceImpl implements UserService{
         userTO.setUser(user);
         return userTO;
     }
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public UserTO login (String login, String password) throws ServiceException {
         logger.debug("Authentication of user in UserService");

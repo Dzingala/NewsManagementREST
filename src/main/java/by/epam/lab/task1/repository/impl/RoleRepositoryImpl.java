@@ -30,7 +30,10 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Autowired
     private DataSource dataSource;
 
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public Long create(Role role) throws DAOException {
         logger.debug("Creating role in RoleRepositoryImpl");
         Connection conn=null;
@@ -56,7 +59,11 @@ public class RoleRepositoryImpl implements RoleRepository {
         }
         return roleId;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
+     */
+    @Override
     public Role read(Long roleId) throws DAOException {
         logger.debug("Reading role in RoleRepositoryImpl");
         Connection conn=null;
@@ -90,7 +97,10 @@ public class RoleRepositoryImpl implements RoleRepository {
         }
         return role;
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void update(Long id, Role role) throws DAOException {
         logger.debug("Updating role in RoleRepositoryImpl");
         Connection conn =null;
@@ -109,7 +119,10 @@ public class RoleRepositoryImpl implements RoleRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting role in RoleRepositoryImpl");
         Connection conn=null;
@@ -127,7 +140,9 @@ public class RoleRepositoryImpl implements RoleRepository {
             throw new DAOException(e);
         }
     }
-
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public ArrayList<Role> readAll() throws DAOException {
         logger.debug("Reading all roles in RoleRepositoryImpl");
