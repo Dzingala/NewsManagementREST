@@ -2,23 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73c65786-1d67-43ad-a897-9dc0692b5492" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/SearchCriteria.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/NewsRepository.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/NewsRepository.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/by/epam/lab/task1/repository/impl/TestNewsRepository.class" afterPath="$PROJECT_DIR$/target/test-classes/by/epam/lab/task1/repository/impl/TestNewsRepository.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/by/epam/lab/task1/service/impl/TestUserService.class" afterPath="$PROJECT_DIR$/target/test-classes/by/epam/lab/task1/service/impl/TestUserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/UserRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/UserRepositoryImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/UserServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/AuthorRepositoryImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/AuthorRepositoryImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/CommentsRepositoryImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/CommentsRepositoryImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/NewsRepository.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/NewsRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/RoleRepositoryImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/RoleRepositoryImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/TagRepositoryImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/TagRepositoryImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestAuthorRepository.java" afterPath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestAuthorRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestNewsRepository.java" afterPath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestNewsRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestTagRepository.java" afterPath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestTagRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestUserRepository.java" afterPath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestUserRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/service/impl/TestUserService.java" afterPath="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/service/impl/TestUserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/UserRepositoryImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/UserRepositoryImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/impl/UserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/dataSet.xml" afterPath="$PROJECT_DIR$/src/test/resources/dataSet.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/log.txt.1" afterPath="$PROJECT_DIR$/logs/log.txt.1" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/log.txt" afterPath="$PROJECT_DIR$/logs/log.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="E:\Me\Apache tomcat\apache-tomcat-7.0.64\webapps\NewsManagement\target\test-classes\dataset.xml" afterPath="$PROJECT_DIR$/target/test-classes/dataSet.xml" />
     </list>
     <ignored path="NewsManagement.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,7 +70,40 @@
     <favorites_list name="NewsManagement" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="NewsRepositoryImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8178634" vertical-offset="655" max-vertical-offset="6375">
+              <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
+              <folding>
+                <marker date="1461082177225" expanded="true" signature="743:882" placeholder="INSERT INTO DZINHALA.NEWS..." />
+                <marker date="1461082177225" expanded="true" signature="944:1071" placeholder="SELECT NEWS_..NEWS..." />
+                <marker date="1461082177225" expanded="true" signature="1129:1286" placeholder="UPDATE DZINH..." />
+                <marker date="1461082177225" expanded="true" signature="1344:1388" placeholder="DELETE FROM ..." />
+                <marker date="1461082177225" expanded="true" signature="1448:1475" placeholder="SELECT * FRO..NEWS..." />
+                <marker date="1461082177225" expanded="true" signature="1531:1571" placeholder="SELECT COUNT..NEWS..." />
+                <marker date="1461082177225" expanded="true" signature="1635:1712" placeholder="INSERT INTO DZINHALA.NEWS_TAG..." />
+                <marker date="1461082177225" expanded="true" signature="1778:1861" placeholder="INSERT INTO DZINHALA.NEWS_AUTHOR..." />
+                <marker date="1461082177225" expanded="true" signature="1934:2372" placeholder="SELECT NEWS...NEWS..." />
+                <marker date="1461082177225" expanded="true" signature="2440:2491" placeholder="DELETE FROM ..." />
+                <marker date="1461082177225" expanded="true" signature="2561:2618" placeholder="DELETE FROM ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchCriteria.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/SearchCriteria.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -83,16 +112,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/JdbcConfig.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Author.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/database/SpringDatasource.xml" />
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestJdbcAuthorDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/impl/NewsService.java" />
         <option value="$PROJECT_DIR$/src/main/resources/SpringModule.xml" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/AuthorRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/RoleRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/CommentsRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/NewsRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/dto/NewsTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/GenericRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/TagRepository.java" />
@@ -124,16 +149,20 @@
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/service/impl/TestNewsService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/RoleRepositoryImpl.java" />
-        <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestNewsRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/UserRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/TagRepositoryImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/CommentsRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/AuthorRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestAuthorRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestTagRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestUserRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/service/impl/TestUserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/NewsRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/Runner.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/dataSet.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestNewsRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/SearchCriteria.java" />
       </list>
     </option>
   </component>
@@ -289,6 +318,36 @@
               <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NewsManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NewsManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -334,33 +393,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NewsManagement" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NewsManagement" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -616,35 +653,7 @@
       <recent name="E:\Me\Apache tomcat\apache-tomcat-7.0.64\webapps\NewsManagement\src\main\resources\database" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestUserService">
-    <configuration default="false" name="TestCommentService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="by.epam.lab.task1.service.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="NewsManagement" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="by.epam.lab.task1.service.impl" />
-      <option name="MAIN_CLASS_NAME" value="by.epam.lab.task1.service.impl.TestCommentService" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.TestNewsRepository">
     <configuration default="false" name="TestNewsService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -741,6 +750,34 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="by.epam.lab.task1.service.impl" />
       <option name="MAIN_CLASS_NAME" value="by.epam.lab.task1.service.impl.TestUserService" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestNewsRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="by.epam.lab.task1.repository.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="NewsManagement" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="by.epam.lab.task1.repository.impl" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.lab.task1.repository.impl.TestNewsRepository" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1078,7 +1115,7 @@
     </configuration>
     <configuration default="false" name="Unnamed" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="by.epam.lab.task1.dao.Runner" />
+      <option name="MAIN_CLASS_NAME" value="by.epam.lab.task1.repository.impl.Runner" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -1124,19 +1161,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Application.Unnamed" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.TestAuthorRepository" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.TestCommentService" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TestNewsService" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TestRoleService" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.TestTagService" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.TestUserService" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.TestNewsService" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.TestRoleService" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.TestTagService" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.TestUserService" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.TestNewsRepository" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TestUserService" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.TestTagService" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TestRoleService" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TestNewsService" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TestCommentService" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.TestNewsRepository" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TestUserService" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.TestTagService" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.TestRoleService" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.TestNewsService" />
       </list>
     </recent_temporary>
   </component>
@@ -1184,16 +1221,17 @@
       <workItem from="1460895228098" duration="9538000" />
       <workItem from="1460905752059" duration="1972000" />
       <workItem from="1460987325427" duration="6001000" />
-      <workItem from="1461052410324" duration="1747000" />
+      <workItem from="1461052410324" duration="3969000" />
+      <workItem from="1461074034289" duration="6706000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="213638000" />
+    <option name="totallyTimeSpent" value="222566000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1210,9 +1248,10 @@
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21028744" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21028744" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1222,7 +1261,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1282,41 +1320,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Comment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="1275">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Author.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3870403" vertical-offset="0" max-vertical-offset="1122">
-          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Tag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/exceptions/dao/DAOException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/exceptions/service/ServiceException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.05954466" vertical-offset="0" max-vertical-offset="571">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/dto/UserTO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1122">
@@ -1342,13 +1345,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.02910959" vertical-offset="187" max-vertical-offset="884">
           <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/NewsRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02910959" vertical-offset="187" max-vertical-offset="1105">
-          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1478,7 +1474,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.049853373" vertical-offset="51" max-vertical-offset="1445">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1514,7 +1509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.67228913" vertical-offset="503" max-vertical-offset="918">
           <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1522,16 +1516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="334" max-vertical-offset="4692">
           <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1461053555131" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.USERS..." />
-            <marker date="1461053555131" expanded="true" signature="-1:-1" placeholder="SELECT USER_..USERS..." />
-            <marker date="1461053555131" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
-            <marker date="1461053555131" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1461053555131" expanded="true" signature="-1:-1" placeholder="SELECT USER_..USERS..." />
-            <marker date="1461053555131" expanded="true" signature="-1:-1" placeholder="SELECT USER_..USERS..." />
-            <marker date="1461053555131" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1539,14 +1523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="5.803082" vertical-offset="45" max-vertical-offset="3621">
           <caret line="213" column="44" selection-start-line="213" selection-start-column="44" selection-end-line="213" selection-end-column="44" />
-          <folding>
-            <marker date="1461053555117" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.TAG..." />
-            <marker date="1461053555117" expanded="true" signature="-1:-1" placeholder="SELECT TAG_I..TAG..." />
-            <marker date="1461053555117" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
-            <marker date="1461053555117" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1461053555117" expanded="true" signature="-1:-1" placeholder="SELECT TAG_I..NEWS_TAG..." />
-            <marker date="1461053555117" expanded="true" signature="-1:-1" placeholder="SELECT TAG_I..TAG..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1554,48 +1530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7671233" vertical-offset="147" max-vertical-offset="3179">
           <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1461053085844" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.ROLES..." />
-            <marker date="1461053085844" expanded="true" signature="-1:-1" placeholder="SELECT ROLE_..ROLES..." />
-            <marker date="1461053085844" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
-            <marker date="1461053085844" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1461053085844" expanded="true" signature="-1:-1" placeholder="SELECT ROLE_..ROLES..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="5542">
-          <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
-          <folding>
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.NEWS..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="SELECT NEWS_..NEWS..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..NEWS..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..NEWS..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.NEWS_TAG..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.NEWS_AUTHOR..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1461053801776" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/CommentsRepositoryImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="194" max-vertical-offset="3791">
-          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
-          <folding>
-            <marker date="1461053801753" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.COMMENTS..." />
-            <marker date="1461053801753" expanded="true" signature="-1:-1" placeholder="SELECT COMME..COMMENTS..." />
-            <marker date="1461053801753" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
-            <marker date="1461053801753" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1461053801753" expanded="true" signature="-1:-1" placeholder="SELECT COMME..COMMENTS..." />
-            <marker date="1461053801753" expanded="true" signature="-1:-1" placeholder="SELECT COMME..COMMENTS..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1603,14 +1537,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="7" max-vertical-offset="3723">
           <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding>
-            <marker date="1461053801765" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.AUTHOR..." />
-            <marker date="1461053801765" expanded="true" signature="-1:-1" placeholder="SELECT AUTHO..AUTHOR..." />
-            <marker date="1461053801765" expanded="true" signature="-1:-1" placeholder="SELECT AUTHO..NEWS_AUTHOR..." />
-            <marker date="1461053801765" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
-            <marker date="1461053801765" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1461053801765" expanded="true" signature="-1:-1" placeholder="SELECT AUTHO..AUTHOR..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1618,7 +1544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4178082" vertical-offset="827" max-vertical-offset="1411">
           <caret line="84" column="9" selection-start-line="84" selection-start-column="9" selection-end-line="84" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1626,15 +1551,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12671232" vertical-offset="640" max-vertical-offset="1224">
           <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestNewsRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41952056" vertical-offset="1098" max-vertical-offset="2227">
-          <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1642,7 +1558,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.192029" vertical-offset="487" max-vertical-offset="1071">
           <caret line="67" column="9" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1650,7 +1565,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39726028" vertical-offset="1196" max-vertical-offset="1887">
           <caret line="103" column="31" selection-start-line="103" selection-start-column="31" selection-end-line="103" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1658,7 +1572,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06849315" vertical-offset="606" max-vertical-offset="1190">
           <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1666,7 +1579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35958904" vertical-offset="45" max-vertical-offset="629">
           <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1682,7 +1594,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9456522" vertical-offset="487" max-vertical-offset="1190">
           <caret line="57" column="73" selection-start-line="57" selection-start-column="73" selection-end-line="57" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1690,7 +1601,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40753424" vertical-offset="476" max-vertical-offset="2261">
           <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1698,7 +1608,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40753424" vertical-offset="85" max-vertical-offset="952">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1706,7 +1615,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.52397263" vertical-offset="0" max-vertical-offset="1105">
           <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1714,8 +1622,98 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53424656" vertical-offset="402" max-vertical-offset="1547">
           <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/CommentsRepositoryImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3520141" vertical-offset="3220" max-vertical-offset="3791">
+          <caret line="155" column="13" selection-start-line="155" selection-start-column="4" selection-end-line="155" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/NewsRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="1156">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/News.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1581">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/e56fe048/a631469b-f6f3-45fc-a6a4-457a5a9cdadf/.DZINHALA.COMMENTS">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/e56fe048/a631469b-f6f3-45fc-a6a4-457a5a9cdadf/.DZINHALA.NEWS">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestNewsRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5295203" vertical-offset="2263" max-vertical-offset="2873">
+          <caret line="172" column="44" selection-start-line="172" selection-start-column="44" selection-end-line="172" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/dataSet.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35726795" vertical-offset="136" max-vertical-offset="867">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/SearchCriteria.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8178634" vertical-offset="655" max-vertical-offset="6375">
+          <caret line="77" column="22" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1461082177225" expanded="true" signature="743:882" placeholder="INSERT INTO DZINHALA.NEWS..." />
+            <marker date="1461082177225" expanded="true" signature="944:1071" placeholder="SELECT NEWS_..NEWS..." />
+            <marker date="1461082177225" expanded="true" signature="1129:1286" placeholder="UPDATE DZINH..." />
+            <marker date="1461082177225" expanded="true" signature="1344:1388" placeholder="DELETE FROM ..." />
+            <marker date="1461082177225" expanded="true" signature="1448:1475" placeholder="SELECT * FRO..NEWS..." />
+            <marker date="1461082177225" expanded="true" signature="1531:1571" placeholder="SELECT COUNT..NEWS..." />
+            <marker date="1461082177225" expanded="true" signature="1635:1712" placeholder="INSERT INTO DZINHALA.NEWS_TAG..." />
+            <marker date="1461082177225" expanded="true" signature="1778:1861" placeholder="INSERT INTO DZINHALA.NEWS_AUTHOR..." />
+            <marker date="1461082177225" expanded="true" signature="1934:2372" placeholder="SELECT NEWS...NEWS..." />
+            <marker date="1461082177225" expanded="true" signature="2440:2491" placeholder="DELETE FROM ..." />
+            <marker date="1461082177225" expanded="true" signature="2561:2618" placeholder="DELETE FROM ..." />
           </folding>
         </state>
       </provider>

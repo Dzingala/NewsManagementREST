@@ -29,7 +29,6 @@ public interface NewsRepository extends GenericRepository<News> {
      * @param newsId
      * @param tagId
      * @throws DAOException
-     * @return
      */
     void joinNewsWithTag(Long newsId, Long tagId) throws DAOException;
 
@@ -38,7 +37,6 @@ public interface NewsRepository extends GenericRepository<News> {
      * @param newsId
      * @param authorId
      * @throws DAOException
-     * @return
      */
     void joinNewsWithAuthor(Long newsId, Long authorId) throws DAOException;
 
@@ -47,7 +45,6 @@ public interface NewsRepository extends GenericRepository<News> {
      * @param newsId
      * @param tagId
      * @throws DAOException
-     * @return
      */
     void disjoinNewsWithTag(Long newsId, Long tagId) throws DAOException;
 
@@ -56,7 +53,13 @@ public interface NewsRepository extends GenericRepository<News> {
      * @param newsId
      * @param authorId
      * @throws DAOException
-     * @return
      */
     void disjoinNewsWithAuthor(Long newsId, Long authorId) throws DAOException;
+
+    /**
+     * Read all news sorted by descending.
+     * @throws DAOException
+     * @return list of sorted by amount of comments' descending news
+     */
+    ArrayList<News> readSortedByComments()throws DAOException;
 }

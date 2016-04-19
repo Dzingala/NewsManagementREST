@@ -34,6 +34,15 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String CONNECT_NEWS_AUTHOR_QUERY = " INSERT INTO DZINHALA.NEWS_AUTHOR (NEWS_ID,AUTHOR_ID)" +
             " VALUES (?, ?) ";
 
+    private static final String READ_NEWS_SORTED_BY_COMMENTS_QUERY="SELECT NEWS.NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, " +
+            " NEWS.CREATION_DATE, MODIFICATION_DATE, COUNT(COMMENT_ID) " +
+            " FROM DZINHALA.NEWS " +
+            " LEFT JOIN DZINHALA.COMMENTS " +
+            " ON NEWS.NEWS_ID = COMMENTS.NEWS_ID " +
+            " GROUP BY NEWS.NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, " +
+            " NEWS.CREATION_DATE, MODIFICATION_DATE " +
+            " ORDER BY 2 DESC, 5 DESC, 6 DESC";
+
 
     private static final String DISCONNECT_NEWS_TAG_QUERY = "  DELETE FROM NEWS_TAG WHERE NEWS_ID = ? AND TAG_ID=?  ";
     private static final String DISCONNECT_NEWS_AUTHOR_QUERY = " DELETE FROM NEWS_AUTHOR WHERE NEWS_ID = ? AND AUTHOR_ID=? ";
@@ -49,6 +58,41 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
+    @Override
+    public ArrayList<News> readSortedByComments() throws DAOException {
+        logger.debug("Reading all news sorted by comments descending");
+        ArrayList<News> newsList = null;
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(READ_NEWS_SORTED_BY_COMMENTS_QUERY);
+                 ResultSet rs = ps.executeQuery()) {
+                newsList = new ArrayList<>();
+                while (rs.next()) {
+                    newsList.add(new News(
+                                    rs.getLong(COLUMN_NAME_ID),
+                                    rs.getString(COLUMN_NAME_TITLE),
+                                    rs.getString(COLUMN_NAME_SHORT_TEXT),
+                                    rs.getString(COLUMN_NAME_FULL_TEXT),
+                                    rs.getTimestamp(COLUMN_NAME_CREATION_DATE),
+                                    rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
+                            )
+                    );
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        } catch (SQLException e) {
+            logger.error("DAOException while reading all news sorted by comments descending");
+            logger.debug("Sorted news weren't read");
+            throw new DAOException(e);
+        }
+
+        return newsList;
+    }
     /**
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
@@ -220,6 +264,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     /**
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
+    @Override
     public Long countNews() throws DAOException {
         Long newsAmount = null;
         logger.debug("Counting news in NewsRepository");
@@ -243,6 +288,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     /**
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
+    @Override
     public void joinNewsWithTag(Long newsId, Long tagId) throws DAOException {
         logger.debug("Connecting news with tags in NewsRepository");
         Connection conn = null;
@@ -265,6 +311,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     /**
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
+    @Override
     public void joinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Connecting news with author in NewsRepository");
         Connection conn = null;
@@ -287,6 +334,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     /**
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
+    @Override
     public void disjoinNewsWithTag(Long newsId, Long tagId) throws DAOException {
         logger.debug("Disconnecting news with tags in NewsRepository");
         Connection conn = null;
@@ -309,6 +357,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     /**
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
+    @Override
     public void disjoinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Disconnecting news with author in NewsRepository");
         Connection conn = null;
