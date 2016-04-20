@@ -1,13 +1,11 @@
 package by.epam.lab.task1.service.impl;
 
-import by.epam.lab.task1.entity.Author;
-import by.epam.lab.task1.entity.Comment;
-import by.epam.lab.task1.entity.News;
-import by.epam.lab.task1.entity.Tag;
+import by.epam.lab.task1.entity.*;
 import by.epam.lab.task1.entity.dto.NewsTO;
 import by.epam.lab.task1.exceptions.dao.DAOException;
 import by.epam.lab.task1.exceptions.service.ServiceException;
 import by.epam.lab.task1.repository.NewsRepository;
+import by.epam.lab.task1.repository.impl.NewsRepositoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 /**
@@ -139,6 +138,58 @@ public class TestNewsService {
         Mockito.verify(commentService).readAllByNewsId(news.getId());
     }
 
+    @Test
+    public void readBySearchCriteriaTest() throws DAOException, ServiceException {
+        final News news = new News();
+        news.setId(1L);
+        ArrayList<News> newsList = new ArrayList<News>() {
+            {
+                add(news);
+            }
+        };
+        final Tag tag = new Tag();
+        tag.setId(1l);
+        final Tag tag2 = new Tag();
+        tag2.setId(2l);
+        ArrayList<Tag> tagList = new ArrayList<Tag>(){
+            {
+                add(tag);
+                add(tag2);
+            }
+        };
+        SearchCriteria searchCriteria = new SearchCriteria();
+        Author author = new Author();
+        author.setId(1L);
+        searchCriteria.setAuthor(author);
+        searchCriteria.addTag(tag);
+        searchCriteria.addTag(tag2);
+        String query = NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
+        Mockito.when(newsRepository.readBySearchCriteria(query)).thenReturn(newsList);
+        Mockito.when(newsRepository.read(newsList.get(0).getId())).thenReturn(news);
 
+        ArrayList<News> serviceNewsList=newsService.readBySearchCriteria(searchCriteria);
+        assertTrue(serviceNewsList.equals(newsList));
+        Mockito.verify(newsRepository).readBySearchCriteria(query);
+    }
+
+    @Test
+    public void readSortedByCommentsTest() throws DAOException, ServiceException {
+        final News news = new News();
+        news.setId(1L);
+        ArrayList<News> newsList = new ArrayList<News>() {
+            {
+                add(news);
+            }
+        };
+        Mockito.when(newsRepository.readSortedByComments()).thenReturn(newsList);
+        Mockito.when(newsRepository.read(newsList.get(0).getId())).thenReturn(news);
+
+
+        ArrayList<News> serviceNewsList = newsService.readSortedByComments();
+
+        assertTrue(newsList.equals(serviceNewsList));
+        Mockito.verify(newsRepository).readSortedByComments();
+
+    }
 
 }

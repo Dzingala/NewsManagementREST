@@ -1,6 +1,9 @@
 package by.epam.lab.task1.repository.impl;
 
+import by.epam.lab.task1.entity.Author;
 import by.epam.lab.task1.entity.News;
+import by.epam.lab.task1.entity.SearchCriteria;
+import by.epam.lab.task1.entity.Tag;
 import by.epam.lab.task1.exceptions.dao.DAOException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
@@ -23,7 +26,9 @@ import java.util.Calendar;
 import java.util.LinkedHashSet;
 
 import static org.junit.Assert.*;
-
+/**
+ * @author Ivan Dzinhala
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:SpringDatasourceTest.xml")
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
@@ -37,10 +42,10 @@ public class TestNewsRepository {
     private NewsRepositoryImpl newsRepository;
 
     @Autowired
-    private AuthorRepositoryImpl authorDAO;
+    private AuthorRepositoryImpl authorRepository;
 
     @Autowired
-    private TagRepositoryImpl tagDAO;
+    private TagRepositoryImpl tagRepository;
 
     private static final String tempTitle="temptitle";
     private static final String tempShortText="tempshorttext";
@@ -108,7 +113,7 @@ public class TestNewsRepository {
         Long newsId = newsRepository.create(news);
         Long authorId = 3L;
         newsRepository.joinNewsWithAuthor(newsId, authorId);
-        Long expectedAuthorId = authorDAO.readAuthorIdByNewsId(newsId);
+        Long expectedAuthorId = authorRepository.readAuthorIdByNewsId(newsId);
         assertTrue(authorId.longValue() == expectedAuthorId.longValue());
     }
 
@@ -123,7 +128,7 @@ public class TestNewsRepository {
         Long newsId = newsRepository.create(news);
         Long tagId = 2L;
         newsRepository.joinNewsWithTag(newsId, tagId);
-        ArrayList<Long> expectedTagsId = tagDAO.readTagsIdByNewsId(newsId);
+        ArrayList<Long> expectedTagsId = tagRepository.readTagsIdByNewsId(newsId);
         assertTrue(expectedTagsId.contains(tagId));
     }
 
@@ -132,7 +137,7 @@ public class TestNewsRepository {
         Long newsId = 1L;
         Long tagId = 2L;
         newsRepository.disjoinNewsWithTag(newsId, tagId);
-        ArrayList<Long> tagsIdExpected = tagDAO.readTagsIdByNewsId(newsId);
+        ArrayList<Long> tagsIdExpected = tagRepository.readTagsIdByNewsId(newsId);
         assertFalse(tagsIdExpected.contains(tagId));
     }
 
@@ -141,7 +146,7 @@ public class TestNewsRepository {
         Long newsId = 1L;
         Long authorId = 3L;
         newsRepository.disjoinNewsWithAuthor(newsId, authorId);
-        authorId=authorDAO.readAuthorIdByNewsId(newsId);
+        authorId= authorRepository.readAuthorIdByNewsId(newsId);
     }
 
     @Test
@@ -178,8 +183,29 @@ public class TestNewsRepository {
         sorted.add(sortedNews.get(2).getId());
         boolean isEqual=sorted.equals(expectedIdSet);
         assertTrue(isEqual);
-
-
+    }
+    @Test
+    public void readBySearchCriteriaTest()throws DAOException{
+        SearchCriteria searchCriteria = new SearchCriteria();
+        final Author author = new Author();
+        author.setId(1l);
+        final Tag tag = new Tag();
+        tag.setId(1L);
+        final Tag tag2=new Tag();
+        tag2.setId(2l);
+        ArrayList<Tag> tagList = new ArrayList<Tag>() {
+            {
+                add(tag);
+                add(tag2);
+            }
+        };
+        searchCriteria.setAuthor(author);
+        searchCriteria.setTags(tagList);
+        String query = newsRepository.composeSearchCriteriaQuery(searchCriteria);
+        ArrayList<News> newsList = newsRepository.readBySearchCriteria(query);
+        ArrayList<Long> newsIdListRequired = new ArrayList<>();
+        newsIdListRequired.add(1L);
+        assertTrue(newsList.get(0).getId() == (newsIdListRequired.get(0)));
     }
 
 }

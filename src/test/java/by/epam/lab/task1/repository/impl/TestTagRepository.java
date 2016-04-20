@@ -20,7 +20,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
-
+/**
+ * @author Ivan Dzinhala
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:SpringDatasourceTest.xml")
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,

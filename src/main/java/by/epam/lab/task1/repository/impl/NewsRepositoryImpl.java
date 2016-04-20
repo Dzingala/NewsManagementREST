@@ -1,6 +1,9 @@
 package by.epam.lab.task1.repository.impl;
 
 
+import by.epam.lab.task1.entity.Author;
+import by.epam.lab.task1.entity.SearchCriteria;
+import by.epam.lab.task1.entity.Tag;
 import by.epam.lab.task1.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task1.repository.NewsRepository;
 import by.epam.lab.task1.entity.News;
@@ -55,6 +58,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String COLUMN_NAME_CREATION_DATE = "CREATION_DATE";
     private static final String COLUMN_NAME_MODIFICATION_DATE = "MODIFICATION_DATE";
 
+
     @Autowired
     private DataSource dataSource;
 
@@ -63,7 +67,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public ArrayList<News> readSortedByComments() throws DAOException {
-        logger.debug("Reading all news sorted by comments descending");
+        logger.debug("Reading all news sorted by comments descendingin NewsRepositoryImpl");
         ArrayList<News> newsList = null;
         Connection conn = null;
         try {
@@ -86,7 +90,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         } catch (SQLException e) {
-            logger.error("DAOException while reading all news sorted by comments descending");
+            logger.error("DAOException while reading all news sorted by comments descending in NewsRepositoryImpl");
             logger.debug("Sorted news weren't read");
             throw new DAOException(e);
         }
@@ -98,7 +102,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public Long create(News news) throws DAOException {
-        logger.debug("Creating news in NewsRepository");
+        logger.debug("Creating news in NewsRepositoryImpl");
         Connection conn =null;
         Long newsId=null;
         String[] keys = {COLUMN_NAME_ID};
@@ -121,7 +125,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while creating news in NewsRepository");
+            logger.error("DAOException while creating news in NewsRepositoryImpl");
             logger.debug("News was not created");
             throw new DAOException(e);
         }
@@ -137,7 +141,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public News read(Long newsId) throws DAOException {
-        logger.debug("Reading news in NewsRepository");
+        logger.debug("Reading news in NewsRepositoryImpl");
         Connection conn = null;
         News news = null;
         try {
@@ -160,7 +164,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while reading news in NewsRepository");
+            logger.error("DAOException while reading news in NewsRepositoryImpl");
             logger.debug("News was not read");
             throw new DAOException(e);
         }
@@ -172,7 +176,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public void update(Long id, News news) throws DAOException {
-        logger.debug("Updating news in NewsRepository");
+        logger.debug("Updating news in NewsRepositoryImpl");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -190,7 +194,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while updating news in NewsRepository");
+            logger.error("DAOException while updating news in NewsRepositoryImpl");
             logger.debug("News was not updated");
             throw new DAOException(e);
         }
@@ -200,7 +204,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public void delete(Long id) throws DAOException {
-        logger.debug("Deleting news in NewsRepository");
+        logger.debug("Deleting news in NewsRepositoryImpl");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -211,7 +215,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while updating news in NewsRepository");
+            logger.error("DAOException while updating news in NewsRepositoryImpl");
             logger.debug("News was not updated");
             throw new DAOException(e);
         }
@@ -221,7 +225,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public ArrayList<News> readAll() throws DAOException {
-        logger.debug("Reading all news in NewsRepository");
+        logger.debug("Reading all news in NewsRepositoryImpl");
         ArrayList<News> news = null;
         Connection conn = null;
         try {
@@ -255,7 +259,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while reading all news in NewsRepository");
+            logger.error("DAOException while reading all news in NewsRepositoryImpl");
             logger.debug("News was not read");
             throw new DAOException(e);
         }
@@ -267,7 +271,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public Long countNews() throws DAOException {
         Long newsAmount = null;
-        logger.debug("Counting news in NewsRepository");
+        logger.debug("Counting news in NewsRepositoryImpl");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -279,7 +283,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while counting news in NewsRepository");
+            logger.error("DAOException while counting news in NewsRepositoryImpl");
             logger.debug("News was not counted");
             throw new DAOException(e);
         }
@@ -290,7 +294,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public void joinNewsWithTag(Long newsId, Long tagId) throws DAOException {
-        logger.debug("Connecting news with tags in NewsRepository");
+        logger.debug("Connecting news with tags in NewsRepositoryImpl");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -302,7 +306,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         } catch (SQLException e) {
-            logger.error("DAOException while connecting news with tags in NewsRepository");
+            logger.error("DAOException while connecting news with tags in NewsRepositoryImpl");
             logger.debug("News was not connected with tags");
             throw new DAOException(e);
         }
@@ -313,7 +317,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public void joinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
-        logger.debug("Connecting news with author in NewsRepository");
+        logger.debug("Connecting news with author in NewsRepositoryImpl");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -325,7 +329,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         } catch (SQLException e) {
-            logger.error("DAOException while connecting news with author in NewsRepository");
+            logger.error("DAOException while connecting news with author in NewsRepositoryImpl");
             logger.debug("News was not connected with author");
             throw new DAOException(e);
         }
@@ -336,7 +340,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public void disjoinNewsWithTag(Long newsId, Long tagId) throws DAOException {
-        logger.debug("Disconnecting news with tags in NewsRepository");
+        logger.debug("Disconnecting news with tags in NewsRepositoryImpl");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -348,7 +352,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while disconnecting news with tags in NewsRepository");
+            logger.error("DAOException while disconnecting news with tags in NewsRepositoryImpl");
             logger.debug("News was not disconnected with tags");
             throw new DAOException(e);
         }
@@ -359,7 +363,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public void disjoinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
-        logger.debug("Disconnecting news with author in NewsRepository");
+        logger.debug("Disconnecting news with author in NewsRepositoryImpl");
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -371,10 +375,69 @@ public class NewsRepositoryImpl implements NewsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         } catch (SQLException e) {
-            logger.error("DAOException while disconnecting news with author in NewsRepository");
+            logger.error("DAOException while disconnecting news with author in NewsRepositoryImpl");
             logger.debug("News was not disconnected with author");
             throw new DAOException(e);
         }
 
     }
+    @Override
+    public ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY) throws DAOException{
+        logger.debug("Reading by search criteria in NewsRepositoryImpl");
+        System.out.println("CRITERIA:");
+        System.out.println(SEARCH_CRITERIA_QUERY);
+        Connection conn = null;
+        ArrayList<News> news =null;
+        try{
+            conn=dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(SEARCH_CRITERIA_QUERY);
+                 ResultSet rs = ps.executeQuery()){
+                news = new ArrayList<>();
+                while( rs.next() ){
+                    news.add(new News(
+                            rs.getLong(COLUMN_NAME_ID),
+                            rs.getString(COLUMN_NAME_TITLE),
+                            rs.getString(COLUMN_NAME_SHORT_TEXT),
+                            rs.getString(COLUMN_NAME_FULL_TEXT),
+                            rs.getTimestamp(COLUMN_NAME_CREATION_DATE),
+                            rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
+                    ));
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        } catch (SQLException e) {
+            logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
+            logger.debug("News was not disconnected with author");
+            throw new DAOException(e);
+        }
+        return news;
+    }
+
+    private static final String READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY=
+            "SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +
+                    "NEWS.FULL_TEXT,NEWS.CREATION_DATE,NEWS.MODIFICATION_DATE" +
+                    " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
+                    " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
+                    " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID WHERE "+
+                    " NEWS_AUTHOR.AUTHOR_ID= ";
+
+
+    public static String composeSearchCriteriaQuery(SearchCriteria criteria){
+        logger.debug("Composing search criteria query in NewsRepositoryImpl");
+        StringBuffer sb= new StringBuffer(READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY);
+        Author author =criteria.getAuthor();
+        ArrayList<Tag> tags = criteria.getTags();
+        sb.append(author.getId());
+        sb.append(" AND NEWS_TAG.TAG_ID IN (");
+        for(Tag tag : tags){
+            sb.append(tag.getId());
+            sb.append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(')');
+        return sb.toString();
+    }
+
+
 }

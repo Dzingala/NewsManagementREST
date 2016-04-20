@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static org.junit.Assert.*;
-
+/**
+ * @author Ivan Dzinhala
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:SpringDatasourceTest.xml")
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,

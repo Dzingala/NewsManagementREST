@@ -63,7 +63,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "Author{" +//=StringBuilder
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", expired=" + expired +

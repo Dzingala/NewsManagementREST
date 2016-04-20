@@ -1,6 +1,8 @@
 package by.epam.lab.task1.repository;
 
+import by.epam.lab.task1.entity.Author;
 import by.epam.lab.task1.entity.News;
+import by.epam.lab.task1.entity.Tag;
 import by.epam.lab.task1.exceptions.dao.DAOException;
 
 import java.util.ArrayList;
@@ -62,4 +64,12 @@ public interface NewsRepository extends GenericRepository<News> {
      * @return list of sorted by amount of comments' descending news
      */
     ArrayList<News> readSortedByComments()throws DAOException;
+
+    /**
+     * Read all news sorted by authors and tags.
+     * @param SEARCH_CRITERIA_QUERY
+     * @return set of news id
+     * @throws DAOException
+     */
+    ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY)throws DAOException;
 }
