@@ -82,17 +82,27 @@ public class NewsServiceImpl implements NewsService {
         ArrayList<Comment> commentList = newsTO.getCommentList();
         ArrayList<Tag> tagList = newsTO.getTagList();
         try {
-            Long newsId = newsRepository.create(news);
-            Long authorId = authorService.create(author);
-            newsRepository.joinNewsWithAuthor(newsId, authorId);
-            for(Comment com : commentList){
-                com.setNewsId(newsId);
-                commentService.create(com);
-            }
-            Long tagId = null;
-            for(Tag tag : tagList){
-                tagId = tagService.create(tag);
-                newsRepository.joinNewsWithTag(newsId, tagId);
+            Long newsId = null;
+            if(news!=null){
+                newsId=newsRepository.create(news);
+                if(commentList!=null) {
+                    for (Comment com : commentList) {
+                        com.setNewsId(newsId);
+                        commentService.create(com);
+                    }
+                }
+                if(author!=null) {
+                    Long authorId= authorService.create(author);
+                    newsRepository.joinNewsWithAuthor(newsId, authorId);
+                }
+                if(tagList!=null) {
+                    for (Tag tag : tagList) {
+                        Long tagId = tagService.create(tag);
+                        newsRepository.joinNewsWithTag(newsId, tagId);
+                    }
+                }
+            }else {
+                logger.debug("News = null while creating news in NewsServiceImpl");
             }
         } catch (DAOException e) {
             logger.error("DAOException while filling news in NewsServiceImpl");
@@ -144,7 +154,7 @@ public class NewsServiceImpl implements NewsService {
         ArrayList<Tag> tagList = newsTO.getTagList();
         try {
             newsRepository.disjoinNewsWithAuthor(news.getId(), author.getId());
-            authorService.delete(author);
+            //authorService.delete(author);
             for(Comment com : commentList){
                 commentService.delete(com);
             }

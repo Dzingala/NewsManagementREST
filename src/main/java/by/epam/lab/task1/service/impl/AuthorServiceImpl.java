@@ -23,6 +23,12 @@ public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
 
+    /**
+     * Because: checks either author exists in the list of all authors or not.
+     * @param author
+     * @return
+     * @throws DAOException
+     */
     private boolean isExisting(Author author)throws DAOException{
         ArrayList<Author> authors = authorRepository.readAll();
         return authors.contains(author);
