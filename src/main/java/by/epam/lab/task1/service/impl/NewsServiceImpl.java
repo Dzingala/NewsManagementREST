@@ -38,7 +38,10 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private CommentService commentService;
-
+    /**
+     * Implementation of NewsService method readSortedByComments.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public ArrayList<News> readSortedByComments() throws ServiceException {
@@ -52,7 +55,10 @@ public class NewsServiceImpl implements NewsService {
         }
         return newsList;
     }
-
+    /**
+     * Implementation of NewsService method readBySearchCriteria.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria) throws ServiceException {
@@ -71,7 +77,10 @@ public class NewsServiceImpl implements NewsService {
         }
         return newsList;
     }
-
+    /**
+     * Implementation of NewsService method create.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void create(NewsTO newsTO) throws ServiceException {
@@ -109,7 +118,10 @@ public class NewsServiceImpl implements NewsService {
             throw new ServiceException("ServiceException while filling news", e);
         }
     }
-
+    /**
+     * Implementation of NewsService method readDataByNewsId.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public NewsTO readDataByNewsId(Long id) throws ServiceException {
@@ -131,7 +143,10 @@ public class NewsServiceImpl implements NewsService {
         }
         return newsTO;
     }
-
+    /**
+     * Implementation of NewsService method update.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(NewsTO newsTO) throws ServiceException {
@@ -143,7 +158,10 @@ public class NewsServiceImpl implements NewsService {
             throw new ServiceException("ServiceException while updating news", e);
         }
     }
-
+    /**
+     * Implementation of NewsService method delete.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(NewsTO newsTO) throws ServiceException {
@@ -154,7 +172,6 @@ public class NewsServiceImpl implements NewsService {
         ArrayList<Tag> tagList = newsTO.getTagList();
         try {
             newsRepository.disjoinNewsWithAuthor(news.getId(), author.getId());
-            //authorService.delete(author);
             for(Comment com : commentList){
                 commentService.delete(com);
             }

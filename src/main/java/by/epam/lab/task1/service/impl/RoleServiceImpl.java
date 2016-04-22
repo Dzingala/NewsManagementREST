@@ -21,7 +21,10 @@ public class RoleServiceImpl implements RolesService{
 
     @Autowired
     private RoleRepository roleRepository;
-
+    /**
+     * Implementation of RolesService method create.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Long create(Role role) throws ServiceException {
@@ -35,6 +38,10 @@ public class RoleServiceImpl implements RolesService{
         }
         return roleId;
     }
+    /**
+     * Implementation of RolesService method readById.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Role readById(Long roleId) throws ServiceException, NoSuchEntityException {
@@ -51,6 +58,10 @@ public class RoleServiceImpl implements RolesService{
         }
         return role;
     }
+    /**
+     * Implementation of RolesService method update.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(Role role) throws ServiceException {
@@ -62,6 +73,10 @@ public class RoleServiceImpl implements RolesService{
             throw new ServiceException("ServiceException while updating role",e);
         }
     }
+    /**
+     * Implementation of RolesService method delete.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Role role) throws ServiceException {

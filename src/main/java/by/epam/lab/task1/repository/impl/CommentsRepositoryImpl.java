@@ -35,6 +35,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     private DataSource dataSource;
 
     /**
+     * Implementation of CommentsRepository method create.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -67,6 +68,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         return commentId;
     }
     /**
+     * Implementation of CommentsRepository method read.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */
@@ -107,6 +109,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         return comment;
     }
     /**
+     * Implementation of CommentsRepository method update.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -130,6 +133,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
 
     }
     /**
+     * Implementation of CommentsRepository method delete.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -150,6 +154,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }
     }
     /**
+     * Implementation of CommentsRepository method readAll.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */
@@ -197,6 +202,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         return comments;
     }
     /**
+     * Implementation of CommentsRepository method readCommentsIdByNewsId.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override

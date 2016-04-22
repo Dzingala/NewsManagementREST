@@ -2,7 +2,10 @@ package by.epam.lab.task1.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * This entity is used for searching news accordingly the certain search criteria.
+ * @author Ivan Dzinhala
+ */
 public class SearchCriteria implements Serializable {
 
     private static final long serialVersionUID = 1L;

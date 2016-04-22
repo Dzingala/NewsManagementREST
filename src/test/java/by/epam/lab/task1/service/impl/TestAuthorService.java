@@ -1,6 +1,7 @@
 package by.epam.lab.task1.service.impl;
 
 import by.epam.lab.task1.entity.Author;
+import by.epam.lab.task1.entity.News;
 import by.epam.lab.task1.exceptions.dao.DAOException;
 import by.epam.lab.task1.exceptions.service.ServiceException;
 import by.epam.lab.task1.repository.AuthorRepository;
@@ -16,7 +17,7 @@ import org.mockito.MockitoAnnotations;
  */
 public class TestAuthorService {
     @Mock
-    private AuthorRepository authorDAO;
+    private AuthorRepository authorRepository;
 
     @Before
     public void setup() {
@@ -30,13 +31,25 @@ public class TestAuthorService {
     public void createAuthorTest() throws DAOException, ServiceException {
         Author author = new Author();
         authorService.create(author);
-        Mockito.verify(authorDAO).create(author);
+        Mockito.verify(authorRepository).create(author);
     }
 
     @Test
     public void deleteTest() throws DAOException, ServiceException {
         Author author = new Author();
         authorService.delete(author);
-        Mockito.verify(authorDAO).update(author.getId(), author);
+        Mockito.verify(authorRepository).update(author.getId(), author);
+    }
+    @Test
+    public void readByNewsIdTest() throws  DAOException, ServiceException{
+        News news = new News();
+        Author author= authorService.readByNewsId(news.getId());
+        Mockito.verify(authorRepository).readAuthorIdByNewsId(news.getId());
+    }
+    @Test
+    public void updateTest() throws DAOException,ServiceException{
+        Author author=new Author();
+        authorService.update(author);
+        Mockito.verify(authorRepository).update(author.getId(),author);
     }
 }

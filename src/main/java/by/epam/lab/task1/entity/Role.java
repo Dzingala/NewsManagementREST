@@ -1,6 +1,9 @@
 package by.epam.lab.task1.entity;
 
-
+/**
+ * This entity is used for representing information about the Role.
+ * @author Ivan Dzinhala
+ */
 public class Role {
     private Long id;
     private String name;

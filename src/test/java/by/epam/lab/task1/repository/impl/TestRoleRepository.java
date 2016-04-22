@@ -60,7 +60,7 @@ public class TestRoleRepository {
         assertTrue(role.equals(roleExpected));
     }
 
-    @Test(expected = NoSuchEntityException.class)
+    @Test(expected = DAOException.class)
     public void deleteTest() throws DAOException {
         Long roleId = 1L;
         roleDAO.delete(roleId);

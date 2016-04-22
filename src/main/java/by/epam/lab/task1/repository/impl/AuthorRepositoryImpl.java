@@ -32,6 +32,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Autowired
     private DataSource dataSource;
     /**
+     * Implementation of AuthorRepository method create.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -60,6 +61,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         return authorId;
     }
     /**
+     * Implementation of AuthorRepository method read.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */
@@ -99,6 +101,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     /**
+     * Implementation of AuthorRepository method update.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -123,6 +126,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }
     }
     /**
+     * Implementation of AuthorRepository method delete.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -145,6 +149,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
 
     }
     /**
+     * Implementation of AuthorRepository method readAll.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -185,6 +190,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         return authors;
     }
     /**
+     * Implementation of AuthorRepository method readAuthorIdByNewsId.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */

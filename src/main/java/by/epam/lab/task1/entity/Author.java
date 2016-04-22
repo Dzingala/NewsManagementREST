@@ -2,7 +2,10 @@ package by.epam.lab.task1.entity;
 
 
 import java.sql.Timestamp;
-
+/**
+ * This entity is used for representing information about an Author.
+ * @author Ivan Dzinhala
+ */
 public class Author {
     private long id;
     private String name;

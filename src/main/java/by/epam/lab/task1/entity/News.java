@@ -2,7 +2,10 @@ package by.epam.lab.task1.entity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-
+/**
+ * This entity is used for representing information about News.
+ * @author Ivan Dzinhala
+ */
 public class News {
     private long id;
     private String title;

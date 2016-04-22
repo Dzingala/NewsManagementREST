@@ -31,6 +31,7 @@ public class RoleRepositoryImpl implements RoleRepository {
     private DataSource dataSource;
 
     /**
+     * Implementation of RoleRepository method create.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -60,6 +61,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         return roleId;
     }
     /**
+     * Implementation of RoleRepository method read.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */
@@ -98,6 +100,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         return role;
     }
     /**
+     * Implementation of RoleRepository method update.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -120,6 +123,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         }
     }
     /**
+     * Implementation of RoleRepository method delete.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -141,6 +145,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         }
     }
     /**
+     * Implementation of RoleRepository method readAll.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override

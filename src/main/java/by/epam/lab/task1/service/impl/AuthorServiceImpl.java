@@ -33,7 +33,10 @@ public class AuthorServiceImpl implements AuthorService {
         ArrayList<Author> authors = authorRepository.readAll();
         return authors.contains(author);
     }
-
+    /**
+     * Implementation of AuthorService method create.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Long create(Author author) throws ServiceException {
@@ -41,7 +44,7 @@ public class AuthorServiceImpl implements AuthorService {
         Long authorId=null;
         try {
             if (!isExisting(author)) {
-                logger.debug("Author dont exist in database, creating started");
+                logger.debug("Author doesn't exist in database, creating started");
                 authorId = authorRepository.create(author);
             } else {
                 logger.debug("Such author already exists");
@@ -53,7 +56,10 @@ public class AuthorServiceImpl implements AuthorService {
         }
         return authorId;
     }
-
+    /**
+     * Implementation of AuthorService method readByNewsId.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Author readByNewsId(Long newsId) throws ServiceException {
@@ -69,7 +75,10 @@ public class AuthorServiceImpl implements AuthorService {
         }
         return author;
     }
-
+    /**
+     * Implementation of AuthorService method delete.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Author author) throws ServiceException {
@@ -83,7 +92,10 @@ public class AuthorServiceImpl implements AuthorService {
         }
 
     }
-
+    /**
+     * Implementation of AuthorService method update.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(Author author) throws ServiceException {

@@ -69,4 +69,11 @@ public class TestTagService {
         Mockito.verify(tagRepository).read(tag.getId());
     }
 
+    @Test
+    public void updateTest() throws DAOException,ServiceException {
+        Tag tag = new Tag();
+        tagService.update(tag);
+        Mockito.verify(tagRepository).update(tag.getId(),tag);
+    }
+
 }

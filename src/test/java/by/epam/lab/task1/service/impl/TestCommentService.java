@@ -73,5 +73,11 @@ public class TestCommentService {
         Mockito.verify(commentRepository).read(comment.getId());
     }
 
+    @Test
+    public void updateTest()throws DAOException, ServiceException{
+        Comment comment = new Comment();
+        commentService.update(comment);
+        Mockito.verify(commentRepository).update(comment.getId(),comment);
+    }
 }
 

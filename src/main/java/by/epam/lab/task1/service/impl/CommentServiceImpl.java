@@ -22,7 +22,10 @@ public class CommentServiceImpl implements CommentService{
 
     @Autowired
     private CommentsRepository commentsRepository;
-
+    /**
+     * Implementation of CommentService method create.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Long create(Comment comment) throws ServiceException {
@@ -36,7 +39,10 @@ public class CommentServiceImpl implements CommentService{
         }
         return commentId;
     }
-
+    /**
+     * Implementation of CommentService method readAllByNewsId.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public ArrayList<Comment> readAllByNewsId(Long newsId) throws ServiceException {
@@ -55,7 +61,10 @@ public class CommentServiceImpl implements CommentService{
         }
         return comments;
     }
-
+    /**
+     * Implementation of CommentService method delete.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Comment comment) throws ServiceException {
@@ -67,7 +76,10 @@ public class CommentServiceImpl implements CommentService{
             throw new ServiceException("ServiceException while deleting comment",e);
         }
     }
-
+    /**
+     * Implementation of CommentService method update.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(Comment comment) throws ServiceException {
@@ -79,7 +91,10 @@ public class CommentServiceImpl implements CommentService{
             throw new ServiceException("ServiceException while updating comment",e);
         }
     }
-
+    /**
+     * Implementation of CommentService method read.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Comment read(Long commentId) throws ServiceException {

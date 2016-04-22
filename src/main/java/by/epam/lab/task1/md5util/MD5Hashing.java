@@ -4,7 +4,10 @@ package by.epam.lab.task1.md5util;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * Utility which is used for encryption of users' passwords *
+ * @author Ivan Dzinhala
+ */
 public class MD5Hashing {
     public static String md5(String input) {
 

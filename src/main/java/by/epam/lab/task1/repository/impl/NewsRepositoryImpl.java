@@ -63,6 +63,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     private DataSource dataSource;
 
     /**
+     * Implementation of NewsRepository method readSortedByComments.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -98,6 +99,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         return newsList;
     }
     /**
+     * Implementation of NewsRepository method create.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -136,6 +138,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         return newsId;
     }
     /**
+     * Implementation of NewsRepository method read.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */
@@ -172,6 +175,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     /**
+     * Implementation of NewsRepository method update.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -200,6 +204,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
     }
     /**
+     * Implementation of NewsRepository method delete.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -221,6 +226,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
     }
     /**
+     * Implementation of NewsRepository method readAll.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -266,6 +272,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         return news;
     }
     /**
+     * Implementation of NewsRepository method countNews.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -290,6 +297,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         return newsAmount;
     }
     /**
+     * Implementation of NewsRepository method joinNewsWithTags.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -313,6 +321,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     }
     /**
+     * Implementation of NewsRepository method joinNewsWithAuthor.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -336,6 +345,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     }
     /**
+     * Implementation of NewsRepository method disjoinNewsWithTag.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -359,6 +369,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     }
     /**
+     * Implementation of NewsRepository method disjoinNewsWithAuthor.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -381,6 +392,10 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
 
     }
+    /**
+     * Implementation of NewsRepository method readBySearchCriteria.
+     * @see by.epam.lab.task1.exceptions.dao.DAOException
+     */
     @Override
     public ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY) throws DAOException{
         logger.debug("Reading by search criteria in NewsRepositoryImpl");
@@ -422,7 +437,11 @@ public class NewsRepositoryImpl implements NewsRepository {
                     " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID WHERE "+
                     " NEWS_AUTHOR.AUTHOR_ID= ";
 
-
+    /**
+     * Static method for composing search criteria query according to the certain requirements.
+     * @param criteria
+     * @return SQL query which reflects search criteria' requirements and is ready for processing
+     */
     public static String composeSearchCriteriaQuery(SearchCriteria criteria){
         logger.debug("Composing search criteria query in NewsRepositoryImpl");
         StringBuffer sb= new StringBuffer(READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY);

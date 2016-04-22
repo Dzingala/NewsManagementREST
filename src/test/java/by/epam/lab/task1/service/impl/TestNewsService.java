@@ -14,6 +14,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -104,9 +106,8 @@ public class TestNewsService {
         NewsTO newsTO = new NewsTO(news, author, tagList, commentList);
 
         newsService.delete(newsTO);
-
+        author.setExpired();
         Mockito.verify(newsRepository).disjoinNewsWithAuthor(news.getId(), author.getId());
-        Mockito.verify(authorService).delete(author);
         Mockito.verify(commentService).delete(comment);
         Mockito.verify(newsRepository).disjoinNewsWithTag(news.getId(), tag.getId());
         Mockito.verify(newsRepository).delete(news.getId());
@@ -151,12 +152,6 @@ public class TestNewsService {
         tag.setId(1l);
         final Tag tag2 = new Tag();
         tag2.setId(2l);
-        ArrayList<Tag> tagList = new ArrayList<Tag>(){
-            {
-                add(tag);
-                add(tag2);
-            }
-        };
         SearchCriteria searchCriteria = new SearchCriteria();
         Author author = new Author();
         author.setId(1L);

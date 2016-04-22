@@ -78,6 +78,8 @@ public class TestNewsRepository {
         news.setModificationDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         Long id= newsRepository.create(news);
         news.setId(id);
+        news.setFullText("newFullText");
+        newsRepository.update(id,news);
         News expectedNews= newsRepository.read(id);
         if(news.equals(expectedNews))assertTrue(true);
 

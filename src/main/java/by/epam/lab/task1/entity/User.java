@@ -1,7 +1,10 @@
 package by.epam.lab.task1.entity;
 
 import by.epam.lab.task1.md5util.MD5Hashing;
-
+/**
+ * This entity is used for representing information about User.
+ * @author Ivan Dzinhala
+ */
 public class User {
     private Long id;
     private String name;

@@ -2,7 +2,10 @@ package by.epam.lab.task1.entity;
 
 
 import java.sql.Timestamp;
-
+/**
+ * This entity is used for representing information about a Comment.
+ * @author Ivan Dzinhala
+ */
 public class Comment {
     private long id;
     private long newsId;

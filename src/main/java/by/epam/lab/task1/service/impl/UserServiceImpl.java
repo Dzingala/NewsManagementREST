@@ -53,7 +53,10 @@ public class UserServiceImpl implements UserService{
         }
         return false;//if role exists then there is no need to create role
     }
-
+    /**
+     * Implementation of UserService method registration.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public UserTO registration(UserTO userTO) throws ServiceException {
@@ -89,6 +92,10 @@ public class UserServiceImpl implements UserService{
         userTO.setUser(user);
         return userTO;
     }
+    /**
+     * Implementation of UserService method login.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public UserTO login (String login, String password) throws ServiceException {
@@ -116,7 +123,10 @@ public class UserServiceImpl implements UserService{
         return userTO;
     }
 
-
+    /**
+     * Implementation of UserService method delete.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete (UserTO userTO) throws ServiceException {
@@ -129,7 +139,10 @@ public class UserServiceImpl implements UserService{
             throw new ServiceException("ServiceException while deleting user",e);
         }
     }
-
+    /**
+     * Implementation of UserService method edit.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void edit (UserTO userTO) throws ServiceException {

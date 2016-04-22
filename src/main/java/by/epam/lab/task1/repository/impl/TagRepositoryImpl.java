@@ -33,6 +33,7 @@ public class TagRepositoryImpl implements TagRepository {
     private DataSource dataSource;
 
     /**
+     * Implementation of TagRepository method create.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -62,6 +63,7 @@ public class TagRepositoryImpl implements TagRepository {
         return tagId;
     }
     /**
+     * Implementation of TagRepository method read.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -98,6 +100,7 @@ public class TagRepositoryImpl implements TagRepository {
         return tag;
     }
     /**
+     * Implementation of TagRepository method update.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -120,6 +123,7 @@ public class TagRepositoryImpl implements TagRepository {
         }
     }
     /**
+     * Implementation of TagRepository method delete.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -142,6 +146,7 @@ public class TagRepositoryImpl implements TagRepository {
 
     }
     /**
+     * Implementation of TagRepository method readAll.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -180,6 +185,7 @@ public class TagRepositoryImpl implements TagRepository {
         return tags;
     }
     /**
+     * Implementation of TagRepository method readTagsIdByNewsId.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */

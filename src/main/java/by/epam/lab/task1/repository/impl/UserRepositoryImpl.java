@@ -44,6 +44,7 @@ public class UserRepositoryImpl implements UserRepository {
     private DataSource dataSource;
 
     /**
+     * Implementation of UserRepository method create.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -75,6 +76,7 @@ public class UserRepositoryImpl implements UserRepository {
         return userId;
     }
     /**
+     * Implementation of UserRepository method setRoleIdById.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -97,6 +99,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
     /**
+     * Implementation of UserRepository method read.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */
@@ -137,6 +140,7 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
     /**
+     * Implementation of UserRepository method update.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -161,6 +165,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
     /**
+     * Implementation of UserRepository method delete.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -182,6 +187,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
     /**
+     * Implementation of UserRepository method readAll.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      */
     @Override
@@ -218,6 +224,10 @@ public class UserRepositoryImpl implements UserRepository {
                             users.add(user1);
                         }
                     }
+                    else{
+                        logger.debug("There are no users registered in database");
+                        throw new NoSuchEntityException("There are no users registered in database");
+                    }
                 }
             } finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
@@ -230,11 +240,14 @@ public class UserRepositoryImpl implements UserRepository {
         return users;
     }
     /**
+     * Implementation of UserRepository method readIdByLogin.
      * @see by.epam.lab.task1.exceptions.dao.DAOException
      * @see by.epam.lab.task1.exceptions.dao.NoSuchEntityException
      */
+
     @Override
     public Long readIdByLogin(String login) throws DAOException {
+        logger.debug("Reading user's id by login in UserRepositoryImpl");
         Connection conn=null;
         Long userId = null;
         try {

@@ -1,6 +1,9 @@
 package by.epam.lab.task1.entity;
 
-
+/**
+ * This entity is used for representing information about the Tag.
+ * @author Ivan Dzinhala
+ */
 public class Tag {
     private long id;
     private String name;

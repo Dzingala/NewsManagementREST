@@ -22,7 +22,10 @@ public class TagServiceImpl implements TagService {
 
     @Autowired
     private TagRepository tagRepository;
-
+    /**
+     * Implementation of TagService method create.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Long create(Tag tag) throws ServiceException {
@@ -36,6 +39,10 @@ public class TagServiceImpl implements TagService {
         }
         return tagId;
     }
+    /**
+     * Implementation of TagService method readById.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Tag readById(Long id) throws ServiceException {
@@ -49,6 +56,10 @@ public class TagServiceImpl implements TagService {
         }
         return tag;
     }
+    /**
+     * Implementation of TagService method readTagsByNewsId.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public ArrayList<Tag> readTagsByNewsId(Long newsId) throws ServiceException {
@@ -67,6 +78,10 @@ public class TagServiceImpl implements TagService {
         }
         return null;
     }
+    /**
+     * Implementation of TagService method update.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(Tag tag) throws ServiceException {
@@ -78,6 +93,10 @@ public class TagServiceImpl implements TagService {
             throw new ServiceException("ServiceException while updating tag",e);
         }
     }
+    /**
+     * Implementation of TagService method delete.
+     * @see by.epam.lab.task1.exceptions.service.ServiceException
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(Tag tag) throws ServiceException {

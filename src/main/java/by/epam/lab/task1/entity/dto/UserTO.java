@@ -6,6 +6,8 @@ import by.epam.lab.task1.entity.User;
 
 import java.io.Serializable;
 /**
+ * This entity is used for transfering data between Users and their Roles.
+ * @see User,Role
  * @author Ivan Dzinhala
  */
 public class UserTO implements Serializable{

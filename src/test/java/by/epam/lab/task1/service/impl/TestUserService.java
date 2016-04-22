@@ -31,7 +31,6 @@ public class TestUserService {
 
     @InjectMocks
     private UserServiceImpl userService;
-
     private static final String testName="test";
 
     @Test
@@ -43,9 +42,10 @@ public class TestUserService {
         user.setName(testName);
         Long roleId = roleService.create(role);
         user.setRoleId(roleId);
-        Mockito.when(userRepository.readIdByLogin(user.getLogin())).thenThrow(NoSuchEntityException.class);
         Mockito.when(roleService.create(role)).thenReturn(role.getId());
         Mockito.when(userRepository.create(user)).thenReturn(user.getId());
+        Mockito.when(userRepository.readIdByLogin(user.getLogin())).thenThrow(new NoSuchEntityException());
+        userRepository.delete(user.getId());
         UserTO userTO=new UserTO(user,role);
         userService.registration(userTO);
         Mockito.verify(userRepository).readIdByLogin(user.getLogin());
