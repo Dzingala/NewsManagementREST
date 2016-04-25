@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73c65786-1d67-43ad-a897-9dc0692b5492" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/users_input.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/news_input.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql_dumps/users_input.sql" afterPath="$PROJECT_DIR$/sql_dumps/users_input.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NewsManagement.iws" />
@@ -107,17 +108,27 @@
         <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-              <caret line="0" column="65" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="65" />
+              <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users_input.sql" pinned="false" current-in-tab="true">
+      <file leaf-file-name="news_input.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sql_dumps/news_input.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.821366" vertical-offset="534" max-vertical-offset="1105">
+              <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users_input.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sql_dumps/users_input.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.56567425" vertical-offset="0" max-vertical-offset="571">
-              <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -185,16 +196,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Oracle - XE@localhost [2]" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://db-console:/e56fe048/2416a711-8eb5-44fb-bffe-fe4dfcb70021/">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="102">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
@@ -204,7 +205,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/AuthorService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/TagService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/service/impl/TestRoleService.java" />
@@ -255,6 +255,7 @@
         <option value="$PROJECT_DIR$/sql_dumps/roles_input.sql" />
         <option value="$PROJECT_DIR$/sql_dumps/author_input.sql" />
         <option value="$PROJECT_DIR$/sql_dumps/users_input.sql" />
+        <option value="$PROJECT_DIR$/sql_dumps/news_input.sql" />
       </list>
     </option>
   </component>
@@ -1137,12 +1138,12 @@
       <workItem from="1461336382550" duration="6976000" />
       <workItem from="1461406897356" duration="811000" />
       <workItem from="1461572862324" duration="998000" />
-      <workItem from="1461579823738" duration="5751000" />
+      <workItem from="1461579823738" duration="9479000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="259344000" />
+    <option name="totallyTimeSpent" value="263072000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1236,13 +1237,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08732877" vertical-offset="0" max-vertical-offset="986">
-          <caret line="3" column="61" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14554794" vertical-offset="0" max-vertical-offset="1326">
@@ -1614,18 +1608,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
+    <entry file="file://$PROJECT_DIR$/sql_dumps/users_input.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="571">
-          <caret line="0" column="65" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql_dumps/users_input.sql">
+    <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56567425" vertical-offset="0" max-vertical-offset="571">
-          <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql_dumps/news_input.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.821366" vertical-offset="534" max-vertical-offset="1105">
+          <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
           <folding />
         </state>
       </provider>
