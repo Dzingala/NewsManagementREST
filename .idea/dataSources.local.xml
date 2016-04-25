@@ -7,5 +7,11 @@
       <schema-pattern>*.DZINHALA *.SYS *.SYSTEM</schema-pattern>
       <default-schemas>*.DZINHALA *.SYS *.SYSTEM</default-schemas>
     </data-source>
+    <data-source name="Oracle - XE@localhost [2]" uuid="2416a711-8eb5-44fb-bffe-fe4dfcb70021">
+      <secret-storage>master_key</secret-storage>
+      <user-name>DZINHALA_TEST</user-name>
+      <schema-pattern>*.DZINHALA_TEST *.SYS *.SYSTEM</schema-pattern>
+      <default-schemas>*.DZINHALA_TEST *.SYS *.SYSTEM</default-schemas>
+    </data-source>
   </component>
 </project>
