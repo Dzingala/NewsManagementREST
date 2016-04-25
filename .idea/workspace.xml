@@ -2,40 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73c65786-1d67-43ad-a897-9dc0692b5492" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/JdbcConfigTest.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Author.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Author.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/AuthorRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/AuthorRepositoryImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/AuthorServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/AuthorServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Comment.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Comment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/CommentServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/CommentServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/CommentsRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/CommentsRepositoryImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/exceptions/dao/DAOException.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/exceptions/dao/DAOException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/md5util/MD5Hashing.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/md5util/MD5Hashing.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/News.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/News.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/NewsRepositoryImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/NewsServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/NewsServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/dto/NewsTO.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/dto/NewsTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/exceptions/dao/NoSuchEntityException.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/exceptions/dao/NoSuchEntityException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Role.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Role.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/RoleRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/RoleRepositoryImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/RoleServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/RoleServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/SearchCriteria.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/SearchCriteria.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/exceptions/service/ServiceException.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/exceptions/service/ServiceException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Tag.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/Tag.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/TagRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/TagRepositoryImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/TagServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/TagServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/User.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/UserRepositoryImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/repository/impl/UserRepositoryImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/service/impl/UserServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/dto/UserTO.class" afterPath="$PROJECT_DIR$/target/classes/by/epam/lab/task1/entity/dto/UserTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/database/SpringDatasource.xml" afterPath="$PROJECT_DIR$/src/main/resources/database/SpringDatasource.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/database/SpringDatasource.xml" afterPath="$PROJECT_DIR$/target/classes/database/SpringDatasource.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/SpringDatasourceTest.xml" afterPath="$PROJECT_DIR$/src/test/resources/SpringDatasourceTest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/SpringDatasourceTest.xml" afterPath="$PROJECT_DIR$/target/test-classes/SpringDatasourceTest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/log.txt" afterPath="$PROJECT_DIR$/logs/log.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/author_input.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/roles_input.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/tag_input.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NewsManagement.iws" />
@@ -89,24 +59,6 @@
         <option name="myItemId" />
         <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
       </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="Oracle - XE@localhost [2]" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-    </PATH>
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="Oracle - XE@localhost [2]" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="DZINHALA_TEST" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
     </PATH>
     <PATH>
       <PATH_ELEMENT>
@@ -139,23 +91,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AuthorRepositoryImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/AuthorRepositoryImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3825">
-              <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-              <folding>
-                <marker date="1461342092793" expanded="true" signature="753:805" placeholder="INSERT INTO DZINHALA.AUTHOR..." />
-                <marker date="1461342092793" expanded="true" signature="862:939" placeholder="SELECT AUTHO..AUTHOR..." />
-                <marker date="1461342092793" expanded="true" signature="1011:1071" placeholder="SELECT AUTHO..NEWS_AUTHOR..." />
-                <marker date="1461342092793" expanded="true" signature="1131:1207" placeholder="UPDATE DZINH..." />
-                <marker date="1461342092793" expanded="true" signature="1267:1314" placeholder="DELETE FROM ..." />
-                <marker date="1461342092793" expanded="true" signature="1374:1431" placeholder="SELECT AUTHO..AUTHOR..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DZINHALA.AUTHOR" pinned="false" current-in-tab="false">
         <entry file="dbDummy://dbtable:/e56fe048/a631469b-f6f3-45fc-a6a4-457a5a9cdadf/.DZINHALA.AUTHOR">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
@@ -171,17 +106,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpringDatasourceTest.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SpringDatasourceTest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/SpringDatasourceTest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8336252" vertical-offset="0" max-vertical-offset="731">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
               <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
               <folding>
-                <element signature="e#957#971#0" expanded="true" />
-                <element signature="e#1009#1020#0" expanded="true" />
-                <element signature="e#1063#1075#0" expanded="true" />
-                <element signature="e#1118#1134#0" expanded="true" />
+                <marker date="1461582472637" expanded="true" signature="958:970" placeholder="oracle.jdbc.OracleDriver" />
+                <marker date="1461582472637" expanded="true" signature="1010:1019" placeholder="jdbc:oracle:thin:@//localhost:1521/XE" />
+                <marker date="1461582472637" expanded="true" signature="1064:1074" placeholder="dzinhala" />
+                <marker date="1461582472637" expanded="true" signature="1119:1133" placeholder="pass" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="author_input.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+              <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tag_input.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql_dumps/tag_input.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+              <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="roles_input.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sql_dumps/roles_input.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.55308217" vertical-offset="0" max-vertical-offset="584">
+              <caret line="19" column="62" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -201,7 +166,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
               <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -245,9 +212,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/exceptions/DAOException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/exceptions/ServiceException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/CommentService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/RolesService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/AuthorService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/TagService.java" />
@@ -296,6 +260,9 @@
         <option value="$PROJECT_DIR$/src/test/resources/dataSet.xml" />
         <option value="$PROJECT_DIR$/src/test/resources/JdbcConfigTest.properties" />
         <option value="$PROJECT_DIR$/src/test/resources/SpringDatasourceTest.xml" />
+        <option value="$PROJECT_DIR$/sql_dumps/author_input.sql" />
+        <option value="$PROJECT_DIR$/sql_dumps/tag_input.sql" />
+        <option value="$PROJECT_DIR$/sql_dumps/roles_input.sql" />
       </list>
     </option>
   </component>
@@ -548,6 +515,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NewsManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NewsManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql_dumps" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1164,12 +1145,12 @@
       <workItem from="1461336382550" duration="6976000" />
       <workItem from="1461406897356" duration="811000" />
       <workItem from="1461572862324" duration="998000" />
-      <workItem from="1461579823738" duration="2575000" />
+      <workItem from="1461579823738" duration="4983000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="256168000" />
+    <option name="totallyTimeSpent" value="258576000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1263,27 +1244,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/by/epam/lab/task1/service/impl/TestUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11643836" vertical-offset="0" max-vertical-offset="1343">
-          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/dto/UserTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20376712" vertical-offset="0" max-vertical-offset="1105">
-          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/dto/NewsTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11643836" vertical-offset="0" max-vertical-offset="1411">
-          <caret line="10" column="84" selection-start-line="10" selection-start-column="84" selection-end-line="10" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/News.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11643836" vertical-offset="0" max-vertical-offset="1632">
@@ -1550,12 +1510,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3825">
           <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
           <folding>
-            <marker date="1461342092793" expanded="true" signature="753:805" placeholder="INSERT INTO DZINHALA.AUTHOR..." />
-            <marker date="1461342092793" expanded="true" signature="862:939" placeholder="SELECT AUTHO..AUTHOR..." />
-            <marker date="1461342092793" expanded="true" signature="1011:1071" placeholder="SELECT AUTHO..NEWS_AUTHOR..." />
-            <marker date="1461342092793" expanded="true" signature="1131:1207" placeholder="UPDATE DZINH..." />
-            <marker date="1461342092793" expanded="true" signature="1267:1314" placeholder="DELETE FROM ..." />
-            <marker date="1461342092793" expanded="true" signature="1374:1431" placeholder="SELECT AUTHO..AUTHOR..." />
+            <element signature="imports" expanded="false" />
+            <marker date="1461342092793" expanded="true" signature="-1:-1" placeholder="INSERT INTO DZINHALA.AUTHOR..." />
+            <marker date="1461342092793" expanded="true" signature="-1:-1" placeholder="SELECT AUTHO..AUTHOR..." />
+            <marker date="1461342092793" expanded="true" signature="-1:-1" placeholder="SELECT AUTHO..NEWS_AUTHOR..." />
+            <marker date="1461342092793" expanded="true" signature="-1:-1" placeholder="UPDATE DZINH..." />
+            <marker date="1461342092793" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461342092793" expanded="true" signature="-1:-1" placeholder="SELECT AUTHO..AUTHOR..." />
           </folding>
         </state>
       </provider>
@@ -1601,7 +1562,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="389" max-vertical-offset="1258">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1639,14 +1602,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/SpringDatasourceTest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8336252" vertical-offset="0" max-vertical-offset="731">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
           <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
           <folding>
-            <element signature="e#957#971#0" expanded="true" />
-            <element signature="e#1009#1020#0" expanded="true" />
-            <element signature="e#1063#1075#0" expanded="true" />
-            <element signature="e#1118#1134#0" expanded="true" />
+            <marker date="1461582472637" expanded="true" signature="958:970" placeholder="oracle.jdbc.OracleDriver" />
+            <marker date="1461582472637" expanded="true" signature="1010:1019" placeholder="jdbc:oracle:thin:@//localhost:1521/XE" />
+            <marker date="1461582472637" expanded="true" signature="1064:1074" placeholder="dzinhala" />
+            <marker date="1461582472637" expanded="true" signature="1119:1133" placeholder="pass" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql_dumps/tag_input.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql_dumps/roles_input.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55308217" vertical-offset="0" max-vertical-offset="584">
+          <caret line="19" column="62" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
