@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73c65786-1d67-43ad-a897-9dc0692b5492" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/news_input.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql_dumps/users_input.sql" afterPath="$PROJECT_DIR$/sql_dumps/users_input.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/comments_input.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sql_dumps/news_author_input.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NewsManagement.iws" />
@@ -108,17 +108,37 @@
         <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-              <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+              <caret line="19" column="51" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="143" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="news_input.sql" pinned="false" current-in-tab="true">
+      <file leaf-file-name="news_input.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sql_dumps/news_input.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.821366" vertical-offset="534" max-vertical-offset="1105">
-              <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105">
+              <caret line="59" column="92" selection-start-line="59" selection-start-column="92" selection-end-line="59" selection-end-column="92" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="comments_input.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql_dumps/comments_input.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+              <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="news_author_input.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sql_dumps/news_author_input.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="584">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -164,28 +184,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestAuthorRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/by/epam/lab/task1/repository/impl/TestAuthorRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
-              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpringDatasource.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/database/SpringDatasource.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="527">
-              <caret line="21" column="11" selection-start-line="15" selection-start-column="4" selection-end-line="21" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="dataSet.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/dataSet.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -205,7 +203,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/service/TagService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/by/epam/lab/task1/service/impl/TestRoleService.java" />
         <option value="$PROJECT_DIR$/src/main/java/by/epam/lab/task1/repository/impl/Runner.java" />
@@ -256,6 +253,7 @@
         <option value="$PROJECT_DIR$/sql_dumps/author_input.sql" />
         <option value="$PROJECT_DIR$/sql_dumps/users_input.sql" />
         <option value="$PROJECT_DIR$/sql_dumps/news_input.sql" />
+        <option value="$PROJECT_DIR$/sql_dumps/comments_input.sql" />
       </list>
     </option>
   </component>
@@ -1138,12 +1136,12 @@
       <workItem from="1461336382550" duration="6976000" />
       <workItem from="1461406897356" duration="811000" />
       <workItem from="1461572862324" duration="998000" />
-      <workItem from="1461579823738" duration="9479000" />
+      <workItem from="1461579823738" duration="10284000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263072000" />
+    <option name="totallyTimeSpent" value="263877000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1237,20 +1235,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Comment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14554794" vertical-offset="0" max-vertical-offset="1326">
-          <caret line="5" column="67" selection-start-line="5" selection-start-column="67" selection-end-line="5" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/Tag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08732877" vertical-offset="0" max-vertical-offset="986">
-          <caret line="3" column="65" selection-start-line="3" selection-start-column="65" selection-end-line="3" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/by/epam/lab/task1/entity/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17465754" vertical-offset="0" max-vertical-offset="1496">
@@ -1616,18 +1600,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
+    <entry file="file://$PROJECT_DIR$/sql_dumps/news_input.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105">
+          <caret line="59" column="92" selection-start-line="59" selection-start-column="92" selection-end-line="59" selection-end-column="92" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql_dumps/news_input.sql">
+    <entry file="file://$PROJECT_DIR$/sql_dumps/author_input.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.821366" vertical-offset="534" max-vertical-offset="1105">
-          <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="19" column="51" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="143" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql_dumps/comments_input.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql_dumps/news_author_input.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="584">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
