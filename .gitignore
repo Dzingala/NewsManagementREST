@@ -1,0 +1,13 @@
+# Intellij ignorance
+
+.idea/
+
+*.iml
+
+*.iws
+
+
+# Maven ingorance
+
+log/
+target/
