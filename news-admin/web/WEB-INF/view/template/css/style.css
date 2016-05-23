@@ -1,0 +1,31 @@
+html {
+	font-size: 100%;
+}
+
+body {
+	font-family: Verdana;
+}
+
+.header {
+	background: #676767;
+	text-align: center;
+	color: #fff;
+}
+
+.menu {
+	background: #97d6ff;
+	float: left;
+	width: 150px;
+	height: 250px;
+}
+
+.body {
+	background: #f7f0bb;
+	height: 250px;
+	padding-left: 200px;
+}
+
+.footer {
+	background: #fed7a0;
+	text-align: center;
+}
