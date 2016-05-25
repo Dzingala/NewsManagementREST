@@ -21,5 +21,8 @@ public class AuthorController {
     @RequestMapping(value = "/authors",method= RequestMethod.GET)
     public String readAll(ModelMap modelMap) throws ServiceException, DAOException {
         ArrayList<Author> authors=authorService.readAll();
+        modelMap.addAttribute("authors",authors);
+        //modelMap.addAttribute("author",new Author());
+        return "authors";
     }
 }

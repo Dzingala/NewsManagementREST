@@ -7,18 +7,18 @@
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          id="SpringMVC-Tiles-Integration_ID"
          version="2.4">
-  <display-name>SpringMVC-Tiles-Integration</display-name>
-  
+    <display-name>SpringMVC-Tiles-Integration</display-name>
+
     <servlet>
-		<servlet-name>mvc-dispatcher</servlet-name>
-		<servlet-class>
-                org.springframework.web.servlet.DispatcherServlet
-         </servlet-class>
-	</servlet>
- 
-	<servlet-mapping>
-		<servlet-name>mvc-dispatcher</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
 </web-app>
