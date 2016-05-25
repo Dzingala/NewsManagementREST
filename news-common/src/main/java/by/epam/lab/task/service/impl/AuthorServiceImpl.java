@@ -33,6 +33,24 @@ public class AuthorServiceImpl implements AuthorService {
         ArrayList<Author> authors = authorRepository.readAll();
         return authors.contains(author);
     }
+
+    /**
+     * Implementation of AuthorService method readAll.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Override
+    public ArrayList<Author> readAll() throws ServiceException {
+        logger.debug("Reading all authors in AuthorService");
+        ArrayList<Author> authors = null;
+        try{
+            authors=authorRepository.readAll();
+        } catch (DAOException e) {
+            logger.error("DAOException while reading all authors in AuthorService");
+            throw new ServiceException("ServiceException while reading all authors", e);
+        }
+        return authors;
+    }
+
     /**
      * Implementation of AuthorService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException

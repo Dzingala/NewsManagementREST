@@ -12,6 +12,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 /**
  * @author Ivan Dzinhala
  */
@@ -51,5 +55,14 @@ public class TestAuthorService {
         Author author=new Author();
         authorService.update(author);
         Mockito.verify(authorRepository).update(author.getId(),author);
+    }
+    @Test
+    public void readAllTest()throws DAOException,ServiceException{
+        Author authorExpected = new Author();
+        ArrayList<Author> authorsExpected=new ArrayList<>();
+        authorsExpected.add(authorExpected);
+        Mockito.when(authorRepository.readAll()).thenReturn(authorsExpected);
+        ArrayList<Author> authors =authorService.readAll();
+        assertTrue(authors.equals(authorsExpected));
     }
 }
