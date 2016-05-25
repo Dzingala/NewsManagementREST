@@ -34,6 +34,10 @@ public class AuthorServiceImpl implements AuthorService {
         return authors.contains(author);
     }
 
+    /**
+     * Implementation of AuthorService method readAll.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
     @Override
     public ArrayList<Author> readAll() throws ServiceException {
         logger.debug("Reading all authors in AuthorService");
