@@ -28,4 +28,8 @@
         <put-attribute name="title" value="authors"/>
         <put-attribute name="content" value="/WEB-INF/view/body/authors.jsp"/>
     </definition>
+    <definition name="authorList" extends="defaultTemplate">
+        <put-attribute name="title" value="Author creation" />
+        <put-attribute name="content" value="/WEB-INF/view/body/author_create.jsp" />
+    </definition>
 </tiles-definitions>
