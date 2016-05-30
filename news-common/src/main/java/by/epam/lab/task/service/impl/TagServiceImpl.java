@@ -76,7 +76,7 @@ public class TagServiceImpl implements TagService {
             logger.error("DAOException while reading tags by news id in TagService");
             throw new ServiceException("ServiceException while reading tags by news id",e);
         }
-        return null;
+        return tags;
     }
     /**
      * Implementation of TagService method update.

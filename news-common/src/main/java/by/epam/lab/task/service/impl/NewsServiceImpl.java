@@ -38,6 +38,25 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private CommentService commentService;
+
+    /**
+     * Implementation of NewsService method readAll.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public ArrayList<News> readAll() throws ServiceException {
+        logger.debug("Reading all authors in AuthorService");
+        ArrayList<News> news = null;
+        try{
+            news=newsRepository.readAll();
+        } catch (DAOException e) {
+            logger.error("DAOException while reading all news in AuthorService");
+            throw new ServiceException("ServiceException while reading all news", e);
+        }
+        return news;
+    }
+
     /**
      * Implementation of NewsService method readSortedByComments.
      * @see by.epam.lab.task.exceptions.service.ServiceException

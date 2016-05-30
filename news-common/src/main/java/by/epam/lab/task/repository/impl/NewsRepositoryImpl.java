@@ -237,17 +237,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         try {
             conn = dataSource.getConnection();
             try (PreparedStatement ps = conn.prepareStatement(READ_ALL_NEWS_QUERY); ResultSet rs = ps.executeQuery()) {
-
-                if (rs.next()) {
-                    news=new ArrayList<>();
-                    news.add( new News(
-                            rs.getLong(COLUMN_NAME_ID),
-                            rs.getString(COLUMN_NAME_TITLE),
-                            rs.getString(COLUMN_NAME_SHORT_TEXT),
-                            rs.getString(COLUMN_NAME_FULL_TEXT),
-                            rs.getTimestamp(COLUMN_NAME_CREATION_DATE),
-                            rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
-                    ));
+                news=new ArrayList<>();
                     while (rs.next()){
                         news.add( new News(
                                 rs.getLong(COLUMN_NAME_ID),
@@ -258,9 +248,10 @@ public class NewsRepositoryImpl implements NewsRepository {
                                 rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
                         ));
                     }
-                }else {
+                if(news.isEmpty()) {
                     logger.debug("Here is no news in the database");
                 }
+
             } finally {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }

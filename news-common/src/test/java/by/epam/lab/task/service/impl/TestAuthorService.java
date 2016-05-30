@@ -37,7 +37,12 @@ public class TestAuthorService {
         authorService.create(author);
         Mockito.verify(authorRepository).create(author);
     }
-
+    @Test
+    public void readTest() throws DAOException, ServiceException {
+        Long authorId=1l;
+        authorService.read(authorId);
+        Mockito.verify(authorRepository).read(authorId);
+    }
     @Test
     public void deleteTest() throws DAOException, ServiceException {
         Author author = new Author();

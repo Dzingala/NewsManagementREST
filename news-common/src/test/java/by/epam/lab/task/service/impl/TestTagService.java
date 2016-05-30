@@ -44,7 +44,7 @@ public class TestTagService {
     }
 
     @Test
-    public void readByItTest() throws DAOException, ServiceException {
+    public void readByIdTest() throws DAOException, ServiceException {
         Long tagId=1l;
         tagService.readById(tagId);
         Mockito.verify(tagRepository).read(tagId);

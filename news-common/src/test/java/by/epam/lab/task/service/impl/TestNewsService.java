@@ -185,5 +185,14 @@ public class TestNewsService {
         Mockito.verify(newsRepository).readSortedByComments();
 
     }
+    @Test
+    public void readAllTest()throws DAOException,ServiceException{
+        News newsExpected = new News();
+        ArrayList<News> newsListExpected=new ArrayList<>();
+        newsListExpected.add(newsExpected);
+        Mockito.when(newsRepository.readAll()).thenReturn(newsListExpected);
+        ArrayList<News> news =newsService.readAll();
+        assertTrue(news.equals(newsListExpected));
+    }
 
 }

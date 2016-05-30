@@ -35,9 +35,28 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     /**
+     * Implementation of AuthorService method read.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Author read(Long id) throws ServiceException {
+        logger.debug("Reading author in AuthorService");
+        Author author = null;
+        try{
+            author = authorRepository.read(id);
+        } catch (DAOException e) {
+            logger.error("DAOException while reading an author in AuthorService");
+            throw new ServiceException("ServiceException while reading an author", e);
+        }
+        return author;
+    }
+
+    /**
      * Implementation of AuthorService method readAll.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public ArrayList<Author> readAll() throws ServiceException {
         logger.debug("Reading all authors in AuthorService");

@@ -158,19 +158,13 @@ public class TagRepositoryImpl implements TagRepository {
             conn = dataSource.getConnection();
             try (PreparedStatement ps = conn.prepareStatement(READ_ALL_TAGS_QUERY)){
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-
-                        tags =new ArrayList<>();
+                    tags = new ArrayList<>();
+                    while (rs.next()) {
                         tags.add(new Tag(rs.getLong(COLUMN_NAME_TAG_ID),
                                 rs.getString(COLUMN_NAME_TAG_NAME)
                         ));
-                        while(rs.next()){
-                            tags.add(new Tag(rs.getLong(COLUMN_NAME_TAG_ID),
-                                    rs.getString(COLUMN_NAME_TAG_NAME)
-                            ));
-                        }
                     }
-                    else{
+                    if (tags.isEmpty()) {
                         logger.debug("There are no tags in database");
                     }
                 }
@@ -198,14 +192,12 @@ public class TagRepositoryImpl implements TagRepository {
             try (PreparedStatement ps = conn.prepareStatement(READ_TAGS_ID_BY_NEWS_ID_QUERY)) {
                 ps.setLong(1,newsId);
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        tagsIdList = new ArrayList<>();
+                    tagsIdList = new ArrayList<>();
+                    while (rs.next()) {
                         tagsIdList.add(rs.getLong(COLUMN_NAME_NEWS_TAG_TAG_ID));
-                        while(rs.next()){
-                            tagsIdList.add(rs.getLong(COLUMN_NAME_NEWS_TAG_TAG_ID));
-                        }
-                    }else {
-                        logger.debug("Here is no tags for news id="+newsId);
+                    }
+                    if (tagsIdList.isEmpty()) {
+                        logger.debug("Here is no tags for news id=" + newsId);
                     }
                 }
             } finally {
@@ -216,9 +208,9 @@ public class TagRepositoryImpl implements TagRepository {
             logger.debug("Tags' id was not received");
             throw new DAOException(e);
         }
-        if (tagsIdList == null) {
-            throw new NoSuchEntityException("News id="+newsId+" have no tags assigned");
-        }
+//        if (tagsIdList == null) {
+//            throw new NoSuchEntityException("News id="+newsId+" have no tags assigned");
+//        }
         return tagsIdList;
     }
 }

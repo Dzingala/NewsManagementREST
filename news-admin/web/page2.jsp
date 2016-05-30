@@ -1,7 +1,9 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+message is :
 ${message}
-<tiles:insertDefinition name="defaultTemplate">
-	<tiles:putAttribute name="body">
-		<br>overrided body
-	</tiles:putAttribute>
-</tiles:insertDefinition>
+end of message
+<%--<tiles:insertDefinition name="defaultTemplate">--%>
+	<%--<tiles:putAttribute name="body">--%>
+		<%--<br>overrided body--%>
+	<%--</tiles:putAttribute>--%>
+<%--</tiles:insertDefinition>--%>

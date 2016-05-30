@@ -28,7 +28,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     private static final String COLUMN_NAME_NEWS_ID = "NEWS_ID";
     private static final String COLUMN_NAME_COMMENTS_TEXT = "COMMENT_TEXT";
     private static final String COLUMN_NAME_COMMENTS_DATE = "CREATION_DATE";
-    private static final String COLUMN_NAME_COMMENT_ID = "NEWS_ID";
+    private static final String COLUMN_NAME_COMMENT_ID = "COMMENT_ID";
 
 
     @Autowired
@@ -168,22 +168,15 @@ public class CommentsRepositoryImpl implements CommentsRepository {
 
             try (PreparedStatement ps = conn.prepareStatement(READ_ALL_COMMENTS_QUERY)) {
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        comments=new ArrayList<>();
+                    comments = new ArrayList<>();
+                    while (rs.next()) {
                         comments.add(new Comment(rs.getLong(COLUMN_NAME_COMMENT_ID),
                                 rs.getLong(COLUMN_NAME_NEWS_ID),
                                 rs.getString(COLUMN_NAME_COMMENTS_TEXT),
                                 rs.getTimestamp(COLUMN_NAME_COMMENTS_DATE)
                         ));
-                        while (rs.next()){
-                            comments.add(new Comment(rs.getLong(COLUMN_NAME_COMMENT_ID),
-                                    rs.getLong(COLUMN_NAME_NEWS_ID),
-                                    rs.getString(COLUMN_NAME_COMMENTS_TEXT),
-                                    rs.getTimestamp(COLUMN_NAME_COMMENTS_DATE)
-                            ));
-                        }
                     }
-                    else{
+                    if (comments.isEmpty()) {
                         logger.debug("There are no comments in database");
                     }
                 }

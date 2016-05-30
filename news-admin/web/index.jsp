@@ -14,8 +14,10 @@
 <c:url var="page2" value="/page2"/>
 <a href="page2">Page 2 (with a custom context)</a><br>
 <c:url var="helloWorld" value="/helloWorld" />
-<a href="${helloWorld}">ds</a><br>
-<c:url var="authors" value="/author/authors"/>
+<a href="${helloWorld}">helloworld</a><br>
+<c:url var="authors" value="/authors"/>
 <a href="${authors}">authors</a><br>
+<c:url var="news" value="/news"/>
+<a href="${news}">news</a>
 </body>
 </html>

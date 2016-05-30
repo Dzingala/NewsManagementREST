@@ -12,6 +12,13 @@ import java.util.ArrayList;
  */
 public interface AuthorService {
     /**
+     * Get author from database by id.
+     * @param id
+     * @return required author.
+     * @throws ServiceException
+     */
+    Author read (Long id) throws ServiceException;
+    /**
      * Read all authors from database.
      * @return list of all authors
      * @throws ServiceException

@@ -199,9 +199,9 @@ public class UserRepositoryImpl implements UserRepository {
             conn = dataSource.getConnection();
             try (PreparedStatement ps = conn.prepareStatement(READ_ALL_USERS_QUERY)) {
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        users= new ArrayList<>();
-                        String password=rs.getString(COLUMN_NAME_USER_PASSWORD);
+                    users = new ArrayList<>();
+                    while (rs.next()) {
+                        String password = rs.getString(COLUMN_NAME_USER_PASSWORD);
                         User user = new User(
                                 rs.getLong(COLUMN_NAME_ROLE_ID),
                                 rs.getLong(COLUMN_NAME_USER_ID),
@@ -211,20 +211,9 @@ public class UserRepositoryImpl implements UserRepository {
                         );
                         user.setReadyPassword(password);
                         users.add(user);
-                        while (rs.next()){
-                            String password1=rs.getString(COLUMN_NAME_USER_PASSWORD);
-                            User user1 = new User(
-                                    rs.getLong(COLUMN_NAME_ROLE_ID),
-                                    rs.getLong(COLUMN_NAME_USER_ID),
-                                    rs.getString(COLUMN_NAME_USER_NAME),
-                                    rs.getString(COLUMN_NAME_USER_LOGIN),
-                                    rs.getString(COLUMN_NAME_USER_PASSWORD)
-                            );
-                            user.setReadyPassword(password1);
-                            users.add(user1);
-                        }
                     }
-                    else{
+
+                    if (users.isEmpty()) {
                         logger.debug("There are no users registered in database");
                         throw new NoSuchEntityException("There are no users registered in database");
                     }

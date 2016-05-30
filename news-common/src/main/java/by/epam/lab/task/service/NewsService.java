@@ -12,6 +12,12 @@ import java.util.ArrayList;
  * @author Ivan Dzinhala
  */
 public interface NewsService {
+    /**
+     * Get all news existing in database.
+     * @return the list of all news.
+     * @throws ServiceException
+     */
+    ArrayList<News> readAll() throws ServiceException;
 
     /**
      * Get all news that are sorted by comments.

@@ -12,6 +12,7 @@
 		<put-attribute name="footer" value="/WEB-INF/view/template/footer.jsp" />
         <put-attribute name="content" value=""/>
 	</definition>
+    <definition name="index" template="/index.jsp"/>
     <definition name="helloTest" extends="defaultTemplate">
         <put-attribute name="title" value="Hello Test" />
         <put-attribute name="content" value="/WEB-INF/view/body/hello.jsp" />
@@ -24,12 +25,17 @@
         <put-attribute name="title" value="Page 2"/>
         <put-attribute name="content" value="/page2.jsp"/>
     </definition>
-    <definition name="authors" extends="defaultTemplate">
-        <put-attribute name="title" value="authors"/>
-        <put-attribute name="content" value="/WEB-INF/view/body/authors.jsp"/>
+    <definition name="authors_index" extends="defaultTemplate">
+        <put-attribute name="title" value="Authors Main"/>
+        <put-attribute name="content" value="/WEB-INF/view/body/author/authors_index.jsp"/>
     </definition>
-    <definition name="authorList" extends="defaultTemplate">
-        <put-attribute name="title" value="Author creation" />
-        <put-attribute name="content" value="/WEB-INF/view/body/author_create.jsp" />
+
+    <definition name="news_index" extends="defaultTemplate">
+        <put-attribute name="title" value="News Editor"/>
+        <put-attribute name="content" value="/WEB-INF/view/body/news/news_index.jsp"/>
+    </definition>
+    <definition name="news_full" extends="defaultTemplate">
+        <put-attribute name="title" value="Hello Test" />
+        <put-attribute name="content" value="/WEB-INF/view/body/news/news_full.jsp" />
     </definition>
 </tiles-definitions>

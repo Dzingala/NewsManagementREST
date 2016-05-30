@@ -160,22 +160,15 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         try {
             conn = dataSource.getConnection();
             try (PreparedStatement ps = conn.prepareStatement(READ_ALL_AUTHORS_QUERY)) {
-
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        authors=new ArrayList<>();
+                    authors = new ArrayList<>();
+                    while (rs.next()) {
                         authors.add(new Author(rs.getLong(COLUMN_NAME_AUTHOR_ID),
                                 rs.getString(COLUMN_NAME_AUTHOR_NAME),
                                 rs.getTimestamp(COLUMN_NAME_EXPIRED)
                         ));
-                        while(rs.next()){
-                            authors.add(new Author(rs.getLong(COLUMN_NAME_AUTHOR_ID),
-                                    rs.getString(COLUMN_NAME_AUTHOR_NAME),
-                                    rs.getTimestamp(COLUMN_NAME_EXPIRED)
-                            ));
-                        }
                     }
-                    else{
+                    if (authors.isEmpty()) {
                         logger.debug("There are no authors in database");
                     }
                 }

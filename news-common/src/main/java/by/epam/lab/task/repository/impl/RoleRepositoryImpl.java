@@ -157,18 +157,13 @@ public class RoleRepositoryImpl implements RoleRepository {
             conn = dataSource.getConnection();
             try (PreparedStatement ps = conn.prepareStatement(READ_ALL_ROLES_QUERY)){
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        roles=new ArrayList<>();
+                    roles = new ArrayList<>();
+                    while (rs.next()) {
                         roles.add(new Role(rs.getLong(COLUMN_NAME_ROLE_ID),
                                 rs.getString(COLUMN_NAME_ROLE_NAME)
                         ));
-                        while (rs.next()){
-                            roles.add(new Role(rs.getLong(COLUMN_NAME_ROLE_ID),
-                                    rs.getString(COLUMN_NAME_ROLE_NAME)
-                            ));
-                        }
                     }
-                    else{
+                    if (roles.isEmpty()) {
                         logger.debug("There are no roles in database");
                     }
                 }
