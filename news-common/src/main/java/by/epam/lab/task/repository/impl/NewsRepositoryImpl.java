@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @Component
 public class NewsRepositoryImpl implements NewsRepository {
@@ -191,7 +192,8 @@ public class NewsRepositoryImpl implements NewsRepository {
                 ps.setString(2, news.getShortText());
                 ps.setString(3, news.getFullText());
                 ps.setTimestamp(4, news.getCreationDate());
-                ps.setDate(5, news.getModificationDate());
+//                ps.setDate(5, news.getModificationDate());
+                ps.setDate(5,new java.sql.Date(Calendar.getInstance().getTime().getTime()));
                 ps.setLong(6, id);
                 ps.executeUpdate();
             } finally {

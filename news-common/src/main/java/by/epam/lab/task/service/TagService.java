@@ -46,4 +46,11 @@ public interface TagService {
      * @throws ServiceException
      */
     void delete(Tag tag)throws ServiceException;
+
+    /**
+     * Read all tags from database.
+     * @return list of all tags
+     * @throws ServiceException
+     */
+    ArrayList<Tag> readAll() throws ServiceException;
 }

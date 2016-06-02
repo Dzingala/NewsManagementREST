@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 /**
  * @author Ivan Dzinhala
@@ -75,5 +77,13 @@ public class TestTagService {
         tagService.update(tag);
         Mockito.verify(tagRepository).update(tag.getId(),tag);
     }
-
+    @Test
+    public void readAllTest()throws DAOException,ServiceException{
+        Tag tagExpected = new Tag();
+        ArrayList<Tag> tagsExpected=new ArrayList<>();
+        tagsExpected.add(tagExpected);
+        Mockito.when(tagRepository.readAll()).thenReturn(tagsExpected);
+        ArrayList<Tag> tags =tagService.readAll();
+        assertTrue(tags.equals(tagsExpected));
+    }
 }

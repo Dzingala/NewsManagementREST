@@ -108,4 +108,21 @@ public class TagServiceImpl implements TagService {
             throw new ServiceException("ServiceException while deleting tag",e);
         }
     }
+    /**
+     * Implementation of TagService method readAll.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional
+    @Override
+    public ArrayList<Tag> readAll() throws ServiceException {
+        logger.debug("Reading all tags in TagService");
+        ArrayList<Tag> tags = null;
+        try{
+            tags=tagRepository.readAll();
+        } catch (DAOException e) {
+            logger.error("DAOException while reading all tags in TagService");
+            throw new ServiceException("ServiceException while reading all tags", e);
+        }
+        return tags;
+    }
 }

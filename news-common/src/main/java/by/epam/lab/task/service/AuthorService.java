@@ -38,7 +38,7 @@ public interface AuthorService {
      * @throws ServiceException
      * @return author
      */
-    Author readByNewsId(Long newsId) throws ServiceException, DAOException;
+    Author readByNewsId(Long newsId) throws ServiceException;
 
     /**
      * Make the author expired.

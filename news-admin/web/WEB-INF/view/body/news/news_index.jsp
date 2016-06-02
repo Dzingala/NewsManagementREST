@@ -29,7 +29,7 @@
             <th></th>
         </tr>
 
-        <c:forEach var="newsTO" items="${newsTOList}">
+        <c:forEach var="newsTO" items="${newsList}">
             <tr>
                 <td>
                     <a href="/news/${newsTO.news.id}">
@@ -56,32 +56,6 @@
                 <td>
                     <a href="/news/edit/${newsTO.news.id}">edit</a>
                 </td>
-                <%--<td>--%>
-                    <%--<c:url var="edit" value="/news/edit/${newsTO.news.id}">--%>
-                        <%--<c:param name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="curPage" value="${curPage}"/>--%>
-                    <%--</c:url>--%>
-                    <%--<security:authorize access="hasRole('ROLE_ADMIN')">--%>
-                        <%--<a href="${edit}">Edit</a> |--%>
-                    <%--</security:authorize>--%>
-
-                    <%--<c:url var="details" value="/news/details/${newsTO.news.id}">--%>
-                        <%--<c:param name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="curPage" value="${curPage}"/>--%>
-                    <%--</c:url>--%>
-                    <%--<a href="${details}">Details</a>--%>
-
-                    <%--<c:url var="delete" value="/news/delete/${newsTO.news.id}">--%>
-                        <%--<c:param name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="curPage" value="${curPage}"/>--%>
-                    <%--</c:url>--%>
-                    <%--<security:authorize access="hasRole('ROLE_ADMIN')">--%>
-                        <%--| <a href="${delete}">Delete</a>--%>
-                    <%--</security:authorize>--%>
-                <%--</td>--%>
             </tr>
         </c:forEach>
 

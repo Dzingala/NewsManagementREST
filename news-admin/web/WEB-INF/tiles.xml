@@ -31,11 +31,15 @@
     </definition>
 
     <definition name="news_index" extends="defaultTemplate">
-        <put-attribute name="title" value="News Editor"/>
+        <put-attribute name="title" value="News main"/>
         <put-attribute name="content" value="/WEB-INF/view/body/news/news_index.jsp"/>
     </definition>
     <definition name="news_full" extends="defaultTemplate">
-        <put-attribute name="title" value="Hello Test" />
+        <put-attribute name="title" value="News specifically" />
         <put-attribute name="content" value="/WEB-INF/view/body/news/news_full.jsp" />
+    </definition>
+    <definition name="news_edit" extends="defaultTemplate">
+        <put-attribute name="title" value="News editor" />
+        <put-attribute name="content" value="/WEB-INF/view/body/news/news_edit.jsp" />
     </definition>
 </tiles-definitions>
