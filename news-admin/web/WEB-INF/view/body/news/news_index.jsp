@@ -1,11 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <div class="container body-content">
     <h2>News</h2>
     <%--<p>--%>
     <%--<c:url var="authorCreation" value="/authors/create"/>--%>
     <%--<a href="${authorCreation}">Create New</a>--%>
     <%--</p>--%>
+    <sf:form modelAttribute="newsTOList" method="post" action="/news/delete">
     <table class="table">
         <tr>
             <th>
@@ -55,11 +57,16 @@
                 </td>
                 <td>
                     <a href="/news/edit/${newsTO.news.id}">edit</a>
+                    <input type="checkbox" name="newsToDelList" value="${newsTO.news.id}">
+
                 </td>
+
             </tr>
         </c:forEach>
 
     </table>
+    <input type="submit" name="command" value="Delete"/>
+    </sf:form>
     <hr />
     <%--footer--%>
 </div>

@@ -3,6 +3,7 @@ package by.epam.lab.task.service.impl;
 
 import by.epam.lab.task.entity.*;
 import by.epam.lab.task.entity.dto.NewsTO;
+import by.epam.lab.task.entity.dto.NewsTORecord;
 import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.repository.NewsRepository;
@@ -16,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * @author Ivan Dzinhala
@@ -171,7 +174,8 @@ public class NewsServiceImpl implements NewsService {
     public void update(NewsTO newsTO) throws ServiceException {
         logger.debug("Updating news and all information connected with it in NewsServiceImpl");
         try {
-            newsRepository.update(newsTO.getNews().getId(), newsTO.getNews());
+            newsTO.getNews().setModificationDate(new Date(Calendar.getInstance().getTime().getTime()));
+            newsRepository.update(newsTO.getNews().getId(),newsTO.getNews());
         } catch (DAOException e) {
             logger.error("DAOException while updating news in NewsServiceImpl");
             throw new ServiceException("ServiceException while updating news", e);
@@ -190,18 +194,87 @@ public class NewsServiceImpl implements NewsService {
         ArrayList<Comment> commentList = newsTO.getCommentList();
         ArrayList<Tag> tagList = newsTO.getTagList();
         try {
-            newsRepository.disjoinNewsWithAuthor(news.getId(), author.getId());
-            for(Comment com : commentList){
-                commentService.delete(com);
+            if(author!=null) {
+                newsRepository.disjoinNewsWithAuthor(news.getId(), author.getId());
             }
-            for(Tag tag : tagList){
-                newsRepository.disjoinNewsWithTag(news.getId(), tag.getId());
+            if(commentList!=null) {
+                for (Comment com : commentList) {
+                    commentService.delete(com);
+                }
+            }
+            if(tagList!=null) {
+                for (Tag tag : tagList) {
+                    newsRepository.disjoinNewsWithTag(news.getId(), tag.getId());
+                }
             }
             newsRepository.delete(news.getId());
-
         } catch (DAOException e) {
             logger.error("DAOException while deleting news and connected information in NewsServiceImpl");
             throw new ServiceException("ServiceException while deleting news", e);
         }
+    }
+    /**
+     * Implementation of NewsService method getNewsForEditing.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Override
+    public NewsTORecord getNewsForEditing(Long newsId)throws ServiceException{
+        NewsTORecord newsTORecord;
+        NewsTO newsTO = readDataByNewsId(newsId);
+        Author author;
+        ArrayList<Tag> tagList;
+        newsTORecord= new NewsTORecord();
+        author=authorService.readByNewsId(newsId);
+        tagList=tagService.readTagsByNewsId(newsId);
+        newsTORecord.setNews(newsTO.getNews());
+        newsTORecord.setAuthorId(author.getId());
+        ArrayList<Long> tagIdList = new ArrayList<>();
+        for(Tag tag: tagList){
+            tagIdList.add(tag.getId());
+        }
+        newsTORecord.setTagIdList(tagIdList);
+        return newsTORecord;
+    }
+    /**
+     * Implementation of NewsService method updateNews.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Override
+    public void updateNews(NewsTORecord newsTORecord) throws ServiceException{
+        News news = newsTORecord.getNews();
+        NewsTO newsTO=new NewsTO();
+        newsTO.setNews(news);
+        update(newsTO);
+        ArrayList<Long> tagIdList=newsTORecord.getTagIdList();
+        ArrayList<Tag> tagListBefore= tagService.readTagsByNewsId(news.getId());
+        try {
+            if (tagListBefore.isEmpty()) {
+                if(tagIdList!=null) {
+                    for (Long tagId : tagIdList) {
+                        newsRepository.joinNewsWithTag(news.getId(), tagId);
+                    }
+                }
+            }
+            else{
+                for(Tag tag:tagListBefore){
+                    newsRepository.disjoinNewsWithTag(news.getId(),tag.getId());
+                }
+                if(tagIdList!=null) {
+                    for (Long tagId : tagIdList) {
+                        newsRepository.joinNewsWithTag(news.getId(), tagId);
+                    }
+                }
+            }
+            Long authorId = newsTORecord.getAuthorId();
+            if(authorId!=null){
+                Author oldAuthor = authorService.readByNewsId(news.getId());
+                newsRepository.disjoinNewsWithAuthor(news.getId(),oldAuthor.getId());
+                newsRepository.joinNewsWithAuthor(news.getId(),authorId);
+            }
+        } catch (DAOException e) {
+            logger.error("DAOException while updating news record and connected information in NewsServiceImpl");
+            throw new ServiceException("ServiceException while updating news record", e);
+        }
+
     }
 }

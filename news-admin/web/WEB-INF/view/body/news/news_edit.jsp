@@ -9,18 +9,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<sf:form modelAttribute="NewsTORecord" method="post" action="/news/update">
+<sf:form modelAttribute="newsTORecord" method="post" action="/news/update">
 
 
     Title
-    <sf:input path="news.title" value="${NewsTORecord.news.title}"/>
+    <sf:input path="news.title" value="${newsTORecord.news.title}"/>
 
 
     Brief
-    <sf:textarea path="news.shortText" value="${NewsTORecord.news.shortText}"/>
+    <sf:textarea path="news.shortText" value="${newsTORecord.news.shortText}"/>
 
     Content
-    <sf:textarea path="news.fullText" value="${NewsTORecord.news.fullText}"/>
+    <sf:textarea path="news.fullText" value="${newsTORecord.news.fullText}"/>
 
     <sf:select path="authorId">
         <c:forEach items="${authorList}" var="author">
@@ -30,19 +30,16 @@
 
 
     <sf:select path="tagIdList" multiple="true">
-
-
         <c:forEach items="${tagList}" var="tag">
-
             <sf:option value="${tag.id}">${tag.name}</sf:option>
         </c:forEach>
     </sf:select>
 
-    <input type="hidden" value="${NewsTORecord.news.id}" name="page"/>
+    <input type="hidden" value="${newsTORecord.news.id}" name="id"/>
 
-    <sf:input path="news.id" type="hidden" value="${NewsTORecord.news.id}" />
+    <sf:input path="news.id" type="hidden" value="${newsTORecord.news.id}" />
 
-    <sf:input path="news.creationDate" type="hidden" value="${NewsTORecord.news.creationDate}" />
+    <sf:input path="news.creationDate" type="hidden" value="${newsTORecord.news.creationDate}" />
 
     <input type="submit" name="command" value="Update"/>
 

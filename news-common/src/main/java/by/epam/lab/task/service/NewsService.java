@@ -4,6 +4,7 @@ package by.epam.lab.task.service;
 import by.epam.lab.task.entity.News;
 import by.epam.lab.task.entity.SearchCriteria;
 import by.epam.lab.task.entity.dto.NewsTO;
+import by.epam.lab.task.entity.dto.NewsTORecord;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public interface NewsService {
      * with news by news id.
      * @param id
      * @throws ServiceException
-     * @return role id of required user id
+     * @return NewsTO object consisting of all information required.
      */
     NewsTO readDataByNewsId(Long id)throws ServiceException;
 
@@ -67,4 +68,18 @@ public interface NewsService {
      */
     void delete(NewsTO newsTO)throws ServiceException;
 
+    /**
+     * Get all information concerning news by news id in record format.
+     * @param newsId
+     * @return NewsTORecord object consisting of all information required in record form.
+     * @throws ServiceException
+     */
+    NewsTORecord getNewsForEditing(Long newsId) throws ServiceException;
+
+    /**
+     * Update all information concerning certain piece of news given in record form.
+     * @param newsTORecord
+     * @throws ServiceException
+     */
+    void updateNews(NewsTORecord newsTORecord) throws ServiceException;
 }

@@ -14,12 +14,9 @@ import by.epam.lab.task.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 @Controller
 public class NewsController {
@@ -52,56 +49,35 @@ public class NewsController {
         return "news_full";
     }
 
-    //    @RequestMapping(value = "/news/edit/{id}",method = RequestMethod.GET)
-//    public String editNewsById(@PathVariable Long id,ModelMap model)throws ServiceException{
-//        NewsTO newsTO=newsService.readDataByNewsId(id);
-//        model.addAttribute("newsTO", newsTO);
-//        model.addAttribute("tags",tagService.readAll());
-//        model.addAttribute("authors",authorService.readAll());
-//        return "news_edit";
-//
-//    }
-//    @RequestMapping(value = "/news/edit/{id}",method = RequestMethod.POST)
-//    public String saveUpdates(@ModelAttribute NewsTO newsTO,@PathVariable Long id,BindingResult bindingResult,ModelMap model)throws ServiceException{
-//        if(bindingResult.hasErrors()){
-//            return editNewsById(id,model);
-//        }
-//        Date sqlDate = new Date(Calendar.getInstance().getTime().getTime());
-//        newsTO.getNews().setModificationDate(sqlDate);
-//        newsTO.getNews().setId(id);
-//        newsService.update(newsTO);
-//        return "redirect:/news/edit/"+id;
-//    }
+
     @RequestMapping(value = "/news/edit/{newsId}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable Long newsId,
                               ModelMap model) throws ServiceException {
-        System.out.println("GETTTTTT:");
-        NewsTO newsTO = newsService.readDataByNewsId(newsId);
-        System.out.println("READ NEWS:"+newsTO);
-        model.addAttribute("newsTO", newsTO);
+        NewsTORecord newsTORecord = newsService.getNewsForEditing(newsId);
         ArrayList<Author> authorList = authorService.readAll();
+        ArrayList<Tag> tagList = tagService.readAll();
+        model.addAttribute("newsTORecord", newsTORecord);
         model.addAttribute("authorList", authorList);
-        model.addAttribute("tagList", tagService.readAll());
-        System.out.println("====== Edit News Get =======");
+        model.addAttribute("tagList", tagList);
         return "news_edit";
     }
 
     @RequestMapping(value = "/news/update", method = RequestMethod.POST)
     public String editNews(
-            @ModelAttribute NewsTORecord newsTORecord, @RequestParam Long id) throws ServiceException {
-        System.out.println("POSTTTTTT:");
-        System.out.println("GOTNEWS:"+newsTORecord);
-        Date modificationDate = new Date(Calendar.getInstance().getTime().getTime());
-        newsTORecord.getNews().setModificationDate(modificationDate);
-        newsTORecord.getNews().setId(id);
-        System.out.println("TOUPDATENEWS:"+newsTO);
-        newsService.update(newsTORecord.);
-        System.out.println("====== Edit News =======");
+            @ModelAttribute NewsTORecord newsTORecord) throws ServiceException {
+        newsService.updateNews(newsTORecord);
         return "redirect:/news";
     }
-//    @RequestMapping(value="/news/add",method = RequestMethod.GET)
-//    public String addNews(ModelMap modelMap){
-//
-//    }
+
+    @RequestMapping(value = "/news/delete", method = RequestMethod.POST)
+    public String deleteNews(@RequestParam ArrayList<Long> newsToDelList)throws ServiceException{
+        NewsTO newsTO;
+        for(Long newsId : newsToDelList){
+            System.out.println("NEWSTODELGOT:"+newsId);
+            newsTO=newsService.readDataByNewsId(newsId);
+            newsService.delete(newsTO);
+        }
+        return "redirect:/news";
+    }
 
 }

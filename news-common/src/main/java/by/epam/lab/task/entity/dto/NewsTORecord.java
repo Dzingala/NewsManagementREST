@@ -1,23 +1,20 @@
 package by.epam.lab.task.entity.dto;
 
-
 import by.epam.lab.task.entity.News;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class NewsTORecord implements Serializable {
-
     private News news;
-    private ArrayList<Long> tagIdList;
     private Long authorId;
+    private ArrayList<Long> tagIdList;
+    public NewsTORecord(){}
 
-    public NewsTORecord(News news, ArrayList<Long> tagIdList, Long authorId) {
+    public NewsTORecord(News news, Long authorId, ArrayList<Long> tagIdList) {
         this.news = news;
-        this.tagIdList = tagIdList;
         this.authorId = authorId;
-    }
-
-    public NewsTORecord() {
+        this.tagIdList = tagIdList;
     }
 
     public News getNews() {
@@ -28,14 +25,6 @@ public class NewsTORecord implements Serializable {
         this.news = news;
     }
 
-    public ArrayList<Long> getTagIdList() {
-        return tagIdList;
-    }
-
-    public void setTagIdList(ArrayList<Long> tagIdList) {
-        this.tagIdList = tagIdList;
-    }
-
     public Long getAuthorId() {
         return authorId;
     }
@@ -44,15 +33,12 @@ public class NewsTORecord implements Serializable {
         this.authorId = authorId;
     }
 
+    public ArrayList<Long> getTagIdList() {
+        return tagIdList;
+    }
 
-
-    @Override
-    public String toString() {
-        return "NewsTORecord{" +
-                "news=" + news +
-                ", tagIdList=" + tagIdList +
-                ", authorId=" + authorId +
-                '}';
+    public void setTagIdList(ArrayList<Long> tagIdList) {
+        this.tagIdList = tagIdList;
     }
 
     @Override
@@ -72,8 +58,17 @@ public class NewsTORecord implements Serializable {
     @Override
     public int hashCode() {
         int result = news != null ? news.hashCode() : 0;
-        result = 31 * result + (tagIdList != null ? tagIdList.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
+        result = 31 * result + (tagIdList != null ? tagIdList.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsTORecord{" +
+                "news=" + news +
+                ", authorId=" + authorId +
+                ", tagIdList=" + tagIdList +
+                '}';
     }
 }
