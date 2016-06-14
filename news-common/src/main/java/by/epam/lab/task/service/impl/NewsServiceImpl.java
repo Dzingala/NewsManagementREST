@@ -219,6 +219,7 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public NewsTORecord getNewsForEditing(Long newsId)throws ServiceException{
+        logger.debug("Getting news record in NewsServiceImpl");
         NewsTORecord newsTORecord;
         NewsTO newsTO = readDataByNewsId(newsId);
         Author author;
@@ -241,6 +242,7 @@ public class NewsServiceImpl implements NewsService {
      */
     @Override
     public void updateNews(NewsTORecord newsTORecord) throws ServiceException{
+        logger.debug("Updating news and all information connected with it by the news record in NewsServiceImpl");
         News news = newsTORecord.getNews();
         NewsTO newsTO=new NewsTO();
         newsTO.setNews(news);
@@ -276,5 +278,25 @@ public class NewsServiceImpl implements NewsService {
             throw new ServiceException("ServiceException while updating news record", e);
         }
 
+    }
+    /**
+     * Implementation of NewsService method deleteTag.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional
+    @Override
+    public void deleteTag(Tag tag)throws ServiceException{
+        logger.debug("Deleting tag from news in NewsServiceImpl");
+        ArrayList<Long> newsToDisjoinList=null;
+        try {
+            newsToDisjoinList = tagService.readNewsIdByTagId(tag.getId());
+            for (Long newsId : newsToDisjoinList) {
+                newsRepository.disjoinNewsWithTag(newsId, tag.getId());
+            }
+        }catch (DAOException e){
+            logger.error("DAOException while deleting tag from news in NewsServiceImpl");
+            throw new ServiceException("ServiceException while deleting tag from news", e);
+        }
+        tagService.delete(tag);
     }
 }

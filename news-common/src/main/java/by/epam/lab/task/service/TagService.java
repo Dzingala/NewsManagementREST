@@ -52,5 +52,14 @@ public interface TagService {
      * @return list of all tags
      * @throws ServiceException
      */
-    ArrayList<Tag> readAll() throws ServiceException;
+    ArrayList<Tag> readAll()throws ServiceException;
+
+    /**
+     * Read all news' id by tag id given.
+     * @param tagId
+     * @return
+     * @throws ServiceException
+     */
+    ArrayList<Long> readNewsIdByTagId(Long tagId)throws ServiceException;
+
 }

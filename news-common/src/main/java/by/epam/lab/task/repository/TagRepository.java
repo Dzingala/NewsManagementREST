@@ -19,4 +19,11 @@ public interface TagRepository extends GenericRepository<Tag> {
      * @return list of tags id
      */
     ArrayList<Long> readTagsIdByNewsId(Long newsId) throws DAOException;
+    /**
+     * This method is used for finding news according to the tag id
+     * @param tagId Tag id which is using for finding
+     * @return Returns list of news id
+     * @throws DAOException
+     */
+    ArrayList<Long> readNewsIdByTagId(Long tagId) throws DAOException;
 }

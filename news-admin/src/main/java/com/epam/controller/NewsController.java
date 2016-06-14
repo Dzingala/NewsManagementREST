@@ -73,7 +73,6 @@ public class NewsController {
     public String deleteNews(@RequestParam ArrayList<Long> newsToDelList)throws ServiceException{
         NewsTO newsTO;
         for(Long newsId : newsToDelList){
-            System.out.println("NEWSTODELGOT:"+newsId);
             newsTO=newsService.readDataByNewsId(newsId);
             newsService.delete(newsTO);
         }

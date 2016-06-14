@@ -1,20 +1,15 @@
 package com.epam.controller;
 
 import by.epam.lab.task.entity.Author;
-import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Controller

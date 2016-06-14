@@ -125,4 +125,22 @@ public class TagServiceImpl implements TagService {
         }
         return tags;
     }
+
+    /**
+     * Implementation of TagService method readNewsIdByTagId.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional
+    @Override
+    public ArrayList<Long> readNewsIdByTagId(Long tagId)throws ServiceException{
+        logger.debug("Reading news' id by tag id in TagService");
+        ArrayList<Long> newsIdList;
+        try {
+            newsIdList = tagRepository.readNewsIdByTagId(tagId);
+        } catch (DAOException e) {
+            logger.error("DAOException while reading news' id by tag id in TagService");
+            throw new ServiceException("ServiceException while reading news' id by tag id", e);
+        }
+        return newsIdList;
+    }
 }

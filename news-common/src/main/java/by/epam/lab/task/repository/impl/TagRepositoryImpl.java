@@ -23,10 +23,12 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String DELETE_TAG_QUERY = " DELETE FROM DZINHALA.TAG  WHERE TAG_ID = ? ";
     private static final String READ_TAGS_ID_BY_NEWS_ID_QUERY = " SELECT TAG_ID FROM DZINHALA.NEWS_TAG WHERE NEWS_ID = ? ";
     private static final String READ_ALL_TAGS_QUERY="SELECT TAG_ID, TAG_NAME FROM DZINHALA.TAG";
+    private static final String READ_NEWS_ID_BY_TAG_ID_QUERY = " SELECT NEWS_ID FROM DZINHALA.NEWS_TAG WHERE TAG_ID = ? ";
 
     private static final String COLUMN_NAME_TAG_NAME = "TAG_NAME";
     private static final String COLUMN_NAME_TAG_ID = "TAG_ID";
     private static final String COLUMN_NAME_NEWS_TAG_TAG_ID = "TAG_ID";
+    private static final String COLUMN_NAME_NEWS_TAGS_NEWS_ID = "NEWS_ID";
 
 
     @Autowired
@@ -181,10 +183,10 @@ public class TagRepositoryImpl implements TagRepository {
     /**
      * Implementation of TagRepository method readTagsIdByNewsId.
      * @see by.epam.lab.task.exceptions.dao.DAOException
-     * @see by.epam.lab.task.exceptions.dao.NoSuchEntityException
      */
     @Override
     public ArrayList<Long> readTagsIdByNewsId(Long newsId) throws DAOException {
+        logger.debug("Reading tags id by news id TagRepositoryImpl");
         Connection conn=null;
         ArrayList<Long> tagsIdList = null;
         try {
@@ -208,9 +210,37 @@ public class TagRepositoryImpl implements TagRepository {
             logger.debug("Tags' id was not received");
             throw new DAOException(e);
         }
-//        if (tagsIdList == null) {
-//            throw new NoSuchEntityException("News id="+newsId+" have no tags assigned");
-//        }
         return tagsIdList;
+    }
+    /**
+     * Implementation of TagRepository method readNewsIdByTagId.
+     * @see by.epam.lab.task.exceptions.dao.DAOException
+     */
+    @Override
+    public ArrayList<Long> readNewsIdByTagId(Long tagId) throws DAOException
+    {
+        logger.debug("Reading all news' id by tag id in TagRepositoryImpl");
+        Connection conn = null;
+        ArrayList<Long> newsIdList = null;
+        Long newsId;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement st = conn.prepareStatement(READ_NEWS_ID_BY_TAG_ID_QUERY)) {
+                newsIdList = new ArrayList<>();
+                st.setLong(1, tagId);
+                ResultSet resultSet = st.executeQuery();
+                while (resultSet.next()) {
+                    newsId = resultSet.getLong(COLUMN_NAME_NEWS_TAGS_NEWS_ID);
+                    newsIdList.add(newsId);
+                }
+            }finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while reading all news' id by tag id in TagRepositoryImpl");
+            logger.debug("Tags' id was not received");
+            throw new DAOException("Exception in TagDAOImpl ", e);
+        }
+        return newsIdList;
     }
 }

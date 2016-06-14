@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * @author Ivan Dzinhala
  * @see CommentService
@@ -32,6 +35,7 @@ public class CommentServiceImpl implements CommentService{
         logger.debug("Creating comment in CommentServiceImpl");
         Long commentId = null;
         try{
+            comment.setCreationDate(new Timestamp(new Date().getTime()));
             commentId=commentsRepository.create(comment);
         }catch (DAOException e){
             logger.error("DAOException while creating comment in CommentServiceImpl");

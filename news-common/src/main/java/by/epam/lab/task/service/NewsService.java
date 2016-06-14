@@ -3,6 +3,7 @@ package by.epam.lab.task.service;
 
 import by.epam.lab.task.entity.News;
 import by.epam.lab.task.entity.SearchCriteria;
+import by.epam.lab.task.entity.Tag;
 import by.epam.lab.task.entity.dto.NewsTO;
 import by.epam.lab.task.entity.dto.NewsTORecord;
 import by.epam.lab.task.exceptions.service.ServiceException;
@@ -82,4 +83,11 @@ public interface NewsService {
      * @throws ServiceException
      */
     void updateNews(NewsTORecord newsTORecord) throws ServiceException;
+
+    /**
+     * Deletes tag and disconnects it with the piece of news.
+     * @param tag
+     * @throws ServiceException
+     */
+    void deleteTag(Tag tag)throws ServiceException;
 }

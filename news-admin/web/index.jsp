@@ -18,6 +18,8 @@
 <c:url var="authors" value="/authors"/>
 <a href="${authors}">authors</a><br>
 <c:url var="news" value="/news"/>
-<a href="${news}">news</a>
+<a href="${news}">news</a><br>
+<c:url var="tags" value="/tags"/>
+<a href="${tags}">tags</a>
 </body>
 </html>
