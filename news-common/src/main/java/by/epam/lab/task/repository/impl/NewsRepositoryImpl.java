@@ -465,7 +465,6 @@ public class NewsRepositoryImpl implements NewsRepository {
             sb.deleteCharAt(sb.length() - 1);
             sb.append(")");
         }
-        System.out.println("Resulting query:" + sb);
         return sb.toString();
     }
 
