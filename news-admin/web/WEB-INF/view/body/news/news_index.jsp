@@ -3,10 +3,26 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <div class="container body-content">
     <h2>News</h2>
-    <%--<p>--%>
-    <%--<c:url var="authorCreation" value="/authors/create"/>--%>
-    <%--<a href="${authorCreation}">Create New</a>--%>
-    <%--</p>--%>
+    <sf:form modelAttribute="searchCriteria" method="get" action="/news">
+
+        <sf:select path="tags" multiple="true">
+            <c:forEach items="${tagList}" var="tag">
+                <sf:option value="${tag.id}">${tag.name}</sf:option>
+            </c:forEach>
+        </sf:select>
+
+        <sf:select path="author">
+            <sf:option disabled="true" selected="true" value="" label="--- Select Author ---"/>
+            <c:forEach items="${authorList}" var="author">
+                <sf:option value="${author.id}">${author.name}</sf:option>
+            </c:forEach>
+        </sf:select>
+
+        <input type="submit" name="command" value="Search"/>
+
+    </sf:form>
+
+
     <sf:form modelAttribute="newsTOList" method="post" action="/news/delete">
     <table class="table">
         <tr>

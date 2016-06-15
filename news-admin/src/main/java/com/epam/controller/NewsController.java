@@ -1,9 +1,6 @@
 package com.epam.controller;
 
-import by.epam.lab.task.entity.Author;
-import by.epam.lab.task.entity.Comment;
-import by.epam.lab.task.entity.News;
-import by.epam.lab.task.entity.Tag;
+import by.epam.lab.task.entity.*;
 import by.epam.lab.task.entity.dto.NewsTO;
 import by.epam.lab.task.entity.dto.NewsTORecord;
 import by.epam.lab.task.exceptions.service.ServiceException;
@@ -30,14 +27,31 @@ public class NewsController {
     TagService tagService;
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String printNews(ModelMap model) throws ServiceException {
-        ArrayList<News> newsList = newsService.readAll();
-        ArrayList<NewsTO> newsTOList = new ArrayList<>();
+    public String printNews(ModelMap model, @ModelAttribute SearchCriteria searchCriteria) throws ServiceException {
+        ArrayList<News> newsList=null;
+        ArrayList<NewsTO> newsTOList=new ArrayList<>();
+
+        if(searchCriteria.getAuthor() == null && searchCriteria.getTags() == null) {
+            newsList= newsService.readAll();
+            model.addAttribute("searchCriteria", new SearchCriteria());
+        }
+        else{
+            newsList = newsService.readBySearchCriteria(searchCriteria);
+            model.addAttribute("searchCriteria", searchCriteria);
+        }
+
         for (News news : newsList) {
             NewsTO newsTO = newsService.readDataByNewsId(news.getId());
             newsTOList.add(newsTO);
         }
+
+        ArrayList<Tag> tagList = tagService.readAll();
+        ArrayList<Author> authorList = authorService.readAll();
+
         model.addAttribute("newsList", newsTOList);
+        model.addAttribute("tagList",tagList);
+        model.addAttribute("authorList",authorList);
+
         return "news_index";
     }
 

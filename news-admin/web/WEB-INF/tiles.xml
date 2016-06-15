@@ -46,4 +46,5 @@
         <put-attribute name="title" value="Tags Main"/>
         <put-attribute name="content" value="/WEB-INF/view/body/tag/tags_index.jsp"/>
     </definition>
+
 </tiles-definitions>
