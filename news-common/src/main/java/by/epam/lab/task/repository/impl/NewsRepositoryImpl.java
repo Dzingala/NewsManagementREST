@@ -427,8 +427,8 @@ public class NewsRepositoryImpl implements NewsRepository {
                     "NEWS.FULL_TEXT,NEWS.CREATION_DATE,NEWS.MODIFICATION_DATE" +
                     " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
                     " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
-                    " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID WHERE "+
-                    " NEWS_AUTHOR.AUTHOR_ID= ";
+                    " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID ";
+    //WHERE NEWS_AUTHOR.AUTHOR_ID= ?
 
     /**
      * Static method for composing search criteria query according to the certain requirements.
@@ -438,16 +438,34 @@ public class NewsRepositoryImpl implements NewsRepository {
     public static String composeSearchCriteriaQuery(SearchCriteria criteria){
         logger.debug("Composing search criteria query in NewsRepositoryImpl");
         StringBuffer sb= new StringBuffer(READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY);
-        Author author =criteria.getAuthor();
-        ArrayList<Tag> tags = criteria.getTags();
-        sb.append(author.getId());
-        sb.append(" AND NEWS_TAG.TAG_ID IN (");
-        for(Tag tag : tags){
-            sb.append(tag.getId());
-            sb.append(",");
+        Long authorId =criteria.getAuthorId();
+        ArrayList<Long> tagsId = criteria.getTagsId();
+        if(authorId == null && tagsId == null){
+            return null;
         }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append(')');
+        sb.append("WHERE ");
+        if(authorId!=null){
+            sb.append("NEWS_AUTHOR.AUTHOR_ID=").append(authorId);
+            if(tagsId!=null){
+                sb.append(" AND ").append("NEWS_TAG.TAG_ID IN(");
+                for (Long tagId : tagsId) {
+                    sb.append(tagId);
+                    sb.append(",");
+                }
+                sb.deleteCharAt(sb.length() - 1);
+                sb.append(")");
+            }
+        }
+        else{
+            sb.append("NEWS_TAG.TAG_ID IN(");
+            for (Long tagId : tagsId) {
+                sb.append(tagId);
+                sb.append(",");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            sb.append(")");
+        }
+        System.out.println("Resulting query:" + sb);
         return sb.toString();
     }
 

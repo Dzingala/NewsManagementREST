@@ -10,39 +10,41 @@ public class SearchCriteria implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Author author;
-    private ArrayList<Tag> tags;
+    private Long authorId;
+    private ArrayList<Long> tagsId;
 
     public SearchCriteria(){}
 
-    public SearchCriteria(Author author, ArrayList<Tag> tags) {
-        this.author = author;
-        this.tags = tags;
+    public SearchCriteria(Long authorId, ArrayList<Long> tagsId) {
+        this.authorId = authorId;
+        this.tagsId = tagsId;
     }
 
-    public Author getAuthor() {
-        return author;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public Long getAuthorId() {
+        return authorId;
     }
 
-    public ArrayList<Tag> getTags() {
-        return tags;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
-        this.tags = tags;
-    }
-    public void addTag(Tag tag){
-        if(tags!=null){
-            tags.add(tag);
-        }else{
-            tags = new ArrayList<>();
-            tags.add(tag);
-        }
+    public ArrayList<Long> getTagsId() {
+        return tagsId;
     }
 
+    public void setTagsId(ArrayList<Long> tagsId) {
+        this.tagsId = tagsId;
+    }
 
+    @Override
+    public String toString() {
+        return "SearchCriteria{" +
+                "authorId=" + authorId +
+                ", tagsId=" + tagsId +
+                '}';
+    }
 }

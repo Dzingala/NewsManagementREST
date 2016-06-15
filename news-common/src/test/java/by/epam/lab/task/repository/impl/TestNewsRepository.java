@@ -201,8 +201,12 @@ public class TestNewsRepository {
                 add(tag2);
             }
         };
-        searchCriteria.setAuthor(author);
-        searchCriteria.setTags(tagList);
+        searchCriteria.setAuthorId(author.getId());
+        ArrayList<Long> tagsId = new ArrayList<>();
+        for(Tag tag1: tagList){
+            tagsId.add(tag1.getId());
+        }
+        searchCriteria.setTagsId(tagsId);
         String query = newsRepository.composeSearchCriteriaQuery(searchCriteria);
         ArrayList<News> newsList = newsRepository.readBySearchCriteria(query);
         ArrayList<Long> newsIdListRequired = new ArrayList<>();

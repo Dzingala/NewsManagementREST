@@ -154,9 +154,11 @@ public class TestNewsService {
         SearchCriteria searchCriteria = new SearchCriteria();
         Author author = new Author();
         author.setId(1L);
-        searchCriteria.setAuthor(author);
-        searchCriteria.addTag(tag);
-        searchCriteria.addTag(tag2);
+        searchCriteria.setAuthorId(author.getId());
+        ArrayList<Long> tagsId= new ArrayList<>();
+        tagsId.add(tag.getId());
+        tagsId.add(tag2.getId());
+        searchCriteria.setTagsId(tagsId);
         String query = NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
         Mockito.when(newsRepository.readBySearchCriteria(query)).thenReturn(newsList);
         Mockito.when(newsRepository.read(newsList.get(0).getId())).thenReturn(news);

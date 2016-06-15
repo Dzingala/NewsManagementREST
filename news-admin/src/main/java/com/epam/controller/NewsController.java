@@ -29,9 +29,8 @@ public class NewsController {
     @RequestMapping(value = "/news", method = RequestMethod.GET)
     public String printNews(ModelMap model, @ModelAttribute SearchCriteria searchCriteria) throws ServiceException {
         ArrayList<News> newsList=null;
-        ArrayList<NewsTO> newsTOList=new ArrayList<>();
 
-        if(searchCriteria.getAuthor() == null && searchCriteria.getTags() == null) {
+        if(searchCriteria.getAuthorId() == null && searchCriteria.getTagsId() == null) {
             newsList= newsService.readAll();
             model.addAttribute("searchCriteria", new SearchCriteria());
         }
@@ -40,6 +39,7 @@ public class NewsController {
             model.addAttribute("searchCriteria", searchCriteria);
         }
 
+        ArrayList<NewsTO> newsTOList=new ArrayList<>();
         for (News news : newsList) {
             NewsTO newsTO = newsService.readDataByNewsId(news.getId());
             newsTOList.add(newsTO);

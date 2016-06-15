@@ -5,13 +5,13 @@
     <h2>News</h2>
     <sf:form modelAttribute="searchCriteria" method="get" action="/news">
 
-        <sf:select path="tags" multiple="true">
+        <sf:select path="tagsId" multiple="true">
             <c:forEach items="${tagList}" var="tag">
                 <sf:option value="${tag.id}">${tag.name}</sf:option>
             </c:forEach>
         </sf:select>
 
-        <sf:select path="author">
+        <sf:select path="authorId">
             <sf:option disabled="true" selected="true" value="" label="--- Select Author ---"/>
             <c:forEach items="${authorList}" var="author">
                 <sf:option value="${author.id}">${author.name}</sf:option>
