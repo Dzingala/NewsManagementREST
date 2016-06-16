@@ -46,5 +46,9 @@
         <put-attribute name="title" value="Tags Main"/>
         <put-attribute name="content" value="/WEB-INF/view/body/tag/tags_index.jsp"/>
     </definition>
+    <definition name="login_index" extends="defaultTemplate">
+        <put-attribute name="title" value="Login page"/>
+        <put-attribute name="content" value="/WEB-INF/view/body/login/login_index.jsp"/>
+    </definition>
 
 </tiles-definitions>
