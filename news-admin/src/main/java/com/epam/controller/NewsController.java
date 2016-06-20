@@ -14,6 +14,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class NewsController {
@@ -26,18 +28,25 @@ public class NewsController {
     @Autowired
     TagService tagService;
 
-    @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String printNews(ModelMap model, @ModelAttribute SearchCriteria searchCriteria) throws ServiceException {
+    @RequestMapping(value = {"/news","news/{page}"}, method = RequestMethod.GET)
+    public String printNews(ModelMap model,
+                            @ModelAttribute SearchCriteria searchCriteria,
+                            @PathVariable Optional<Long> page) throws ServiceException {
         ArrayList<News> newsList=null;
-
+        Long pagesAmount = null;
         if(searchCriteria.getAuthorId() == null && searchCriteria.getTagsId() == null) {
+            pagesAmount=newsService.countPages();
+            System.out.println("PAGES AMOUNT:"+pagesAmount);
             newsList= newsService.readAll();
             model.addAttribute("searchCriteria", new SearchCriteria());
         }
         else{
+            pagesAmount=newsService.countCriteriaPages(searchCriteria);
             newsList = newsService.readBySearchCriteria(searchCriteria);
             model.addAttribute("searchCriteria", searchCriteria);
         }
+
+
 
         ArrayList<NewsTO> newsTOList=new ArrayList<>();
         for (News news : newsList) {
@@ -48,6 +57,8 @@ public class NewsController {
         ArrayList<Tag> tagList = tagService.readAll();
         ArrayList<Author> authorList = authorService.readAll();
 
+        model.addAttribute("currentPage",page.orElse(1l));
+        model.addAttribute("pagesAmount",pagesAmount);
         model.addAttribute("newsList", newsTOList);
         model.addAttribute("tagList",tagList);
         model.addAttribute("authorList",authorList);
@@ -55,7 +66,7 @@ public class NewsController {
         return "news_index";
     }
 
-    @RequestMapping(value = "/news/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/news/view/{id}", method = RequestMethod.GET)
     public String viewFullNewsContent(@PathVariable Long id, ModelMap model) throws ServiceException {
         NewsTO newsTO = newsService.readDataByNewsId(id);
         model.addAttribute("comment", new Comment());
@@ -86,11 +97,25 @@ public class NewsController {
     @RequestMapping(value = "/news/delete", method = RequestMethod.POST)
     public String deleteNews(@RequestParam ArrayList<Long> newsToDelList)throws ServiceException{
         NewsTO newsTO;
-        for(Long newsId : newsToDelList){
-            newsTO=newsService.readDataByNewsId(newsId);
-            newsService.delete(newsTO);
+        if(!newsToDelList.isEmpty()) {
+            for (Long newsId : newsToDelList) {
+                newsTO = newsService.readDataByNewsId(newsId);
+                newsService.delete(newsTO);
+            }
         }
         return "redirect:/news";
     }
+//    @RequestMapping(value = "/news/filter", method = RequestMethod.GET)
+//    public String filterNews(ModelMap model, @RequestParam Long page, @ModelAttribute SearchCriteria searchCriteria) throws ServiceException {
+//        List<NewsTO> newsTOList = newsHeaderService.findBySearchCriteria(searchCriteria, page);
+//        model.addAttribute(NEWS_TO_LIST, newsTOList);
+//        Integer numberOfNews = newsService.countNewsBySearchCriteria(searchCriteria);
+//        model.addAttribute(NUMBER_OF_PAGES_FILTER, numberOfNews);
+//        List<Tag> tagList = tagService.readAll();
+//        List<Author> authorList = authorService.readAll();
+//        model.addAttribute(TAG_LIST, tagList);
+//        model.addAttribute(AUTHOR_LIST, authorList);
+//        return "newsList";
+//    }
 
 }

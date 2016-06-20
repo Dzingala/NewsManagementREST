@@ -24,3 +24,6 @@
 
     </form>
 </security:authorize>
+<security:authorize access="!hasRole('ROLE_ADMIN')">
+    text for not admins only.
+</security:authorize>

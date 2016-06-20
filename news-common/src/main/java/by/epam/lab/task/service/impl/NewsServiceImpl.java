@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * @author Ivan Dzinhala
@@ -298,5 +299,100 @@ public class NewsServiceImpl implements NewsService {
             throw new ServiceException("ServiceException while deleting tag from news", e);
         }
         tagService.delete(tag);
+    }
+    /**
+     * Implementation of NewsService method countPages.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional
+    @Override
+    public Long countPages()throws ServiceException{
+        Long newsAmount;
+        Long newsPerPage=4l;
+        try{
+            newsAmount=newsRepository.countNews();
+            if(newsAmount % newsPerPage !=0){
+                return newsAmount/newsPerPage +1;
+            }
+        } catch (DAOException e) {
+            logger.error("DAOException while counting pages in NewsServiceImpl");
+            throw new ServiceException("ServiceException while counting pages", e);
+        }
+        return newsAmount/newsPerPage;
+    }
+
+    @Transactional
+    @Override
+    public Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException{
+        logger.debug("Counting pages of News according the search criteria in NewsServiceImpl");
+        Long criteriaNewsAmount;
+        String query = composeCriteriaNewsAmountQuery(searchCriteria);
+        System.out.println("QUERY BUILT:" +query);
+        Long newsPerPage = 4l;
+        if (query == null) {
+            return null;
+        }
+        try {
+            criteriaNewsAmount = newsRepository.countNews(query);
+            if (criteriaNewsAmount % 4 != 0) {
+                return criteriaNewsAmount / newsPerPage + 1;
+            }
+        } catch (DAOException e) {
+            logger.error("DAOException while counting pages of News according the search criteria in NewsServiceImpl");
+            throw new ServiceException("ServiceException while counting pages of News according the search criteria", e);
+        }
+        return criteriaNewsAmount / newsPerPage;
+
+    }
+
+
+    private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1="SELECT COUNT(DISTINCT NEWS.NEWS_ID)" +
+            " FROM" +
+            " (SELECT T.*,ROWNUM RN FROM (SELECT DISTINCT NEWS.NEWS_ID, NEWS.TITLE, NEWS.SHORT_TEXT," +
+            "NEWS.FULL_TEXT, NEWS.CREATION_DATE," +
+            "NEWS.MODIFICATION_DATE,COUNT(COMMENTS.COMMENT_ID)AS " +
+            "count FROM NEWS LEFT JOIN NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID " +
+            "LEFT JOIN NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID   FULL OUTER JOIN COMMENTS ON COMMENTS.NEWS_ID =NEWS.NEWS_ID ";
+    private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_2 = " GROUP BY NEWS.NEWS_ID, NEWS.TITLE, NEWS.SHORT_TEXT, NEWS.FULL_TEXT, NEWS.CREATION_DATE," +
+            "NEWS.MODIFICATION_DATE ORDER BY count DESC, NEWS.MODIFICATION_DATE DESC) T)";
+    @Override
+    public String composeCriteriaNewsAmountQuery(SearchCriteria searchCriteria){
+        StringBuffer query = new StringBuffer(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1);
+        Long authorId = searchCriteria.getAuthorId();
+        List<Long> tagIdList = searchCriteria.getTagsId();
+        if (authorId == null && tagIdList == null) {
+            return null;
+        } else {
+            query.append("WHERE ");
+            if (authorId != null && tagIdList != null) {
+                query.append("NEWS_AUTHOR.AUTHOR_ID IN(");
+                query.append(authorId + ")");
+                query.append("AND ");
+                query.append("NEWS_TAG.TAG_ID IN(");
+                for (Long tagId : tagIdList) {
+                    query.append(tagId);
+                    query.append(",");
+                }
+                query.deleteCharAt(query.length() - 1);
+                query.append(")");
+            } else {
+                if (authorId != null) {
+                    query.append("NEWS_AUTHOR.AUTHOR_ID IN(");
+                    query.append(authorId);
+                    query.append(")");
+                }
+                if (tagIdList != null) {
+                    query.append("NEWS_TAG.TAG_ID IN(");
+                    for (Long tagId : tagIdList) {
+                        query.append(tagId);
+                        query.append(",");
+                    }
+                    query.deleteCharAt(query.length() - 1);
+                    query.append(")");
+                }
+            }
+        }
+        query.append(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_2);
+        return query.toString();
     }
 }

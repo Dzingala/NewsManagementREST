@@ -50,7 +50,7 @@
         <c:forEach var="newsTO" items="${newsList}">
             <tr>
                 <td>
-                    <a href="/news/${newsTO.news.id}">
+                    <a href="/news/view/${newsTO.news.id}">
                         ${newsTO.news.title}
                     </a>
                 </td>
@@ -83,6 +83,21 @@
     </table>
     <input type="submit" name="command" value="Delete"/>
     </sf:form>
-    <hr />
-    <%--footer--%>
+    <hr/>
+    <div>
+        <c:forEach var="i" begin="1" end="${pagesAmount}">
+            <a href="/news/${i}">
+                    ${i}
+            </a>
+        </c:forEach>
+    </div>
+
+    <c:url value="/logout" var="logoutUrl" />
+    <form action="${logoutUrl}" method="post" id="logoutForm">
+        <input type="hidden" name="${_csrf.parameterName}"
+               value="${_csrf.token}" />
+        <div>
+            <input name="submit" type="submit" value="Exit"/>
+        </div>
+    </form>
 </div>

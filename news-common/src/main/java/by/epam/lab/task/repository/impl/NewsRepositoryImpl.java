@@ -428,7 +428,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                     " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
                     " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
                     " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID ";
-    //WHERE NEWS_AUTHOR.AUTHOR_ID= ?
+
 
     /**
      * Static method for composing search criteria query according to the certain requirements.
@@ -468,5 +468,27 @@ public class NewsRepositoryImpl implements NewsRepository {
         return sb.toString();
     }
 
+    @Override
+    public Long countNews(final String countQuery)throws DAOException{
+        logger.debug("Counting criteria News in NewsRepositoryImpl");
+        Long criteriaNewsAmount = 0l;
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(countQuery)) {
+                ResultSet resultSet = ps.executeQuery();
+                if (resultSet.next()) {
+                    criteriaNewsAmount = resultSet.getLong(1);
+                }
+            }finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        }catch (SQLException e) {
+            logger.error("DAOException while counting criteria News in NewsRepositoryImpl");
+            logger.debug("Criteria news were not counted");
+            throw new DAOException(e);
+        }
+        return criteriaNewsAmount;
+    }
 
 }

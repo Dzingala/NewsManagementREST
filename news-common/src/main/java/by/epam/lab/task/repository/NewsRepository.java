@@ -70,4 +70,12 @@ public interface NewsRepository extends GenericRepository<News> {
      * @throws DAOException
      */
     ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY)throws DAOException;
+
+    /**
+     * Counts all news corresponding to the search criteria.
+     * @param countQuery
+     * @return The amount of news corresponding to the search criteria.
+     * @throws DAOException
+     */
+    Long countNews(final String countQuery)throws DAOException;
 }

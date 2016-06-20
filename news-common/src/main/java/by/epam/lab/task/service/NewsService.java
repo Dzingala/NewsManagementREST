@@ -75,14 +75,14 @@ public interface NewsService {
      * @return NewsTORecord object consisting of all information required in record form.
      * @throws ServiceException
      */
-    NewsTORecord getNewsForEditing(Long newsId) throws ServiceException;
+    NewsTORecord getNewsForEditing(Long newsId)throws ServiceException;
 
     /**
      * Update all information concerning certain piece of news given in record form.
      * @param newsTORecord
      * @throws ServiceException
      */
-    void updateNews(NewsTORecord newsTORecord) throws ServiceException;
+    void updateNews(NewsTORecord newsTORecord)throws ServiceException;
 
     /**
      * Deletes tag and disconnects it with the piece of news.
@@ -90,4 +90,25 @@ public interface NewsService {
      * @throws ServiceException
      */
     void deleteTag(Tag tag)throws ServiceException;
+
+    /**
+     * Counts the amount of pages necessary.
+     * @return The amount of pages depending on the amount of news.
+     * @throws ServiceException
+     */
+    Long countPages()throws ServiceException;
+
+    /**
+     * Counts the amount of pages necessary to display search criteria news.
+     * @return The amount of pages depending on the results of the search criteria.
+     * @throws ServiceException
+     */
+    Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException;
+
+    /**
+     * Make query for getting the count of pages according certain search criteria.
+     * @param searchCriteria
+     * @return Query that is ready for injection.
+     */
+    String composeCriteriaNewsAmountQuery(SearchCriteria searchCriteria);
 }
