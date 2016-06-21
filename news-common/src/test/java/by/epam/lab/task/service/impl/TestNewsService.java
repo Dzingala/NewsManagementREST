@@ -160,12 +160,12 @@ public class TestNewsService {
         tagsId.add(tag2.getId());
         searchCriteria.setTagsId(tagsId);
         String query = NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
-        Mockito.when(newsRepository.readBySearchCriteria(query)).thenReturn(newsList);
+        Mockito.when(newsRepository.readBySearchCriteria(query,1l,1)).thenReturn(newsList);
         Mockito.when(newsRepository.read(newsList.get(0).getId())).thenReturn(news);
 
-        ArrayList<News> serviceNewsList=newsService.readBySearchCriteria(searchCriteria);
+        ArrayList<News> serviceNewsList=newsService.readBySearchCriteria(searchCriteria,1l);
         assertTrue(serviceNewsList.equals(newsList));
-        Mockito.verify(newsRepository).readBySearchCriteria(query);
+        Mockito.verify(newsRepository).readBySearchCriteria(query,1l,1);
     }
 
     @Test

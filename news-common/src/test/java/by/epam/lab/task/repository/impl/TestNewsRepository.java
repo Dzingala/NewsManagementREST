@@ -208,7 +208,7 @@ public class TestNewsRepository {
         }
         searchCriteria.setTagsId(tagsId);
         String query = newsRepository.composeSearchCriteriaQuery(searchCriteria);
-        ArrayList<News> newsList = newsRepository.readBySearchCriteria(query);
+        ArrayList<News> newsList = newsRepository.readBySearchCriteria(query,1l,1);
         ArrayList<Long> newsIdListRequired = new ArrayList<>();
         newsIdListRequired.add(1L);
         assertTrue(newsList.get(0).getId() == (newsIdListRequired.get(0)));

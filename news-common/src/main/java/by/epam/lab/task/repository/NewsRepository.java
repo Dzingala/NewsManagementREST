@@ -64,12 +64,12 @@ public interface NewsRepository extends GenericRepository<News> {
     ArrayList<News> readSortedByComments()throws DAOException;
 
     /**
-     * Read all news sorted by authors and tags.
+     * Read all news sorted by authors and tags according to the page.
      * @param SEARCH_CRITERIA_QUERY
      * @return set of news id
      * @throws DAOException
      */
-    ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY)throws DAOException;
+    ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY,Long page, int newsPerPage)throws DAOException;
 
     /**
      * Counts all news corresponding to the search criteria.
@@ -78,4 +78,12 @@ public interface NewsRepository extends GenericRepository<News> {
      * @throws DAOException
      */
     Long countNews(final String countQuery)throws DAOException;
+
+    /**
+     * Read all news sorted by authors and tags.
+     * @param SEARCH_CRITERIA_QUERY
+     * @return The list of all news according the search criteria.
+     * @throws DAOException
+     */
+    ArrayList<News> readBySearchCriteriaFull(final String SEARCH_CRITERIA_QUERY) throws DAOException;
 }

@@ -34,7 +34,7 @@ public interface NewsService {
      * @return the list of news sorted by the search criteria
      * @throws ServiceException
      */
-    ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria) throws ServiceException;
+    ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria, Long page) throws ServiceException;
 
     /**
      * Add news and all data that is connected
@@ -111,4 +111,14 @@ public interface NewsService {
      * @return Query that is ready for injection.
      */
     String composeCriteriaNewsAmountQuery(SearchCriteria searchCriteria);
+
+    /**
+     * Count pages suitable for search criteria.
+     * @param searchCriteria
+     * @return The amount of pages suitable for search criteria.
+     * @throws ServiceException
+     */
+    Long getCriteriaPagesAmount(SearchCriteria searchCriteria,Long page)throws ServiceException;
+
+
 }

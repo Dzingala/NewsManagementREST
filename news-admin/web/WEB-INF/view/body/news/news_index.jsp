@@ -90,6 +90,18 @@
                     ${i}
             </a>
         </c:forEach>
+        <c:forEach var="i" begin="1" end="${pagesAmountCriteria}">
+            <sf:form modelAttribute="searchCriteria" action="/news/filter" method="get">
+                <input type="hidden" value="${i}" name="page"/>
+                <c:forEach var="tag" items="${searchCriteria.tagsId}">
+                    <sf:input path="tagsId" type="hidden" value="${tag}"/>
+                </c:forEach>
+                <sf:input path="authorId" type="hidden" value="${searchCriteria.authorId}"/>
+
+                <input type="submit" name="command" value="${i}"/>
+
+            </sf:form>
+        </c:forEach>
     </div>
 
     <c:url value="/logout" var="logoutUrl" />

@@ -390,7 +390,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      * @see by.epam.lab.task.exceptions.dao.DAOException
      */
     @Override
-    public ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY) throws DAOException{
+    public ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY,Long page, int newsPerPage) throws DAOException{
         logger.debug("Reading by search criteria in NewsRepositoryImpl");
         System.out.println("CRITERIA:");
         System.out.println(SEARCH_CRITERIA_QUERY);
@@ -419,8 +419,63 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.debug("News was not disconnected with author");
             throw new DAOException(e);
         }
+        return getPageNews(news,page,newsPerPage);
+    }
+    /**
+     * Implementation of NewsRepository method readBySearchCriteriaFull.
+     * @see by.epam.lab.task.exceptions.dao.DAOException
+     */
+    @Override
+    public ArrayList<News> readBySearchCriteriaFull(final String SEARCH_CRITERIA_QUERY) throws DAOException{
+        logger.debug("Reading by search criteria fully in NewsRepositoryImpl");
+        System.out.println("CRITERIA:");
+        System.out.println(SEARCH_CRITERIA_QUERY);
+        Connection conn = null;
+        ArrayList<News> news =null;
+        try{
+            conn=dataSource.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(SEARCH_CRITERIA_QUERY);
+                 ResultSet rs = ps.executeQuery()){
+                news = new ArrayList<>();
+                while( rs.next() ){
+                    news.add(new News(
+                            rs.getLong(COLUMN_NAME_ID),
+                            rs.getString(COLUMN_NAME_TITLE),
+                            rs.getString(COLUMN_NAME_SHORT_TEXT),
+                            rs.getString(COLUMN_NAME_FULL_TEXT),
+                            rs.getTimestamp(COLUMN_NAME_CREATION_DATE),
+                            rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
+                    ));
+                }
+            } finally {
+                DataSourceUtils.releaseConnection(conn, dataSource);
+            }
+        } catch (SQLException e) {
+            logger.error("DAOException while reading full news by search criteria in NewsRepositoryImpl");
+            logger.debug("News was not disconnected with author");
+            throw new DAOException(e);
+        }
         return news;
     }
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
+    }
+    public static ArrayList<News> getPageNews(ArrayList<News> news,Long page,int newsPerPage) {//18,4,5
+        ArrayList<News> newsOnPage = new ArrayList<>();
+        long from = (page - 1) * newsPerPage;
+        long size = news.size();
+        long difference = size - from;
+        long to = difference >= newsPerPage ? from + newsPerPage : from + difference;
+        for (long i = from; i < to; i++) {
+            newsOnPage.add(news.get(safeLongToInt(i)));
+        }
+        return newsOnPage;
+    }
+
 
     private static final String READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY=
             "SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +

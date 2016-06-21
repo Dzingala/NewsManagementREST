@@ -43,6 +43,8 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private CommentService commentService;
 
+    private static final int NEWS_PER_PAGE=4;
+
     /**
      * Implementation of NewsService method readAll.
      * @see by.epam.lab.task.exceptions.service.ServiceException
@@ -84,22 +86,51 @@ public class NewsServiceImpl implements NewsService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria) throws ServiceException {
+    public ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria, Long page) throws ServiceException {
         logger.debug("Reading news sorted by search criteria in NewsServiceImpl");
         ArrayList<News> newsList = null;
         String query = NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
-        if(query==null){
-            logger.error("ServiceException while creating a search criteria query in NewsServiceImpl");
-            throw new ServiceException("ServiceException while creating a search criteria query.");
-        }
         try{
-            newsList=newsRepository.readBySearchCriteria(query);
+            if(query==null){
+//            logger.error("ServiceException while creating a search criteria query in NewsServiceImpl");
+//            throw new ServiceException("ServiceException while creating a search criteria query.");
+                newsList=newsRepository.readAll();
+                newsList=NewsRepositoryImpl.getPageNews(newsList,page,NEWS_PER_PAGE);
+            }
+            else {
+                newsList = newsRepository.readBySearchCriteria(query, page, NEWS_PER_PAGE);
+            }
         } catch (DAOException e) {
             logger.error("DAOException while reading news sorted by search criteria in NewsServiceImpl");
             throw new ServiceException("ServiceException while reading news sorted by search criteria");
         }
         return newsList;
     }
+
+    /**
+     * Implementation of NewsService method getCriteriaPagesAmount.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Long getCriteriaPagesAmount(SearchCriteria searchCriteria, Long page)throws ServiceException{
+        logger.debug("Counting criteria pages in NewsServiceImpl");
+        Long pagesAmount =null;
+        List<News> news = null;
+        String query=NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
+        try{
+            news = newsRepository.readBySearchCriteriaFull(query);
+            Long size =(long)news.size();
+            pagesAmount=size%NEWS_PER_PAGE==0?size/NEWS_PER_PAGE:size/NEWS_PER_PAGE+1;
+        } catch (DAOException e) {
+            logger.error("DAOException while counting news sorted by search criteria in NewsServiceImpl");
+            throw new ServiceException("ServiceException while reading news sorted by search criteria");
+        }
+
+        return pagesAmount;
+    }
+
+
     /**
      * Implementation of NewsService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException
@@ -346,53 +377,44 @@ public class NewsServiceImpl implements NewsService {
     }
 
 
-    private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1="SELECT COUNT(DISTINCT NEWS.NEWS_ID)" +
-            " FROM" +
-            " (SELECT T.*,ROWNUM RN FROM (SELECT DISTINCT NEWS.NEWS_ID, NEWS.TITLE, NEWS.SHORT_TEXT," +
-            "NEWS.FULL_TEXT, NEWS.CREATION_DATE," +
-            "NEWS.MODIFICATION_DATE,COUNT(COMMENTS.COMMENT_ID)AS " +
-            "count FROM NEWS LEFT JOIN NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID " +
-            "LEFT JOIN NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID   FULL OUTER JOIN COMMENTS ON COMMENTS.NEWS_ID =NEWS.NEWS_ID ";
-    private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_2 = " GROUP BY NEWS.NEWS_ID, NEWS.TITLE, NEWS.SHORT_TEXT, NEWS.FULL_TEXT, NEWS.CREATION_DATE," +
-            "NEWS.MODIFICATION_DATE ORDER BY count DESC, NEWS.MODIFICATION_DATE DESC) T)";
+    private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1="SELECT COUNT(SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +
+            "NEWS.FULL_TEXT,NEWS.CREATION_DATE,NEWS.MODIFICATION_DATE" +
+            " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
+            " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
+            " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID ";
+
     @Override
     public String composeCriteriaNewsAmountQuery(SearchCriteria searchCriteria){
-        StringBuffer query = new StringBuffer(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1);
-        Long authorId = searchCriteria.getAuthorId();
-        List<Long> tagIdList = searchCriteria.getTagsId();
-        if (authorId == null && tagIdList == null) {
+        StringBuffer sb= new StringBuffer(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1);
+        Long authorId =searchCriteria.getAuthorId();
+        ArrayList<Long> tagsId = searchCriteria.getTagsId();
+        if(authorId == null && tagsId == null){
             return null;
-        } else {
-            query.append("WHERE ");
-            if (authorId != null && tagIdList != null) {
-                query.append("NEWS_AUTHOR.AUTHOR_ID IN(");
-                query.append(authorId + ")");
-                query.append("AND ");
-                query.append("NEWS_TAG.TAG_ID IN(");
-                for (Long tagId : tagIdList) {
-                    query.append(tagId);
-                    query.append(",");
+        }
+        sb.append("WHERE ");
+        if(authorId!=null){
+            sb.append("NEWS_AUTHOR.AUTHOR_ID=").append(authorId);
+            if(tagsId!=null){
+                sb.append(" AND ").append("NEWS_TAG.TAG_ID IN(");
+                for (Long tagId : tagsId) {
+                    sb.append(tagId);
+                    sb.append(",");
                 }
-                query.deleteCharAt(query.length() - 1);
-                query.append(")");
-            } else {
-                if (authorId != null) {
-                    query.append("NEWS_AUTHOR.AUTHOR_ID IN(");
-                    query.append(authorId);
-                    query.append(")");
-                }
-                if (tagIdList != null) {
-                    query.append("NEWS_TAG.TAG_ID IN(");
-                    for (Long tagId : tagIdList) {
-                        query.append(tagId);
-                        query.append(",");
-                    }
-                    query.deleteCharAt(query.length() - 1);
-                    query.append(")");
-                }
+                sb.deleteCharAt(sb.length() - 1);
+                sb.append(")");
             }
         }
-        query.append(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_2);
-        return query.toString();
+        else{
+            sb.append("NEWS_TAG.TAG_ID IN(");
+            for (Long tagId : tagsId) {
+                sb.append(tagId);
+                sb.append(",");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            sb.append(")");
+        }
+        sb.append(')');
+        System.out.println("CRITERIA QUERY GOT:"+sb);
+        return sb.toString();
     }
 }
