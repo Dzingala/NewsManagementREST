@@ -40,7 +40,6 @@ public class NewsController {
             NewsTO newsTO = newsService.readDataByNewsId(news.getId());
             newsTOList.add(newsTO);
         }
-
         long pagesAmount=0;
         if(searchCriteria.getAuthorId()==null && searchCriteria.getTagsId()==null){
             pagesAmount= newsService.countPages();
@@ -59,7 +58,6 @@ public class NewsController {
     @RequestMapping(value = "/news/filter", method = RequestMethod.GET)
     public String filterNews(ModelMap model, @RequestParam Long page, @ModelAttribute SearchCriteria searchCriteria) throws ServiceException {
         List<News> newsList = newsService.readBySearchCriteria(searchCriteria,page);
-
         List<NewsTO> newsTOList=new ArrayList<>();
         for (News news : newsList) {
             NewsTO newsTO = newsService.readDataByNewsId(news.getId());
