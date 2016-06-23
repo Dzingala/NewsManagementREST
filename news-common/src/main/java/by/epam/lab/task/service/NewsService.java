@@ -120,5 +120,10 @@ public interface NewsService {
      */
     Long getCriteriaPagesAmount(SearchCriteria searchCriteria,Long page)throws ServiceException;
 
-
+    /**
+     * Creates news with all information concerned according to the certain news record.
+     * @param newsTORecord
+     * @throws ServiceException
+     */
+    void createNews(NewsTORecord newsTORecord) throws ServiceException;
 }

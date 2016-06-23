@@ -50,5 +50,10 @@
         <put-attribute name="title" value="Login page"/>
         <put-attribute name="content" value="/WEB-INF/view/body/login/login_index.jsp"/>
     </definition>
+    <definition name="news_create" extends="defaultTemplate">
+        <put-attribute name="title" value="News creation"/>
+        <put-attribute name="content" value="/WEB-INF/view/body/news/news_create.jsp"/>
+    </definition>
+
 
 </tiles-definitions>

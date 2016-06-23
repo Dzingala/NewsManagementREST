@@ -11,9 +11,14 @@ import by.epam.lab.task.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +60,32 @@ public class NewsController {
         model.addAttribute("newsList", newsTOList);
         return "news_index";
     }
+
+    @RequestMapping(value = "/news/create", method = RequestMethod.POST)
+    public String createNews(@ModelAttribute @Validated NewsTORecord newsTORecord, BindingResult result) throws ServiceException {
+        if (result.hasErrors()) {
+            return "redirect:/news/add";
+        }
+        News news = newsTORecord.getNews();
+        news.setCreationDate(new Timestamp(System.currentTimeMillis()));
+        news.setModificationDate(new Date(Calendar.getInstance().getTime().getTime()));
+        newsTORecord.setNews(news);
+        newsService.createNews(newsTORecord);
+        return "redirect:/news/add";
+    }
+
+    @RequestMapping(value = "/news/add", method = RequestMethod.GET)
+    public String loadPageAddNews(ModelMap model) throws ServiceException {
+        List<Author> authors = authorService.readAll();
+        List<Tag> tags = tagService.readAll();
+        NewsTORecord addNewsTO = new NewsTORecord();
+        model.addAttribute("newsTORecord", addNewsTO);
+        model.addAttribute("authors", authors);
+        model.addAttribute("tags", tags);
+
+        return "news_create";
+    }
+
     @RequestMapping(value = "/news/filter", method = RequestMethod.GET)
     public String filterNews(ModelMap model, @RequestParam Long page, @ModelAttribute SearchCriteria searchCriteria) throws ServiceException {
         List<News> newsList = newsService.readBySearchCriteria(searchCriteria,page);

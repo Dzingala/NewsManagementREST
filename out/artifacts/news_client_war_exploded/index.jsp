@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -11,6 +12,9 @@
     <title></title>
   </head>
   <body>
-
+  <c:url var="page" value="/Controller" context="/${pageContext.request.contextPath}">
+      <c:param name="command" value="get-news"/>
+  </c:url>
+  <jsp:forward page="${page}"/>
   </body>
 </html>

@@ -129,7 +129,38 @@ public class NewsServiceImpl implements NewsService {
 
         return pagesAmount;
     }
+    /**
+     * Implementation of NewsService method createNews.
+     * @see by.epam.lab.task.exceptions.service.ServiceException
+     */
+    @Transactional(rollbackFor = ServiceException.class)
+    @Override
+    public void createNews(NewsTORecord newsTORecord) throws ServiceException {
+        logger.debug("Extraction news and all information connected with it from the news record in NewsServiceImpl");
+        News news = newsTORecord.getNews();
+        Long authorId=newsTORecord.getAuthorId();
+        ArrayList<Long> tagsId=newsTORecord.getTagIdList();
+        NewsTO newsTO = new NewsTO();
+        newsTO.setNews(news);
+        Author author=null;
+        if(authorId!=null) {
+            author=authorService.read(authorId);
+        }
+        else{
+            return;
+        }
+        newsTO.setAuthor(author);
+        ArrayList<Tag> tags=null;
+        if(tagsId!=null){
+            tags=new ArrayList<>();
+            for(Long id: tagsId){
+                tags.add(tagService.readById(id));
+            }
+        }
+        newsTO.setTagList(tags);
+        create(newsTO);
 
+    }
 
     /**
      * Implementation of NewsService method create.
@@ -155,13 +186,13 @@ public class NewsServiceImpl implements NewsService {
                     }
                 }
                 if(author!=null) {
-                    Long authorId= authorService.create(author);
-                    newsRepository.joinNewsWithAuthor(newsId, authorId);
+                    //Long authorId= authorService.create(author);
+                    newsRepository.joinNewsWithAuthor(newsId, author.getId());
                 }
                 if(tagList!=null) {
                     for (Tag tag : tagList) {
-                        Long tagId = tagService.create(tag);
-                        newsRepository.joinNewsWithTag(newsId, tagId);
+                        //Long tagId = tagService.create(tag);
+                        newsRepository.joinNewsWithTag(newsId, tag.getId());
                     }
                 }
             }else {
