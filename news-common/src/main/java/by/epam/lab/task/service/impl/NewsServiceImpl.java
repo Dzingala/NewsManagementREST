@@ -73,7 +73,9 @@ public class NewsServiceImpl implements NewsService {
         logger.debug("Reading news sorted by comments in NewsServiceImpl");
         ArrayList<News> newsList = null;
         try {
-            newsList = newsRepository.readSortedByComments();
+
+            //newsList=newsRepository.readSortedByComments();
+            newsList = newsRepository.readAll();
         } catch (DAOException e) {
             logger.error("DAOException while reading news sorted by comments in NewsServiceImpl");
             throw new ServiceException("ServiceException while reading news sorted by comments");
@@ -383,29 +385,29 @@ public class NewsServiceImpl implements NewsService {
         return newsAmount/newsPerPage;
     }
 
-    @Transactional
-    @Override
-    public Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException{
-        logger.debug("Counting pages of News according the search criteria in NewsServiceImpl");
-        Long criteriaNewsAmount;
-        String query = composeCriteriaNewsAmountQuery(searchCriteria);
-        System.out.println("QUERY BUILT:" +query);
-        Long newsPerPage = 4l;
-        if (query == null) {
-            return null;
-        }
-        try {
-            criteriaNewsAmount = newsRepository.countNews(query);
-            if (criteriaNewsAmount % 4 != 0) {
-                return criteriaNewsAmount / newsPerPage + 1;
-            }
-        } catch (DAOException e) {
-            logger.error("DAOException while counting pages of News according the search criteria in NewsServiceImpl");
-            throw new ServiceException("ServiceException while counting pages of News according the search criteria", e);
-        }
-        return criteriaNewsAmount / newsPerPage;
-
-    }
+//    @Transactional
+//    @Override
+//    public Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException{
+//        logger.debug("Counting pages of News according the search criteria in NewsServiceImpl");
+//        Long criteriaNewsAmount;
+//        String query = composeCriteriaNewsAmountQuery(searchCriteria);
+//        System.out.println("QUERY BUILT:" +query);
+//        Long newsPerPage = 4l;
+//        if (query == null) {
+//            return null;
+//        }
+//        try {
+//            criteriaNewsAmount = newsRepository.countNews(query);
+//            if (criteriaNewsAmount % 4 != 0) {
+//                return criteriaNewsAmount / newsPerPage + 1;
+//            }
+//        } catch (DAOException e) {
+//            logger.error("DAOException while counting pages of News according the search criteria in NewsServiceImpl");
+//            throw new ServiceException("ServiceException while counting pages of News according the search criteria", e);
+//        }
+//        return criteriaNewsAmount / newsPerPage;
+//
+//    }
 
 
     private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1="SELECT COUNT(SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +

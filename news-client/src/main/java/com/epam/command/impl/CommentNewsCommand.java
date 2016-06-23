@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 /**
  * @author Ivan Dzinhala
  */
-@Component("addComment")
+@Component("add-comment")
 public class CommentNewsCommand implements Command {
     @Autowired
     private CommentService commentService;

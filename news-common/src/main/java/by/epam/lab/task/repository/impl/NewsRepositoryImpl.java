@@ -495,6 +495,12 @@ public class NewsRepositoryImpl implements NewsRepository {
         StringBuffer sb= new StringBuffer(READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY);
         Long authorId =criteria.getAuthorId();
         ArrayList<Long> tagsId = criteria.getTagsId();
+        System.out.println("GOT VALUES:author id:"+authorId+",tags id:");
+        if(tagsId!=null) {
+            tagsId.forEach(System.out::println);
+        }
+        else System.out.println("null");
+
         if(authorId == null && tagsId == null){
             return null;
         }

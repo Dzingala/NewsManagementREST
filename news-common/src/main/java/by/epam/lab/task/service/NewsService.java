@@ -103,7 +103,7 @@ public interface NewsService {
      * @return The amount of pages depending on the results of the search criteria.
      * @throws ServiceException
      */
-    Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException;
+//    Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException;
 
     /**
      * Make query for getting the count of pages according certain search criteria.

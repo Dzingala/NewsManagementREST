@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Ivan Dzinhala
  */
-@Component("viewNews")
+@Component("view-news")
 public class ViewNewsCommand implements Command {
     @Autowired
     private NewsService newsService;

@@ -26,12 +26,12 @@ public class CommentController {
         }
         comment.setNewsId(newsId);
         commentService.create(comment);
-        return "redirect:/news/" + newsId;
+        return "redirect:/news/view/" + newsId;
     }
 
     @RequestMapping(value = "/comment/delete", method = RequestMethod.POST)
     public String deleteComment(@ModelAttribute Comment comment, @RequestParam Long newsId) throws ServiceException {
         commentService.delete(comment);
-        return "redirect:/news/" + newsId;
+        return "redirect:/news/view/" + newsId;
     }
 }

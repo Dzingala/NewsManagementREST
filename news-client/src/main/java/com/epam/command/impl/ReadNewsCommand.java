@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Ivan Dzinhala
  */
-@Component("readNews")
+@Component("get-news")
 public class ReadNewsCommand implements Command {
     @Autowired
     private NewsService newsService;
@@ -51,7 +51,10 @@ public class ReadNewsCommand implements Command {
         try {
             SearchCriteria searchCriteria = requestHandler.parseSearchCriteria(request);
 
-            long numberOfPages = newsService.countCriteriaPages(searchCriteria);
+            Long numberOfPages =null;
+            if(searchCriteria.getAuthorId()==null && searchCriteria.getTagsId()==null){
+                numberOfPages=newsService.getCriteriaPagesAmount(searchCriteria,1l);
+            }
 
             long page = requestHandler.parsePage(request);
 
