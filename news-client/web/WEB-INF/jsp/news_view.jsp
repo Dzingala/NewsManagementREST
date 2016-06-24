@@ -10,7 +10,7 @@
     <%--<script src="/resources/scripts/modernizr-2.6.2.js"></script>--%>
 </head>
 <body>
-<div class="row text-center">
+<!--<div class="row text-center">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <div class="row">
     <div class="container body-content">

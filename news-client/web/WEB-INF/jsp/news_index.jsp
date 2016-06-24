@@ -34,7 +34,7 @@
 
 
 
-<div class="criteria">
+<!--<div class="criteria">
     <form action="<c:url value="/Controller" context="/${pageContext.request.contextPath}"/>" method="get" class="col-sm-4" style="position:relative; margin-left: 0;">
         <input type="hidden" name="command" value="get-news">
         <input type="hidden" name="curPage" value="${curPage}">
@@ -74,7 +74,7 @@
         </div>
 
     </form>
-</div>
+</div>-->
 
 <div class="container body-content">
     <h2>Index</h2>
@@ -135,7 +135,7 @@
     </table>
 
 
-    <div>
+    <!--<div>
 
         <c:if test="${curPage != 1}">
             <c:url var="back" value="/Controller" context="/${pageContext.request.contextPath}">
@@ -178,14 +178,14 @@
             <a href="${next}">Next -></a>
         </c:if>
 
-    </div>
+    </div>-->
 
 </div>
 </body>
 
 <footer>
     <div class="row text-center">
-        &copy; - Nastya Dubovik
+        &copy; - Ivan Dzinhala
     </div>
 </footer>
 
