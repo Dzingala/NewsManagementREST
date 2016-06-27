@@ -53,7 +53,7 @@ public class ReadNewsCommand implements Command {
 
             Long numberOfPages =null;
             if(searchCriteria.getAuthorId()==null && searchCriteria.getTagsId()==null){
-                numberOfPages=newsService.getCriteriaPagesAmount(searchCriteria,1l);
+                numberOfPages=newsService.getCriteriaPagesAmount(searchCriteria, 1L);
             }
 
             long page = requestHandler.parsePage(request);
