@@ -32,12 +32,13 @@ public class ReadNewsCommand implements Command {
     @Autowired
     private AuthorService authorService;
 
-    private static final String PAGES = "pages";
+    private static final String PAGES = "pagesAmount";
+    private static final String PAGES_CRITERIA = "pagesAmountCriteria";
     private static final String CURRENT_PAGE = "curPage";
     private static final String SEARCH_CRITERIA = "searchCriteria";
     private static final String TAG_LIST = "tagList";
     private static final String AUTHOR_LIST = "authorList";
-    private static final String NEWS = "newsSet";
+    private static final String NEWS = "newsList";
 
     private static final String TO_GO="/WEB-INF/jsp/news_index.jsp";
 
@@ -53,10 +54,16 @@ public class ReadNewsCommand implements Command {
 
             Long numberOfPages =null;
             if(searchCriteria.getAuthorId()==null && searchCriteria.getTagsId()==null){
-                numberOfPages=newsService.getCriteriaPagesAmount(searchCriteria, 1L);
+                numberOfPages=newsService.countPages();
+                request.setAttribute(PAGES,numberOfPages);
+            }
+            else{
+                numberOfPages=newsService.getCriteriaPagesAmount(searchCriteria,1L);
+                System.out.println("criteria pages:"+numberOfPages);
+                request.setAttribute(PAGES_CRITERIA,numberOfPages);
             }
 
-            long page = requestHandler.parsePage(request);
+            Long page = requestHandler.parsePage(request);
 
             ArrayList<News> newsList = newsService.readBySearchCriteria(searchCriteria, page);
             ArrayList<NewsTO> news = new ArrayList<>();
@@ -65,7 +72,6 @@ public class ReadNewsCommand implements Command {
                 news.add(newsTO);
             }
 
-            request.setAttribute(PAGES, numberOfPages);
             request.setAttribute(CURRENT_PAGE, page);
             request.setAttribute(SEARCH_CRITERIA, searchCriteria);
             request.setAttribute(TAG_LIST, tagService.readAll());

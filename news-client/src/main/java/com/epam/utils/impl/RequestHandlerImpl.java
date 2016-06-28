@@ -39,26 +39,55 @@ public class RequestHandlerImpl implements RequestHandler {
     public SearchCriteria parseSearchCriteria(HttpServletRequest request) throws HandlerException {
         SearchCriteria searchCriteria = new SearchCriteria();
         String tags = request.getParameter(TAGS);
+        System.out.println("tagsgot:"+tags);
         String author = request.getParameter(AUTHOR);
-        ArrayList<Long> tagIdList = parseIdList(tags);
+        System.out.println("authorgot:"+author);
+        ArrayList<Long> tagIdList = null;
+        if(tags!=null){
+            tagIdList=parseIdList(tags);
+        }
         Long authorId = null;
+        boolean isAuth=false;
+        boolean areTags=false;
         if(author!=null){
-            authorId=Long.parseLong(author);
+            authorId=parseAuthorEntity(author);
+            isAuth=true;
         }
-        if(tagIdList.isEmpty() && authorId==null && request.getQueryString() != null){
-            tagIdList = parseIdList(request, TAG_ID);
-            //authorId = parseIdList(request, AUTHOR_ID);
+        if(tagIdList!=null){
+            areTags=true;
+            for (Long id :
+                    tagIdList) {
+                System.out.println(id);
+            }
         }
-        searchCriteria.setTagsId(tagIdList);
-        searchCriteria.setAuthorId(authorId);
+        if(isAuth || areTags){
+            System.out.println("auth or tags !=null");
+            if(isAuth){
+                searchCriteria.setAuthorId(authorId);
+            }
+            if(areTags){
+                searchCriteria.setTagsId(tagIdList);
+            }
+        }
         return searchCriteria;
     }
-
+    @Override
+    public Long parseAuthorEntity(String entity){
+        Long authorId=null;
+        int idInd=entity.indexOf("=");
+        StringBuilder stringId=new StringBuilder();
+        idInd++;
+        while(entity.charAt(idInd)!=','){
+            stringId.append(entity.charAt(idInd++));
+        }
+        authorId=Long.parseLong(stringId.toString());
+        return authorId;
+    }
     @Override
     public Long parsePage(HttpServletRequest request) throws HandlerException {
         String page = request.getParameter(CURRENT_PAGE);
         if(page == null){
-            return 1l;
+            return 1L;
         }
         Long pageLong = null;
         try{
@@ -124,8 +153,10 @@ public class RequestHandlerImpl implements RequestHandler {
      * @return list of id or empty List
      */
     private ArrayList<Long> parseIdList(String str){
-        ArrayList<Long> idList = new ArrayList<>();
+        System.out.println("str");
+        ArrayList<Long> idList =null;
         if( str != null && !str.isEmpty() ){
+            idList= new ArrayList<>();
             String[] stringArray = str.split("\\s");
             for(String authorId : stringArray){
                 idList.add(Long.parseLong(authorId));

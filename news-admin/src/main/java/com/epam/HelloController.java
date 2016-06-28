@@ -20,7 +20,7 @@ public class HelloController {
         model.addAttribute("say","WORKS!!page1");
         Author author =new Author();
         author.setName("name");
-        author.setId(1l);
+        author.setId(1);
         System.out.println(author);
         System.out.println("GOINg TO PAGE1=========================================");
         model.addAttribute("author", author);

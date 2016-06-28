@@ -39,7 +39,7 @@ public class NewsController {
                           @ModelAttribute SearchCriteria searchCriteria
                           ) throws ServiceException {
 
-        List<News> newsList = newsService.readBySearchCriteria(searchCriteria, page.orElse(1l));
+        List<News> newsList = newsService.readBySearchCriteria(searchCriteria, page.orElse(1L));
         List<NewsTO> newsTOList=new ArrayList<>();
         for (News news : newsList) {
             NewsTO newsTO = newsService.readDataByNewsId(news.getId());
@@ -50,7 +50,7 @@ public class NewsController {
             pagesAmount= newsService.countPages();
             model.addAttribute("pagesAmount",pagesAmount);
         }else{
-            pagesAmount = newsService.getCriteriaPagesAmount(searchCriteria ,1l);
+            pagesAmount = newsService.getCriteriaPagesAmount(searchCriteria , 1L);
             model.addAttribute("pagesAmountCriteria",pagesAmount);
         }
         model.addAttribute("currentPage", page.orElse(1l));

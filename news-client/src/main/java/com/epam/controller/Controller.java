@@ -71,8 +71,11 @@ public class Controller extends HttpServlet {
         String page = null;
         try {
             String commandName = request.getParameter(COMMAND_KEY);
+            System.out.println("Command:"+commandName);
             Command command = (Command) context.getBean(commandName);
+            System.out.println(command);
             page = command.execute(request);
+            System.out.println(page);
         } catch (CommandException e) {
             LOG.error("Error in controller: " + e.getMessage());
             request.setAttribute(PARAMETER_ERROR, e.getMessage());

@@ -287,6 +287,7 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.debug("News was not counted");
             throw new DAOException(e);
         }
+        System.out.println("newsAmount:"+newsAmount);
         return newsAmount;
     }
     /**
@@ -495,7 +496,6 @@ public class NewsRepositoryImpl implements NewsRepository {
         StringBuffer sb= new StringBuffer(READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY);
         Long authorId =criteria.getAuthorId();
         ArrayList<Long> tagsId = criteria.getTagsId();
-        System.out.println("GOT VALUES:author id:"+authorId+",tags id:");
         if(tagsId!=null) {
             tagsId.forEach(System.out::println);
         }
@@ -532,7 +532,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public Long countNews(final String countQuery)throws DAOException{
         logger.debug("Counting criteria News in NewsRepositoryImpl");
-        Long criteriaNewsAmount = 0l;
+        Long criteriaNewsAmount = 0L;
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
