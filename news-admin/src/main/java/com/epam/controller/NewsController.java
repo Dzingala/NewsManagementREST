@@ -53,7 +53,7 @@ public class NewsController {
             pagesAmount = newsService.getCriteriaPagesAmount(searchCriteria , 1L);
             model.addAttribute("pagesAmountCriteria",pagesAmount);
         }
-        model.addAttribute("currentPage", page.orElse(1l));
+        model.addAttribute("currentPage", page.orElse(1L));
         model.addAttribute("searchCriteria", searchCriteria);
         model.addAttribute("tagList", tagService.readAll());
         model.addAttribute("authorList", authorService.readAll());

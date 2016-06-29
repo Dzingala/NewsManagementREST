@@ -51,8 +51,18 @@ public class ReadNewsCommand implements Command {
     public String execute(HttpServletRequest request) throws CommandException {
         try {
             SearchCriteria searchCriteria = requestHandler.parseSearchCriteria(request);
-
+            Long page =(searchCriteria.getAuthorId()==null && searchCriteria.getTagsId()==null)?
+                    (requestHandler.parsePage(request)):
+                    (1L);
+            System.out.println("PAGE FIRST"+page);
+            ArrayList<News> newsList = newsService.readBySearchCriteria(searchCriteria, page);
+            ArrayList<NewsTO> news = new ArrayList<>();
+            for (News singleNew : newsList) {
+                NewsTO newsTO = newsService.readDataByNewsId(singleNew.getId());
+                news.add(newsTO);
+            }
             Long numberOfPages =null;
+
             if(searchCriteria.getAuthorId()==null && searchCriteria.getTagsId()==null){
                 numberOfPages=newsService.countPages();
                 request.setAttribute(PAGES,numberOfPages);
@@ -62,16 +72,6 @@ public class ReadNewsCommand implements Command {
                 System.out.println("criteria pages:"+numberOfPages);
                 request.setAttribute(PAGES_CRITERIA,numberOfPages);
             }
-
-            Long page = requestHandler.parsePage(request);
-
-            ArrayList<News> newsList = newsService.readBySearchCriteria(searchCriteria, page);
-            ArrayList<NewsTO> news = new ArrayList<>();
-            for (News singleNew : newsList) {
-                NewsTO newsTO = newsService.readDataByNewsId(singleNew.getId());
-                news.add(newsTO);
-            }
-
             request.setAttribute(CURRENT_PAGE, page);
             request.setAttribute(SEARCH_CRITERIA, searchCriteria);
             request.setAttribute(TAG_LIST, tagService.readAll());

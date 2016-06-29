@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,22 +39,27 @@ public class RequestHandlerImpl implements RequestHandler {
     @Override
     public SearchCriteria parseSearchCriteria(HttpServletRequest request) throws HandlerException {
         SearchCriteria searchCriteria = new SearchCriteria();
-        String tags = request.getParameter(TAGS);
-        System.out.println("tagsgot:"+tags);
+        String[] tags = request.getParameterValues(TAGS);
+        System.out.println("tagsgot:");
+        if(tags!=null)for (String tag : tags) System.out.println(tag);
         String author = request.getParameter(AUTHOR);
         System.out.println("authorgot:"+author);
         ArrayList<Long> tagIdList = null;
-        if(tags!=null){
-            tagIdList=parseIdList(tags);
+        if(tags!=null && !(tags.length == 0)){
+            System.out.println("parsing tags");
+            tagIdList=parseTags(tags);
         }
         Long authorId = null;
         boolean isAuth=false;
         boolean areTags=false;
-        if(author!=null){
-            authorId=parseAuthorEntity(author);
+        if(author!=null && !author.equals("")){
+            System.out.println("parsing author");
+            authorId= Long.parseLong(author);
+            System.out.println("authorid:"+authorId);
             isAuth=true;
         }
         if(tagIdList!=null){
+            System.out.println("tagsidlist not null");
             areTags=true;
             for (Long id :
                     tagIdList) {
@@ -63,29 +69,21 @@ public class RequestHandlerImpl implements RequestHandler {
         if(isAuth || areTags){
             System.out.println("auth or tags !=null");
             if(isAuth){
+                System.out.println("auth set");
                 searchCriteria.setAuthorId(authorId);
             }
             if(areTags){
+                System.out.println("tags set");
                 searchCriteria.setTagsId(tagIdList);
             }
         }
         return searchCriteria;
     }
-    @Override
-    public Long parseAuthorEntity(String entity){
-        Long authorId=null;
-        int idInd=entity.indexOf("=");
-        StringBuilder stringId=new StringBuilder();
-        idInd++;
-        while(entity.charAt(idInd)!=','){
-            stringId.append(entity.charAt(idInd++));
-        }
-        authorId=Long.parseLong(stringId.toString());
-        return authorId;
-    }
+
     @Override
     public Long parsePage(HttpServletRequest request) throws HandlerException {
         String page = request.getParameter(CURRENT_PAGE);
+        System.out.println("pagegot:"+page);
         if(page == null){
             return 1L;
         }
@@ -152,15 +150,20 @@ public class RequestHandlerImpl implements RequestHandler {
      * @param str
      * @return list of id or empty List
      */
-    private ArrayList<Long> parseIdList(String str){
+    private ArrayList<Long> parseTags(String[] str) {
         System.out.println("str");
-        ArrayList<Long> idList =null;
-        if( str != null && !str.isEmpty() ){
-            idList= new ArrayList<>();
-            String[] stringArray = str.split("\\s");
-            for(String authorId : stringArray){
-                idList.add(Long.parseLong(authorId));
+        ArrayList<Long> idList = null;
+        if(str==null)return null;
+        idList = new ArrayList<>();
+
+        for (String tagId : str) {
+            if(!tagId.equals("")){
+                idList.add(Long.parseLong(tagId));
+                System.out.println("added"+tagId);
             }
+        }
+        if(idList.isEmpty()){
+            return null;
         }
         return idList;
     }

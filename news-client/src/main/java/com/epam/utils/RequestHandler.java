@@ -53,11 +53,5 @@ public interface RequestHandler {
      */
     public ArrayList<Long> parseIdList(HttpServletRequest request, String key) throws HandlerException;
 
-    /**
-     * Get an id of the author reflected in string.
-     * @param entity
-     * @return
-     * @throws HandlerException
-     */
-    Long parseAuthorEntity(String entity)throws HandlerException;
+
 }

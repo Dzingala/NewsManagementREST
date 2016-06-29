@@ -27,27 +27,33 @@
 
         <h2>Authors</h2>
 
-        <select name="author">
-            <c:forEach items="${authorList}" var="author">
-                <option value="${author}" selected=${author.getId() == searchCriteria.getAuthorId()?'selected':''}>
-                    ${author.name}
+        <label>
+            <select name="author">
+                <c:forEach items="${authorList}" var="author">
+                    <option value="${author.id}" >
+                        ${author.name}
+                    </option>
+                </c:forEach>
+                <option value="" selected>
+                    none
                 </option>
-            </c:forEach>
-        </select>
+            </select>
+        </label>
 
 
         <h2>Tags</h2>
-
-        <c:forEach var="tag" items="${tagList}">
-            <c:if test="${searchCriteria.getTagsId().contains(tag.id)}" >
-               <label> <input type="checkbox" name="tagId" value="${tag.id}" checked/> ${tag.name}</label>
-            </c:if>
-            <c:if test="${!searchCriteria.getTagsId().contains(tag.id)}" >
-               <label> <input type="checkbox" name="tagId" value="${tag.id}"/> ${tag.name}</label>
-            </c:if>
-        </c:forEach>
-
-
+        <label>
+            <select name="tags" multiple="multiple" size="5">
+                <c:forEach items="${tagList}" var="tag">
+                    <option value="${tag.id}" }>
+                        ${tag.name}
+                    </option>
+                </c:forEach>
+                <option value="" selected>
+                    none
+                </option>
+            </select>
+        </label>
 
         <div>
             <input type="submit" value="Search" />
@@ -118,7 +124,39 @@
         </c:forEach>
 
     </table>
+    <c:forEach var="i" begin="1" end="${pagesAmount}">
 
+        <c:url var="getPage" value="/Controller" context="/${pageContext.request.contextPath}">
+            <c:param name="command" value="get-news"/>
+            <c:param name="curPage" value="${i}"/>
+        </c:url>
+        <a href="${getPage}">
+            <c:if test="${i == curPage}">
+                <b> ${i}</b>
+            </c:if>
+            <c:if test="${i != curPage}">
+                ${i}
+            </c:if>
+        </a>
+        |
+    </c:forEach>
+    <c:forEach var="i" begin="1" end="${pagesAmountCriteria}">
+        <c:url var="getPage" value="/Controller" context="/${pageContext.request.contextPath}">
+            <c:param name="command" value="get-news-criteria"/>
+            <c:param name="curPage" value="${i}"/>
+            <c:param name="author" value="${searchCriteria.getAuthorId()}"/>
+            <c:param name="tags" value="${searchCriteria.getTagsId()}"/>
+        </c:url>
+        <a href="${getPage}">
+            <c:if test="${i == curPage}">
+                <b> ${i}</b>
+            </c:if>
+            <c:if test="${i != curPage}">
+                ${i}
+            </c:if>
+        </a>
+        |
+    </c:forEach>
 
     <%--<div>--%>
 
