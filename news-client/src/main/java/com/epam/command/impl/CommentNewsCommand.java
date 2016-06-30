@@ -57,7 +57,7 @@ public class CommentNewsCommand implements Command {
 
             SearchCriteria searchCriteria = requestHandler.parseSearchCriteria(request);
 
-            long page = requestHandler.parsePage(request);
+            Long page = requestHandler.parsePage(request);
 
             NewsTO news = newsService.readDataByNewsId(newsId);
 

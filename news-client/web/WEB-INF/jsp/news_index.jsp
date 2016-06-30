@@ -109,99 +109,86 @@
                 <td>
                         ${newsTO.commentList.size()}
                 </td>
-                <%--<td>--%>
-                    <%--<c:url var="details" value="/Controller" context="/${pageContext.request.contextPath}">--%>
-                        <%--<c:param name="command" value="view-news"/>--%>
-                        <%--<c:param name="newsId" value="${newsTO.news.id}"/>--%>
-                        <%--<c:param name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>--%>
-                        <%--<c:param name="curPage" value="${curPage}"/>--%>
-                    <%--</c:url>--%>
-                    <%--<a href="${details}">Details</a>--%>
+                <td>
+                    <c:url var="details" value="/Controller" context="/${pageContext.request.contextPath}">
+                        <c:param name="command" value="view-news"/>
+                        <c:param name="newsId" value="${newsTO.news.id}"/>
+                        <c:param name="author" value="${searchCriteria.getAuthorId()}"/>
+                        <c:param name="tags" value="${searchCriteria.getTagsId()}"/>
+                        <c:param name="curPage" value="${curPage}"/>
+                    </c:url>
+                    <a href="${details}">Details</a>
 
-                <%--</td>--%>
+                </td>
             </tr>
         </c:forEach>
 
     </table>
-    <c:forEach var="i" begin="1" end="${pagesAmount}">
-
-        <c:url var="getPage" value="/Controller" context="/${pageContext.request.contextPath}">
-            <c:param name="command" value="get-news"/>
-            <c:param name="curPage" value="${i}"/>
-        </c:url>
-        <a href="${getPage}">
-            <c:if test="${i == curPage}">
-                <b> ${i}</b>
-            </c:if>
-            <c:if test="${i != curPage}">
-                ${i}
-            </c:if>
-        </a>
-        |
-    </c:forEach>
-    <c:forEach var="i" begin="1" end="${pagesAmountCriteria}">
-        <c:url var="getPage" value="/Controller" context="/${pageContext.request.contextPath}">
-            <c:param name="command" value="get-news-criteria"/>
-            <c:param name="curPage" value="${i}"/>
-            <c:param name="author" value="${searchCriteria.getAuthorId()}"/>
-            <c:param name="tags" value="${searchCriteria.getTagsId()}"/>
-        </c:url>
-        <a href="${getPage}">
-            <c:if test="${i == curPage}">
-                <b> ${i}</b>
-            </c:if>
-            <c:if test="${i != curPage}">
-                ${i}
-            </c:if>
-        </a>
-        |
-    </c:forEach>
-
-    <%--<div>--%>
-
-        <%--<c:if test="${curPage != 1}">--%>
-            <%--<c:url var="back" value="/Controller" context="/${pageContext.request.contextPath}">--%>
-                <%--<c:param name="command" value="get-news"/>--%>
-                <%--<c:param name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>--%>
-                <%--<c:param name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>--%>
-                <%--<c:param name="curPage" value="${curPage - 1}"/>--%>
-            <%--</c:url>--%>
-            <%--<a href="${back}"><- Back</a>--%>
+    <div>
+        <c:if test="${curPage != 1}">
+            <c:url var="back" value="/Controller" context="/${pageContext.request.contextPath}">
+                <c:param name="command" value="get-news"/>
+                <c:param name="author" value="${searchCriteria.getAuthorId()}"/>
+                <c:param name="tags" value="${searchCriteria.getTagsId()}"/>
+                <c:param name="curPage" value="${curPage - 1}"/>
+            </c:url>
+            <a href="${back}"><- Back</a>
 
 
-        <%--</c:if>--%>
+        </c:if>
+        <c:forEach var="i" begin="1" end="${pagesAmount}">
 
-        <%--<c:forEach var="i" begin="1" end="${pages}">--%>
+            <c:url var="getPage" value="/Controller" context="/${pageContext.request.contextPath}">
+                <c:param name="command" value="get-news"/>
+                <c:param name="curPage" value="${i}"/>
+            </c:url>
+            <a href="${getPage}">
+                <c:if test="${i == curPage}">
+                    <b> ${i}</b>
+                </c:if>
+                <c:if test="${i != curPage}">
+                    ${i}
+                </c:if>
+            </a>
+            |
+        </c:forEach>
+        <c:forEach var="i" begin="1" end="${pagesAmountCriteria}">
+            <c:url var="getPage" value="/Controller" context="/${pageContext.request.contextPath}">
+                <c:param name="command" value="get-news-criteria"/>
+                <c:param name="curPage" value="${i}"/>
+                <c:param name="author" value="${searchCriteria.getAuthorId()}"/>
+                <c:param name="tags" value="${searchCriteria.getTagsId()}"/>
+            </c:url>
+            <a href="${getPage}">
+                <c:if test="${i == curPage}">
+                    <b> ${i}</b>
+                </c:if>
+                <c:if test="${i != curPage}">
+                    ${i}
+                </c:if>
+            </a>
+            |
+        </c:forEach>
+        <c:if test="${pagesAmount > curPage}">
+            <c:url var="next" value="/Controller" context="/${pageContext.request.contextPath}">
+                <c:param name="command" value="get-news"/>
+                <c:param name="author" value="${searchCriteria.getAuthorId()}"/>
+                <c:param name="tags" value="${searchCriteria.getTagsId()}"/>
+                <c:param name="curPage" value="${curPage + 1}"/>
+            </c:url>
+            <a href="${next}">Next -></a>
+        </c:if>
+        <c:if test="${pagesAmountCriteria > curPage}">
+            <c:url var="next" value="/Controller" context="/${pageContext.request.contextPath}">
+                <c:param name="command" value="get-news-criteria"/>
+                <c:param name="author" value="${searchCriteria.getAuthorId()}"/>
+                <c:param name="tags" value="${searchCriteria.getTagsId()}"/>
+                <c:param name="curPage" value="${curPage + 1}"/>
+            </c:url>
+            <a href="${next}">Next -></a>
+        </c:if>
 
-            <%--<c:url var="getPage" value="/Controller" context="/${pageContext.request.contextPath}">--%>
-                <%--<c:param name="command" value="get-news"/>--%>
-                <%--<c:param name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>--%>
-                <%--<c:param name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>--%>
-                <%--<c:param name="curPage" value="${i}"/>--%>
-            <%--</c:url>--%>
-            <%--<a href="${getPage}">--%>
-                <%--<c:if test="${i == curPage}">--%>
-                    <%--<b> ${i}</b>--%>
-                <%--</c:if>--%>
-                <%--<c:if test="${i != curPage}">--%>
-                    <%--${i}--%>
-                <%--</c:if>--%>
-            <%--</a>--%>
-            <%--|--%>
-        <%--</c:forEach>--%>
-
-        <%--<c:if test="${pages > curPage}">--%>
-            <%--<c:url var="next" value="/Controller" context="/${pageContext.request.contextPath}">--%>
-                <%--<c:param name="command" value="get-news"/>--%>
-                <%--<c:param name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>--%>
-                <%--<c:param name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>--%>
-                <%--<c:param name="curPage" value="${curPage + 1}"/>--%>
-            <%--</c:url>--%>
-            <%--<a href="${next}">Next -></a>--%>
-        <%--</c:if>--%>
-
-    <%--</div>--%>
+    </div>
 
 </div>
 </body>

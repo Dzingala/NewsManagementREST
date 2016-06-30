@@ -1,16 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
     <title>News List</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%--<link href="/resources/content/site.css" rel="stylesheet" type="text/css" />--%>
-    <%--<link href="/resources/content/bootstrap.min.css" rel="stylesheet" type="text/css" />--%>
-    <%--<link href="/resources/content/style.css" rel="stylesheet" type="text/css" />--%>
-    <%--<script src="/resources/scripts/modernizr-2.6.2.js"></script>--%>
 </head>
 <body>
-<!--<div class="row text-center">
+<div class="row text-center">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -19,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/news">News Management</a>
+                <a class="navbar-brand" href="/Controller">News Management</a>
 
             </div>
             <div class="navbar-collapse collapse">
@@ -28,7 +25,7 @@
             </div>
         </div>
     </div>
-</div>-->
+</div>
 
 <div class="row">
     <div class="container body-content">
@@ -108,8 +105,8 @@
                     <dd>
                         <c:forEach var="com" items="${newsTO.commentList}">
                             <div>
-                                Time: ${com.comCreationDate}  <br/>
-                                    ${com.comText}
+                                Time: ${com.creationDate}  <br/>
+                                    ${com.text}
                                 <br/>
                                 <hr>
                             </div>
@@ -129,7 +126,7 @@
                         <input type="hidden" name="newsId" value="${newsId}"/>
                         <div class="form-group">
                             <div class="col-md-10">
-                                <input type="textarea" class="form-control text-box single-line" type="text" maxlength="100" name="comText" style="max-width: none; display: block; width: 100%;"></sf:textarea>
+                                <input type="textarea" type="text" maxlength="100" name="comText" style="max-width: none; display: block; width: 100%;"></sf:textarea>
                             </div>
                         </div>
 
@@ -147,8 +144,8 @@
 
         <form action="/Controller" method="get">
             <input type="hidden" name="command" value="get-news"/>
-            <input type="hidden" name="authors" value="${searchCriteria.authorIdSetToQueryString()}"/>
-            <input type="hidden" name="tags" value="${searchCriteria.tagIdSetToQueryString()}"/>
+            <input type="hidden" name="author" value="${searchCriteria.getAuthorId()}"/>
+            <input type="hidden" name="tags" value="${searchCriteria.getTagsId()}"/>
             <input type="hidden" name="curPage" value="${curPage}"/>
             <input type="submit" value="Back to List"/>
         </form>
@@ -162,9 +159,6 @@
         &copy; - Ivan Dzinhala
     </div>
 </div>
-
-    <script src="/resources/scripts/jquery-1.10.2.min.js"></script>
-    <script src="/resources/scripts/bootstrap.min.js"></script>
 
 </body>
 </html>
