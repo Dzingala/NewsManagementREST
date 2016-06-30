@@ -41,7 +41,10 @@ public class RequestHandlerImpl implements RequestHandler {
         SearchCriteria searchCriteria = new SearchCriteria();
         String[] tags = request.getParameterValues(TAGS);
         System.out.println("tagsgot:");
-        if(tags!=null)for (String tag : tags) System.out.println(tag);
+        if(tags!=null){
+            System.out.println("all:");
+            for (String tag : tags) System.out.println("sep"+tag+"sep");
+        }
         String author = request.getParameter(AUTHOR);
         System.out.println("authorgot:"+author);
         ArrayList<Long> tagIdList = null;
@@ -151,17 +154,30 @@ public class RequestHandlerImpl implements RequestHandler {
      * @return list of id or empty List
      */
     private ArrayList<Long> parseTags(String[] str) {
-        System.out.println("str");
         ArrayList<Long> idList = null;
         if(str==null)return null;
         idList = new ArrayList<>();
-
-        for (String tagId : str) {
-            if(!tagId.equals("")){
-                idList.add(Long.parseLong(tagId));
-                System.out.println("added"+tagId);
+        for (String aStr : str) {
+            if (aStr.contains("[")) {
+                Pattern pattern = Pattern.compile("\\d+");
+                Matcher matcher = pattern.matcher(aStr);
+                int start = 0;
+                while (matcher.find(start)) {
+                    String value = aStr.substring(matcher.start(), matcher.end());
+                    Long result = Long.parseLong(value);
+                    System.out.println(result);
+                    start = matcher.end();
+                    idList.add(result);
+                    System.out.println("added in while:" + result);
+                }
+            } else {
+                if (!aStr.equals("")) {
+                    idList.add(Long.parseLong(aStr));
+                    System.out.println("added" + aStr);
+                }
             }
         }
+
         if(idList.isEmpty()){
             return null;
         }
