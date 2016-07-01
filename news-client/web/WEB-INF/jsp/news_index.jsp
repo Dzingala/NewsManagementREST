@@ -192,7 +192,11 @@
 
 </div>
 </body>
+    <c:url var="logout" value="/Controller" context="/${pageContext.request.contextPath}">
+        <c:param name="command" value="logout"/>
 
+    </c:url>
+    <a href="${logout}">logout</a>
 <footer>
     <div class="row text-center">
         &copy; - Ivan Dzinhala
