@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class Controller extends HttpServlet {
@@ -25,6 +26,9 @@ public class Controller extends HttpServlet {
     private static final String PARAMETER_ERROR = "error";
     private static final String ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
     private static final String COMMAND_KEY = "command";
+
+
+    private static final String LOGIN_PAGE="/WEB-INF/jsp/login_page.jsp";
 
     private WebApplicationContext context;
 
@@ -69,7 +73,11 @@ public class Controller extends HttpServlet {
      */
     private String doProcess(HttpServletRequest request){
         String page = null;
+        HttpSession session = request.getSession();
         try {
+            if(session.isNew()){
+                return LOGIN_PAGE;
+            }
             String commandName = request.getParameter(COMMAND_KEY);
             System.out.println("Command:"+commandName);
             Command command = (Command) context.getBean(commandName);

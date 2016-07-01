@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class ReadNewsCommand implements Command {
     private static final String AUTHOR_LIST = "authorList";
     private static final String NEWS = "newsList";
 
-    private static final String TO_GO="/WEB-INF/jsp/news_index.jsp";
+    private static final String PAGE="/WEB-INF/jsp/news_index.jsp";
 
     private static final RequestHandlerImpl requestHandler = RequestHandlerImpl.getInstance();
 
@@ -54,7 +56,7 @@ public class ReadNewsCommand implements Command {
             Long page =(searchCriteria.getAuthorId()==null && searchCriteria.getTagsId()==null)?
                     (requestHandler.parsePage(request)):
                     (1L);
-            System.out.println("PAGE FIRST"+page);
+
             ArrayList<News> newsList = newsService.readBySearchCriteria(searchCriteria, page);
             ArrayList<NewsTO> news = new ArrayList<>();
             for (News singleNew : newsList) {
@@ -82,6 +84,6 @@ public class ReadNewsCommand implements Command {
             throw new CommandException(e);
         }
 
-        return TO_GO;
+        return PAGE;
     }
 }
