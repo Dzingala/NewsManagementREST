@@ -78,6 +78,7 @@ public class Controller extends HttpServlet {
             if(session.isNew()){
                 return LOGIN_PAGE;
             }
+            System.out.println("sessionId:"+session.getId());
             String commandName = request.getParameter(COMMAND_KEY);
             System.out.println("Command:"+commandName);
             Command command = (Command) context.getBean(commandName);

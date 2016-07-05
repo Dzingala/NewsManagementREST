@@ -20,7 +20,7 @@ public class LogoutCommand implements Command{
     }
     /*This should remove from the session all beans whose name ends in "Bean"
     and all the other attribute in the extraAttr array.*/
-    public static void invalidateSession(HttpSession session) {
+    private static void invalidateSession(HttpSession session) {
         String[] extraAttrs = { "loggedUserInfo", };
         java.util.Enumeration attrs = session.getAttributeNames();
         while (attrs.hasMoreElements()) {
