@@ -75,7 +75,6 @@ public class Controller extends HttpServlet {
      */
     private String doProcess(HttpServletRequest request){
         String page = null;
-        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         HttpSession session = request.getSession();
         try {
             if(session.isNew()){
