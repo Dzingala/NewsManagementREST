@@ -1,11 +1,17 @@
 package by.epam.lab.task.entity;
 
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 /**
  * This entity is used for representing information about an Author.
  * @author Ivan Dzinhala
  */
+@Entity
+@Table(name = "AUTHOR")
 public class Author {
     private long id;
     private String name;
@@ -17,7 +23,8 @@ public class Author {
         this.name = name;
         this.expired = expired;
     }
-
+    @Id
+    @Column(name = "AUTHOR_ID", unique = true, nullable = false)
     public long getId() {
         return id;
     }
@@ -25,7 +32,7 @@ public class Author {
     public void setId(long id) {
         this.id = id;
     }
-
+    @Column(name = "AUTHOR_NAME", nullable = false, length = 30)
     public String getName() {
         return name;
     }
@@ -33,7 +40,7 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
-
+    @Column(name = "EXPIRED", nullable = true)
     public Timestamp getExpired() {
         return expired;
     }

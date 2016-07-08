@@ -1,10 +1,12 @@
 package com.epam.controller;
 
 
+import by.epam.lab.task.util.HibernateUtil;
 import com.epam.command.Command;
 import com.epam.exception.CommandException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -73,6 +75,7 @@ public class Controller extends HttpServlet {
      */
     private String doProcess(HttpServletRequest request){
         String page = null;
+        Session sessionHibernate = HibernateUtil.getSessionFactory().openSession();
         HttpSession session = request.getSession();
         try {
             if(session.isNew()){
