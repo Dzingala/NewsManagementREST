@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -105,7 +106,7 @@ public class TestNewsService {
         NewsTO newsTO = new NewsTO(news, author, tagList, commentList);
 
         newsService.delete(newsTO);
-        author.setExpired();
+        author.setExpired(new Timestamp(System.currentTimeMillis()));
         Mockito.verify(newsRepository).disjoinNewsWithAuthor(news.getId(), author.getId());
         Mockito.verify(commentService).delete(comment);
         Mockito.verify(newsRepository).disjoinNewsWithTag(news.getId(), tag.getId());

@@ -1,11 +1,14 @@
 package by.epam.lab.task.entity;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 /**
  * This entity is used for representing information about News.
  * @author Ivan Dzinhala
  */
+@Entity
+@Table(name = "NEWS")
 public class News {
     private long id;
     private String title;
@@ -23,7 +26,8 @@ public class News {
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
     }
-
+    @Id
+    @Column(name = "NEWS_ID", unique = true, nullable = false)
     public long getId() {
         return id;
     }
@@ -31,7 +35,7 @@ public class News {
     public void setId(long id) {
         this.id = id;
     }
-
+    @Column(name = "TITLE", nullable = false, length = 30)
     public String getTitle() {
         return title;
     }
@@ -39,7 +43,7 @@ public class News {
     public void setTitle(String title) {
         this.title = title;
     }
-
+    @Column(name = "SHORT_TEXT", nullable = false, length = 100)
     public String getShortText() {
         return shortText;
     }
@@ -47,7 +51,7 @@ public class News {
     public void setShortText(String shortText) {
         this.shortText = shortText;
     }
-
+    @Column(name = "FULL_TEXT", nullable = false, length = 2000)
     public String getFullText() {
         return fullText;
     }
@@ -56,6 +60,7 @@ public class News {
         this.fullText = fullText;
     }
 
+    @Column(name = "CREATION_DATE", nullable = false)
     public Timestamp getCreationDate() {
         return creationDate;
     }

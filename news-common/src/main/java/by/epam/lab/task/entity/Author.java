@@ -45,8 +45,8 @@ public class Author {
         return expired;
     }
 
-    public void setExpired() {
-        this.expired = new Timestamp(System.currentTimeMillis());
+    public void setExpired(Timestamp expired) {
+        this.expired = expired;
     }
 
     @Override

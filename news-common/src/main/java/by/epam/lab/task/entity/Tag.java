@@ -1,9 +1,16 @@
 package by.epam.lab.task.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * This entity is used for representing information about the Tag.
  * @author Ivan Dzinhala
  */
+@Entity
+@Table(name = "TAG")
 public class Tag {
     private long id;
     private String name;
@@ -13,7 +20,8 @@ public class Tag {
         this.id = id;
         this.name = name;
     }
-
+    @Id
+    @Column(name = "TAG_ID", unique = true,nullable = false)
     public long getId() {
         return id;
     }
@@ -22,6 +30,7 @@ public class Tag {
         this.id = id;
     }
 
+    @Column(name = "TAG_NAME", nullable = false,length = 30)
     public String getName() {
         return name;
     }

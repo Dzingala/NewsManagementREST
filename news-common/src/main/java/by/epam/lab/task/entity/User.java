@@ -31,9 +31,8 @@ public class User {
         this.password = password;
     }
     public void setReadyPassword(String password){this.password=password;}
-
     @Id
-    @Column(name = "USER_ID", unique = true, nullable = false)
+    @Column(name = "USER_ID",unique = true,nullable = false)
     public Long getId() {
         return id;
     }

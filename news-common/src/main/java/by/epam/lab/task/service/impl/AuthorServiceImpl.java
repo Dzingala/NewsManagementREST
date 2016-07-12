@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 /**
  * @author Ivan Dzinhala
@@ -120,7 +121,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void delete(Author author) throws ServiceException {
         logger.debug("Deleting author in AuthorService");
-        author.setExpired();
+        author.setExpired(new Timestamp(System.currentTimeMillis()));
         try {
             authorRepository.update(author.getId(), author);
         }catch (DAOException e){
