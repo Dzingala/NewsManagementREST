@@ -4,7 +4,9 @@ import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.AuthorRepository;
 import by.epam.lab.task.entity.Author;
 import by.epam.lab.task.exceptions.dao.DAOException;
+import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
@@ -38,27 +40,31 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public Long create(Author author) throws DAOException {
         logger.debug("Creating author in AuthorRepositoryImpl");
-        Connection conn=null;
-        Long authorId=null;
-        String[] keys = {COLUMN_NAME_AUTHOR_ID};
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(CREATE_AUTHOR_QUERY, keys)) {
-                ps.setString(1, author.getName());
-                ps.executeUpdate();
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    rs.next();
-                    authorId = rs.getLong(1);
-                }
-            }finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        } catch (SQLException e){
-            logger.error("DAOException while creating author in AuthorRepositoryImpl");
-            logger.debug("Author was not created");
-            throw new DAOException();
-        }
-        return authorId;
+        Session session= HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(author);
+        session.getTransaction().commit();
+//        Connection conn=null;
+//        Long authorId=null;
+//        String[] keys = {COLUMN_NAME_AUTHOR_ID};
+//        try {
+//            conn = dataSource.getConnection();
+//            try (PreparedStatement ps = conn.prepareStatement(CREATE_AUTHOR_QUERY, keys)) {
+//                ps.setString(1, author.getName());
+//                ps.executeUpdate();
+//                try (ResultSet rs = ps.getGeneratedKeys()) {
+//                    rs.next();
+//                    authorId = rs.getLong(1);
+//                }
+//            }finally {
+//                DataSourceUtils.releaseConnection(conn, dataSource);
+//            }
+//        } catch (SQLException e){
+//            logger.error("DAOException while creating author in AuthorRepositoryImpl");
+//            logger.debug("Author was not created");
+//            throw new DAOException();
+//        }
+        return null;
     }
     /**
      * Implementation of AuthorRepository method read.

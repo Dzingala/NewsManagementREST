@@ -25,19 +25,6 @@ public class LoginCommand implements Command {
     public String execute(HttpServletRequest request) throws CommandException {
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//
-//        session.beginTransaction();
-//        User user = new User();
-//
-//        user.setLogin(login);
-//        user.setName("tempname");
-//        user.setPassword(pass);
-//        user.setRoleId(1L);
-//
-//
-//        session.save(user);
-//        session.getTransaction().commit();
         UserTO userTO=null;
         try{
             userTO=userService.login(login,pass);
