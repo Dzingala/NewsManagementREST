@@ -12,8 +12,6 @@ import javax.persistence.Table;
  * This entity is used for representing information about User.
  * @author Ivan Dzinhala
  */
-@Entity
-@Table(name = "USERS")
 public class User {
     private Long id;
     private String name;
@@ -32,8 +30,6 @@ public class User {
     }
     public void setReadyPassword(String password){this.password=password;}
 
-    @Id
-    @Column(name = "USER_ID", unique = true, nullable = false)
     public Long getId() {
         return id;
     }
@@ -42,7 +38,6 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "USER_NAME", nullable = false, length = 50)
     public String getName() {
         return name;
     }
@@ -51,7 +46,6 @@ public class User {
         this.name = name;
     }
 
-    @Column(name = "LOGIN", nullable = false, length = 30)
     public String getLogin() {
         return login;
     }
@@ -60,7 +54,6 @@ public class User {
         this.login = login;
     }
 
-    @Column(name = "PASSWORD", nullable = false, length = 32)
     public String getPassword() {
         return password;
     }
@@ -69,7 +62,6 @@ public class User {
         this.password = MD5Hashing.md5(password);
     }
 
-    @Column(name = "ROLE_ID", nullable = false)
     public Long getRoleId() {
         return roleId;
     }
