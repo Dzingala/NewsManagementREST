@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AuthorController {
@@ -21,7 +22,7 @@ public class AuthorController {
     AuthorService authorService;
     @RequestMapping(value = "/authors", method = RequestMethod.GET)
     public String printAuthor(ModelMap model) throws ServiceException {
-        ArrayList<Author> authorList = authorService.readAll();
+        List<Author> authorList = authorService.readAll();
         model.addAttribute("authorList", authorList);
         model.addAttribute("author", new Author());
         return "authors_index";
@@ -31,10 +32,6 @@ public class AuthorController {
     @RequestMapping(value = "/authors/create", method = RequestMethod.POST)
     public String createAuthor(@ModelAttribute Author author) throws ServiceException {
         authorService.create(author);
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        session.save(author);
-//        session.getTransaction().commit();
         return "redirect:/authors";
     }
 

@@ -5,6 +5,8 @@ import by.epam.lab.task.entity.Tag;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  */
@@ -52,7 +54,7 @@ public interface TagService {
      * @return list of all tags
      * @throws ServiceException
      */
-    ArrayList<Tag> readAll()throws ServiceException;
+    List<Tag> readAll()throws ServiceException;
 
     /**
      * Read all news' id by tag id given.

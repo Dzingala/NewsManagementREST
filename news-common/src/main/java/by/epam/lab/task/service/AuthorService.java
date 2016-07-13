@@ -2,10 +2,9 @@ package by.epam.lab.task.service;
 
 
 import by.epam.lab.task.entity.Author;
-import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ivan Dzinhala
@@ -23,7 +22,7 @@ public interface AuthorService {
      * @return list of all authors
      * @throws ServiceException
      */
-    ArrayList<Author> readAll() throws ServiceException;
+    List<Author> readAll() throws ServiceException;
     /**
      * Add author to database.
      * @param author

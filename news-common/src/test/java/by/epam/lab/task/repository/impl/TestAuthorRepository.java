@@ -20,6 +20,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 /**
@@ -82,7 +83,7 @@ public class TestAuthorRepository {
         Author author = new Author();
         author.setName(tempName);
         Long authorId= authorRepository.create(author);
-        ArrayList<Author> authors= authorRepository.readAll();
+        List<Author> authors= authorRepository.readAll();
         assertFalse(authors.isEmpty());
     }
 

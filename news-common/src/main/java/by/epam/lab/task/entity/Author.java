@@ -1,6 +1,8 @@
 package by.epam.lab.task.entity;
 
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 /**
@@ -8,6 +10,7 @@ import java.sql.Timestamp;
  * @author Ivan Dzinhala
  */
 @Entity
+@Proxy(lazy=false)
 @Table(name = "AUTHOR")
 public class Author {
     private long id;

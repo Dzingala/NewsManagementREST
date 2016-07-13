@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  * @see TagService
@@ -114,9 +116,9 @@ public class TagServiceImpl implements TagService {
      */
     @Transactional
     @Override
-    public ArrayList<Tag> readAll() throws ServiceException {
+    public List<Tag> readAll() throws ServiceException {
         logger.debug("Reading all tags in TagService");
-        ArrayList<Tag> tags = null;
+        List<Tag> tags = new ArrayList<>();
         try{
             tags=tagRepository.readAll();
         } catch (DAOException e) {

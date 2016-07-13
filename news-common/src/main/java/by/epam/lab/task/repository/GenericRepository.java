@@ -2,7 +2,8 @@ package by.epam.lab.task.repository;
 
 import by.epam.lab.task.exceptions.dao.DAOException;
 
-import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  */
@@ -46,5 +47,5 @@ public interface GenericRepository<Entity> {
      * @return the list of entities
      * @throws DAOException
      */
-    ArrayList<Entity> readAll() throws DAOException;
+    List<Entity> readAll() throws DAOException;
 }

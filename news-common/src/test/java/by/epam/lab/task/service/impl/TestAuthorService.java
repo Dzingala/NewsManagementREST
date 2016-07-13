@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ivan Dzinhala
@@ -67,7 +68,7 @@ public class TestAuthorService {
         ArrayList<Author> authorsExpected=new ArrayList<>();
         authorsExpected.add(authorExpected);
         Mockito.when(authorRepository.readAll()).thenReturn(authorsExpected);
-        ArrayList<Author> authors =authorService.readAll();
+        List<Author> authors =authorService.readAll();
         assertTrue(authors.equals(authorsExpected));
     }
 }

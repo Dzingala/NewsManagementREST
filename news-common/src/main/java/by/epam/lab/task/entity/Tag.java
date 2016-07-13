@@ -1,15 +1,15 @@
 package by.epam.lab.task.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
 
 /**
  * This entity is used for representing information about the Tag.
  * @author Ivan Dzinhala
  */
 @Entity
+@Proxy(lazy=false)
 @Table(name = "TAG")
 public class Tag {
     private long id;
@@ -21,6 +21,8 @@ public class Tag {
         this.name = name;
     }
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "TAG_SEQ")
+    @SequenceGenerator(name = "TAG_SEQ", sequenceName = "TAG_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "TAG_ID", unique = true,nullable = false)
     public long getId() {
         return id;

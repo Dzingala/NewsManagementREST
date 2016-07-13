@@ -1,5 +1,7 @@
 package by.epam.lab.task.entity;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -8,6 +10,7 @@ import java.sql.Timestamp;
  * @author Ivan Dzinhala
  */
 @Entity
+@Proxy(lazy=false)
 @Table(name = "NEWS")
 public class News {
     private long id;
@@ -27,6 +30,8 @@ public class News {
         this.modificationDate = modificationDate;
     }
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "NEWS_SEQ")
+    @SequenceGenerator(name = "NEWS_SEQ", sequenceName = "NEWS_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "NEWS_ID", unique = true, nullable = false)
     public long getId() {
         return id;

@@ -1,5 +1,7 @@
 package by.epam.lab.task.entity;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.Table;
  * @author Ivan Dzinhala
  */
 @Entity
+@Proxy(lazy=false)
 @Table(name="ROLES")
 public class Role {
     private Long id;

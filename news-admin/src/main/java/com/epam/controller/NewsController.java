@@ -115,8 +115,8 @@ public class NewsController {
     public String getEditPage(@PathVariable Long newsId,
                               ModelMap model) throws ServiceException {
         NewsTORecord newsTORecord = newsService.getNewsForEditing(newsId);
-        ArrayList<Author> authorList = authorService.readAll();
-        ArrayList<Tag> tagList = tagService.readAll();
+        List<Author> authorList = authorService.readAll();
+        List<Tag> tagList = tagService.readAll();
         model.addAttribute("newsTORecord", newsTORecord);
         model.addAttribute("authorList", authorList);
         model.addAttribute("tagList", tagList);

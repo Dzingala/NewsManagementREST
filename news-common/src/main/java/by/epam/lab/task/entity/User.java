@@ -1,6 +1,7 @@
 package by.epam.lab.task.entity;
 
 import by.epam.lab.task.md5util.MD5Hashing;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
  * @author Ivan Dzinhala
  */
 @Entity
+@Proxy(lazy=false)
 @Table(name = "USERS")
 public class User {
     private Long id;
