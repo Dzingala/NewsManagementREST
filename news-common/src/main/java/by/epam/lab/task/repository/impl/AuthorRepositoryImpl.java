@@ -13,6 +13,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     private final static Logger logger= Logger.getLogger(AuthorRepositoryImpl.class);
     private static final String CREATE_AUTHOR_QUERY= " INSERT INTO DZINHALA.AUTHOR (AUTHOR_NAME) VALUES (?) ";
     private static final String READ_AUTHOR_QUERY= " SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
-    private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = ? ";
+    private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = :newsId ";
     private static final String UPDATE_AUTHOR_QUERY = " UPDATE DZINHALA.AUTHOR SET AUTHOR_NAME = ? ,EXPIRED = ?  WHERE AUTHOR_ID = ? ";
     private static final String DELETE_AUTHOR_QUERY = " DELETE FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
     private static final String READ_ALL_AUTHORS_QUERY="SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR";
@@ -185,37 +186,21 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public Long readAuthorIdByNewsId(Long newsId) throws DAOException {
         logger.debug("Reading author's id by news id in AuthorRepositoryImpl");
-//        Long authorId=null;
-//        Session session=null;
-//        try{
-//            session=HibernateUtil.getSessionFactory().openSession();
-//            session.beginTransaction();
-//            authorId=(Long)session.createSQLQuery(READ_AUTHOR_ID_BY_NEWS_ID_QUERY);
-//        }
-        Connection conn=null;
-        Long authorId = null;
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(READ_AUTHOR_ID_BY_NEWS_ID_QUERY)) {
-                ps.setLong(1, newsId);
-                try (ResultSet resultSet = ps.executeQuery()) {
-                    if (resultSet.next()) {
-                        authorId = resultSet.getLong(1);
-                    }
-                    else {
-                        logger.debug("News with id="+newsId+" have not author assigned");
-                    }
+        Long authorId=null;
+        Session session=null;
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            BigDecimal bd =(BigDecimal)session.createSQLQuery(READ_AUTHOR_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).uniqueResult();
+            authorId=bd.longValue();
+        }finally {
+            if(session!=null && session.isOpen()){
+                try{
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading author's id by news id");
                 }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
             }
-        } catch (SQLException e) {
-            logger.error("DAOException while reading author's id by news id in AuthorRepositoryImpl");
-            logger.debug("Author's id was not received");
-            throw new DAOException(e);
-        }
-        if (authorId == null) {
-            throw new DAOException("News id="+newsId+" have not author assigned");
         }
         return authorId;
     }
