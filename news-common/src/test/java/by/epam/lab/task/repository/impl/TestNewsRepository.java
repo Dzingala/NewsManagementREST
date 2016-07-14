@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import static org.junit.Assert.*;
 /**
@@ -94,7 +95,7 @@ public class TestNewsRepository {
 
     @Test
     public void readAllTest() throws DAOException {
-        ArrayList<News> newsList = newsRepository.readAll();
+        List<News> newsList = newsRepository.readAll();
         assertNotNull(newsList);
     }
 
@@ -130,7 +131,7 @@ public class TestNewsRepository {
         Long newsId = newsRepository.create(news);
         Long tagId = 2L;
         newsRepository.joinNewsWithTag(newsId, tagId);
-        ArrayList<Long> expectedTagsId = tagRepository.readTagsIdByNewsId(newsId);
+        List<Long> expectedTagsId = tagRepository.readTagsIdByNewsId(newsId);
         assertTrue(expectedTagsId.contains(tagId));
     }
 
@@ -139,7 +140,7 @@ public class TestNewsRepository {
         Long newsId = 1L;
         Long tagId = 2L;
         newsRepository.disjoinNewsWithTag(newsId, tagId);
-        ArrayList<Long> tagsIdExpected = tagRepository.readTagsIdByNewsId(newsId);
+        List<Long> tagsIdExpected = tagRepository.readTagsIdByNewsId(newsId);
         assertFalse(tagsIdExpected.contains(tagId));
     }
 
@@ -174,7 +175,7 @@ public class TestNewsRepository {
         newtemp3.setModificationDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         newtemp3.setTitle(tempTitle);
         newtemp3.setId(5l);
-        ArrayList<News> sortedNews=newsRepository.readSortedByComments();
+        List<News> sortedNews=newsRepository.readSortedByComments();
         LinkedHashSet<Long> expectedIdSet=new LinkedHashSet<>();
         expectedIdSet.add(newtemp1.getId());
         expectedIdSet.add(newtemp2.getId());
@@ -208,7 +209,7 @@ public class TestNewsRepository {
         }
         searchCriteria.setTagsId(tagsId);
         String query = newsRepository.composeSearchCriteriaQuery(searchCriteria);
-        ArrayList<News> newsList = newsRepository.readBySearchCriteria(query,1l,1);
+        List<News> newsList = newsRepository.readBySearchCriteria(query,1l,1);
         ArrayList<Long> newsIdListRequired = new ArrayList<>();
         newsIdListRequired.add(1L);
         assertTrue(newsList.get(0).getId() == (newsIdListRequired.get(0)));

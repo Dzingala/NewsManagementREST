@@ -21,16 +21,7 @@ import java.util.List;
 @Component
 public class AuthorRepositoryImpl implements AuthorRepository {
     private final static Logger logger= Logger.getLogger(AuthorRepositoryImpl.class);
-    private static final String CREATE_AUTHOR_QUERY= " INSERT INTO DZINHALA.AUTHOR (AUTHOR_NAME) VALUES (?) ";
-    private static final String READ_AUTHOR_QUERY= " SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
     private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = :newsId ";
-    private static final String UPDATE_AUTHOR_QUERY = " UPDATE DZINHALA.AUTHOR SET AUTHOR_NAME = ? ,EXPIRED = ?  WHERE AUTHOR_ID = ? ";
-    private static final String DELETE_AUTHOR_QUERY = " DELETE FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
-    private static final String READ_ALL_AUTHORS_QUERY="SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR";
-
-    private static final String COLUMN_NAME_AUTHOR_ID = "AUTHOR_ID";
-    private static final String COLUMN_NAME_AUTHOR_NAME = "AUTHOR_NAME";
-    private static final String COLUMN_NAME_EXPIRED = "EXPIRED";
 
 
 
@@ -164,7 +155,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             session=HibernateUtil.getSessionFactory().openSession();
             authors=session.createCriteria(Author.class).list();
         }catch (Exception e){
-            logger.error("DAOException while reading author in AuthorRepositoryImpl");
+            logger.error("DAOException while reading all authors in AuthorRepositoryImpl");
             logger.debug("Authors was not read");
             throw new DAOException(e);
         }finally {
@@ -193,6 +184,10 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             session.beginTransaction();
             BigDecimal bd =(BigDecimal)session.createSQLQuery(READ_AUTHOR_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).uniqueResult();
             authorId=bd.longValue();
+        }catch (Exception e){
+            logger.error("DAOException while reading author's id by news id in AuthorRepositoryImpl");
+            logger.debug("Author's id was not read");
+            throw new DAOException(e);
         }finally {
             if(session!=null && session.isOpen()){
                 try{

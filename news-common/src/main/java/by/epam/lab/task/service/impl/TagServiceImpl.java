@@ -64,10 +64,10 @@ public class TagServiceImpl implements TagService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ArrayList<Tag> readTagsByNewsId(Long newsId) throws ServiceException {
+    public List<Tag> readTagsByNewsId(Long newsId) throws ServiceException {
         logger.debug("Reading tags by news id in TagService");
-        ArrayList<Tag> tags=null;
-        ArrayList<Long> tagIds=null;
+        List<Tag> tags=null;
+        List<Long> tagIds=null;
         try{
             tagIds=tagRepository.readTagsIdByNewsId(newsId);
             tags=new ArrayList<>();
@@ -134,9 +134,9 @@ public class TagServiceImpl implements TagService {
      */
     @Transactional
     @Override
-    public ArrayList<Long> readNewsIdByTagId(Long tagId)throws ServiceException{
+    public List<Long> readNewsIdByTagId(Long tagId)throws ServiceException{
         logger.debug("Reading news' id by tag id in TagService");
-        ArrayList<Long> newsIdList;
+        List<Long> newsIdList;
         try {
             newsIdList = tagRepository.readNewsIdByTagId(tagId);
         } catch (DAOException e) {

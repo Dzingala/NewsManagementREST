@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ivan Dzinhala
@@ -164,7 +165,7 @@ public class TestNewsService {
         Mockito.when(newsRepository.readBySearchCriteria(query,1l,1)).thenReturn(newsList);
         Mockito.when(newsRepository.read(newsList.get(0).getId())).thenReturn(news);
 
-        ArrayList<News> serviceNewsList=newsService.readBySearchCriteria(searchCriteria,1l);
+        List<News> serviceNewsList=newsService.readBySearchCriteria(searchCriteria,1l);
         assertTrue(serviceNewsList.equals(newsList));
         Mockito.verify(newsRepository).readBySearchCriteria(query,1l,1);
     }
@@ -182,7 +183,7 @@ public class TestNewsService {
         Mockito.when(newsRepository.read(newsList.get(0).getId())).thenReturn(news);
 
 
-        ArrayList<News> serviceNewsList = newsService.readSortedByComments();
+        List<News> serviceNewsList = newsService.readSortedByComments();
 
         assertTrue(newsList.equals(serviceNewsList));
         Mockito.verify(newsRepository).readSortedByComments();
@@ -194,7 +195,7 @@ public class TestNewsService {
         ArrayList<News> newsListExpected=new ArrayList<>();
         newsListExpected.add(newsExpected);
         Mockito.when(newsRepository.readAll()).thenReturn(newsListExpected);
-        ArrayList<News> news =newsService.readAll();
+        List<News> news =newsService.readAll();
         assertTrue(news.equals(newsListExpected));
     }
 

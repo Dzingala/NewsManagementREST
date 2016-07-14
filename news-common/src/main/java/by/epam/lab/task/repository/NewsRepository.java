@@ -3,7 +3,7 @@ package by.epam.lab.task.repository;
 import by.epam.lab.task.entity.News;
 import by.epam.lab.task.exceptions.dao.DAOException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ivan Dzinhala
@@ -15,7 +15,7 @@ public interface NewsRepository extends GenericRepository<News> {
      * @throws DAOException
      * @return list of all existing news
      */
-    ArrayList<News> readAll() throws DAOException;
+    List<News> readAll() throws DAOException;
 
     /**
      * Count all existing news
@@ -61,7 +61,7 @@ public interface NewsRepository extends GenericRepository<News> {
      * @throws DAOException
      * @return list of sorted by amount of comments' descending news
      */
-    ArrayList<News> readSortedByComments()throws DAOException;
+    List<News> readSortedByComments()throws DAOException;
 
     /**
      * Read all news sorted by authors and tags according to the page.
@@ -69,7 +69,7 @@ public interface NewsRepository extends GenericRepository<News> {
      * @return set of news id
      * @throws DAOException
      */
-    ArrayList<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY,Long page, int newsPerPage)throws DAOException;
+    List<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY, Long page, int newsPerPage)throws DAOException;
 
     /**
      * Counts all news corresponding to the search criteria.
@@ -85,5 +85,5 @@ public interface NewsRepository extends GenericRepository<News> {
      * @return The list of all news according the search criteria.
      * @throws DAOException
      */
-    ArrayList<News> readBySearchCriteriaFull(final String SEARCH_CRITERIA_QUERY) throws DAOException;
+    List<News> readBySearchCriteriaFull(final String SEARCH_CRITERIA_QUERY) throws DAOException;
 }

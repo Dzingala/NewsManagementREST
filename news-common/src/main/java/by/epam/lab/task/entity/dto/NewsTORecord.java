@@ -4,14 +4,15 @@ import by.epam.lab.task.entity.News;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewsTORecord implements Serializable {
     private News news;
     private Long authorId;
-    private ArrayList<Long> tagIdList;
+    private List<Long> tagIdList;
     public NewsTORecord(){}
 
-    public NewsTORecord(News news, Long authorId, ArrayList<Long> tagIdList) {
+    public NewsTORecord(News news, Long authorId, List<Long> tagIdList) {
         this.news = news;
         this.authorId = authorId;
         this.tagIdList = tagIdList;
@@ -33,11 +34,11 @@ public class NewsTORecord implements Serializable {
         this.authorId = authorId;
     }
 
-    public ArrayList<Long> getTagIdList() {
+    public List<Long> getTagIdList() {
         return tagIdList;
     }
 
-    public void setTagIdList(ArrayList<Long> tagIdList) {
+    public void setTagIdList(List<Long> tagIdList) {
         this.tagIdList = tagIdList;
     }
 

@@ -5,14 +5,18 @@ import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.CommentsRepository;
 import by.epam.lab.task.entity.Comment;
 import by.epam.lab.task.exceptions.dao.DAOException;
+import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CommentsRepositoryImpl implements CommentsRepository {
@@ -21,7 +25,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     private static final String READ_COMMENT_QUERY = " SELECT COMMENT_ID,NEWS_ID,COMMENT_TEXT,CREATION_DATE FROM DZINHALA.COMMENTS WHERE COMMENT_ID = ?";
     private static final String UPDATE_COMMENT_QUERY = " UPDATE DZINHALA.COMMENTS SET COMMENT_TEXT = ?   WHERE COMMENT_ID = ?";
     private static final String DELETE_COMMENT_QUERY = " DELETE FROM DZINHALA.COMMENTS WHERE COMMENT_ID = ?";
-    private static final String FIND_COMMENTS_ID_BY_NEWS_ID_QUERY = " SELECT COMMENT_ID FROM DZINHALA.COMMENTS WHERE NEWS_ID = ?";
+    private static final String FIND_COMMENTS_ID_BY_NEWS_ID_QUERY = " SELECT COMMENT_ID FROM DZINHALA.COMMENTS WHERE NEWS_ID = :newsId";
     private static final String READ_ALL_COMMENTS_QUERY="SELECT COMMENT_ID,NEWS_ID,COMMENT_TEXT,CREATION_DATE FROM DZINHALA.COMMENTS";
 
 
@@ -41,31 +45,26 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     @Override
     public Long create(Comment comment) throws DAOException {
         logger.debug("Creating comment in CommentsRepositoryImpl");
-        Connection conn = null;
-        Long commentId=null;
-        String[] keys = {COLUMN_NAME_NEWS_ID};
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(CREATE_COMMENT_QUERY, keys)) {
-                ps.setString(1, comment.getText());
-                ps.setTimestamp(2, comment.getCreationDate());
-                ps.setLong(3,comment.getNewsId());
-                ps.executeUpdate();
-                try (ResultSet resultSet = ps.getGeneratedKeys()) {
-                    resultSet.next();
-                    commentId = resultSet.getLong(1);
-                    logger.debug("Comment with id="+commentId+" was created");
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
+        Session session=null;
+        try{
+            session= HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(comment);
+            session.getTransaction().commit();
+        }catch (Exception e) {
             logger.error("SQLException while creating comment in CommentsRepositoryImpl");
             logger.debug("Comment was not created");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while closing connection");
+                }
+            }
         }
-
-        return commentId;
+        return null;
     }
     /**
      * Implementation of CommentsRepository method read.
@@ -74,33 +73,24 @@ public class CommentsRepositoryImpl implements CommentsRepository {
      */
     @Override
     public Comment read(Long commentId) throws DAOException {
-        logger.debug("Reading comment in CommentsRepositoryImpl");
-        Connection conn=null;
+        logger.debug("Reading a comment in CommentsRepositoryImpl");
+        Session session=null;
         Comment comment = null;
-        try {
-            conn = dataSource.getConnection();
-
-            try (PreparedStatement ps = conn.prepareStatement(READ_COMMENT_QUERY)) {
-                ps.setLong(1, commentId);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        comment = new Comment(commentId,
-                                rs.getLong(COLUMN_NAME_NEWS_ID),
-                                rs.getString(COLUMN_NAME_COMMENTS_TEXT),
-                                rs.getTimestamp(COLUMN_NAME_COMMENTS_DATE)
-                        );
-                    }
-                    else{
-                        logger.debug("Comment with id="+commentId+" does not exist");
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
-            logger.error("DAOException while reading comment in CommentsRepositoryImpl");
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            comment=(Comment) session.load(Comment.class,commentId);
+        }catch (Exception e){
+            logger.error("DAOException while reading a comment in CommentRepositoryImpl");
             logger.debug("Comment was not read");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try{
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while reading a comment");
+                }
+            }
         }
         if(comment==null){
             logger.debug("Here is no comment with id="+commentId);
@@ -115,22 +105,27 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     @Override
     public void update(Long id, Comment comment) throws DAOException {
         logger.debug("Updating comment in CommentsRepositoryImpl");
-        Connection conn=null;
+        Session session = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(UPDATE_COMMENT_QUERY)) {
-                ps.setString(1, comment.getText());
-                ps.setLong(2, id);
-                ps.executeUpdate();
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
-            logger.error("DAOException while updating comment in CommentsRepositoryImpl");
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            comment.setId(id);
+            session.update(comment);
+            logger.debug("Comment update operation is completed");
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            logger.error("DAOException while updating comment in CommentRepositoryImpl");
             logger.debug("Comment was not updated");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while closing connection");
+                }
+            }
         }
-
     }
     /**
      * Implementation of CommentsRepository method delete.
@@ -139,18 +134,25 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting comment in CommentsRepositoryImpl");
-        Connection conn=null;
+        Session session = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(DELETE_COMMENT_QUERY)) {
-                ps.setLong(1, id);
-                ps.executeUpdate();
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
-
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Comment toDeleteComment = (Comment) session.load(Comment.class,id);
+            session.delete(toDeleteComment);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            logger.error("DAOException while deleting a comment in CommentRepositoryImpl");
+            logger.debug("Comment was not deleted");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while deleting a comment");
+                }
+            }
         }
     }
     /**
@@ -159,38 +161,25 @@ public class CommentsRepositoryImpl implements CommentsRepository {
      * @see by.epam.lab.task.exceptions.dao.NoSuchEntityException
      */
     @Override
-    public ArrayList<Comment> readAll() throws DAOException {
+    public List<Comment> readAll() throws DAOException {
         logger.debug("Reading all comments in CommentsRepositoryImpl");
-        Connection conn=null;
-        ArrayList<Comment> comments = null;
-        try {
-            conn = dataSource.getConnection();
-
-            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_COMMENTS_QUERY)) {
-                try (ResultSet rs = ps.executeQuery()) {
-                    comments = new ArrayList<>();
-                    while (rs.next()) {
-                        comments.add(new Comment(rs.getLong(COLUMN_NAME_COMMENT_ID),
-                                rs.getLong(COLUMN_NAME_NEWS_ID),
-                                rs.getString(COLUMN_NAME_COMMENTS_TEXT),
-                                rs.getTimestamp(COLUMN_NAME_COMMENTS_DATE)
-                        ));
-                    }
-                    if (comments.isEmpty()) {
-                        logger.debug("There are no comments in database");
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
-            logger.error("DAOException while reading comment in CommentsRepositoryImpl");
+        Session session= null;
+        List<Comment> comments = new ArrayList<>();
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            comments=session.createCriteria(Comment.class).list();
+        }catch (Exception e){
+            logger.error("DAOException while reading all comments in AuthorRepositoryImpl");
             logger.debug("Comments was not read");
             throw new DAOException(e);
-        }
-        if(comments==null){
-            logger.debug("There are no comments in database");
-            throw new NoSuchEntityException();
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading all comments");
+                }
+            }
         }
         return comments;
     }
@@ -199,27 +188,28 @@ public class CommentsRepositoryImpl implements CommentsRepository {
      * @see by.epam.lab.task.exceptions.dao.DAOException
      */
     @Override
-    public ArrayList<Long> readCommentsIdByNewsId(Long newsId) throws DAOException {
+    public List<Long> readCommentsIdByNewsId(Long newsId) throws DAOException {
         logger.debug("Reading comments id list in CommentsRepositoryImpl");
-        Connection conn=null;
-        ArrayList<Long> commentsIds = null;
+        List<Long> commentsIds = new ArrayList<>();
+        Session session = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(FIND_COMMENTS_ID_BY_NEWS_ID_QUERY)) {
-                ps.setLong(1,newsId);
-                commentsIds = new ArrayList<>();
-                try (ResultSet resultSet = ps.executeQuery()) {
-                    while (resultSet.next()) {
-                        commentsIds.add(resultSet.getLong(COLUMN_NAME_COMMENT_ID));
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            List<BigDecimal> bigDecCommentIds = (List<BigDecimal>) session.createSQLQuery(FIND_COMMENTS_ID_BY_NEWS_ID_QUERY).setParameter("newsId", newsId).list();
+
+            commentsIds.addAll(bigDecCommentIds.stream().map(BigDecimal::longValue).collect(Collectors.toList()));
+        }catch (Exception e){
             logger.error("DAOException while getting comments list in CommentsRepositoryImpl");
             logger.debug("Comments list was not read");
             throw new DAOException(e);
+        }finally {
+            if(session!=null && session.isOpen()){
+                try{
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading comments' ids by news id");
+                }
+            }
         }
         return commentsIds;
     }

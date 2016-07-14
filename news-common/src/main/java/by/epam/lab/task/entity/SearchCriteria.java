@@ -2,6 +2,8 @@ package by.epam.lab.task.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This entity is used for searching news accordingly the certain search criteria.
  * @author Ivan Dzinhala
@@ -11,11 +13,11 @@ public class SearchCriteria implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long authorId;
-    private ArrayList<Long> tagsId;
+    private List<Long> tagsId;
 
     public SearchCriteria(){}
 
-    public SearchCriteria(Long authorId, ArrayList<Long> tagsId) {
+    public SearchCriteria(Long authorId, List<Long> tagsId) {
         this.authorId = authorId;
         this.tagsId = tagsId;
     }
@@ -32,11 +34,11 @@ public class SearchCriteria implements Serializable {
         this.authorId = authorId;
     }
 
-    public ArrayList<Long> getTagsId() {
+    public List<Long> getTagsId() {
         return tagsId;
     }
 
-    public void setTagsId(ArrayList<Long> tagsId) {
+    public void setTagsId(List<Long> tagsId) {
         this.tagsId = tagsId;
     }
 

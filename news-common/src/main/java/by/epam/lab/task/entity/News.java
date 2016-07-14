@@ -1,6 +1,8 @@
 package by.epam.lab.task.entity;
 
+import oracle.sql.DATE;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -66,6 +68,7 @@ public class News {
     }
 
     @Column(name = "CREATION_DATE", nullable = false)
+    @Type(type = "timestamp")
     public Timestamp getCreationDate() {
         return creationDate;
     }
@@ -74,6 +77,8 @@ public class News {
         this.creationDate = creationDate;
     }
 
+    @Column(name = "MODIFICATION_DATE", nullable = false)
+    @Type(type = "date")
     public Date getModificationDate() {
         return modificationDate;
     }
