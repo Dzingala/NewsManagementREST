@@ -4,7 +4,8 @@ package by.epam.lab.task.repository;
 import by.epam.lab.task.entity.Tag;
 import by.epam.lab.task.exceptions.dao.DAOException;
 
-import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  * @see by.epam.lab.task.repository.GenericRepository
@@ -18,12 +19,12 @@ public interface TagRepository extends GenericRepository<Tag> {
      * @throws DAOException
      * @return list of tags id
      */
-    ArrayList<Long> readTagsIdByNewsId(Long newsId) throws DAOException;
+    List<Long> readTagsIdByNewsId(Long newsId) throws DAOException;
     /**
      * This method is used for finding news according to the tag id
      * @param tagId Tag id which is using for finding
      * @return Returns list of news id
      * @throws DAOException
      */
-    ArrayList<Long> readNewsIdByTagId(Long tagId) throws DAOException;
+    List<Long> readNewsIdByTagId(Long tagId) throws DAOException;
 }

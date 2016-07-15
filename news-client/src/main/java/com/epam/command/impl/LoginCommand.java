@@ -1,10 +1,13 @@
 package com.epam.command.impl;
 
+import by.epam.lab.task.entity.User;
 import by.epam.lab.task.entity.dto.UserTO;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.service.UserService;
+import by.epam.lab.task.util.HibernateUtil;
 import com.epam.command.Command;
 import com.epam.exception.CommandException;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

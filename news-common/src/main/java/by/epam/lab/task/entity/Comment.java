@@ -1,11 +1,17 @@
 package by.epam.lab.task.entity;
 
 
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 /**
  * This entity is used for representing information about a Comment.
  * @author Ivan Dzinhala
  */
+@Entity
+@Proxy(lazy=false)
+@Table(name = "COMMENTS")
 public class Comment {
     private long id;
     private long newsId;
@@ -18,7 +24,10 @@ public class Comment {
         this.text = text;
         this.creationDate = creationDate;
     }
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "COMMENTS_SEQ")
+    @SequenceGenerator(name = "COMMENTS_SEQ", sequenceName = "COMMENTS_SEQ", allocationSize = 1, initialValue = 1)
+    @Column(name = "COMMENT_ID", unique = true, nullable = false)
     public long getId() {
         return id;
     }
@@ -26,15 +35,17 @@ public class Comment {
     public void setId(long id) {
         this.id = id;
     }
-
+    @Column(name = "NEWS_ID", nullable = false)
     public long getNewsId() {
         return newsId;
     }
 
-    public void setNewsId(long newsId) {
+    public void setNewsId(long newsId)
+    {
         this.newsId = newsId;
     }
 
+    @Column(name = "COMMENT_TEXT", nullable = false,length =100)
     public String getText() {
         return text;
     }
@@ -43,6 +54,7 @@ public class Comment {
         this.text = text;
     }
 
+    @Column(name = "CREATION_DATE", nullable = false)
     public Timestamp getCreationDate() {
         return creationDate;
     }

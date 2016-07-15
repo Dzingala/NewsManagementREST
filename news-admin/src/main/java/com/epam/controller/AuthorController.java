@@ -1,8 +1,11 @@
 package com.epam.controller;
 
 import by.epam.lab.task.entity.Author;
+import by.epam.lab.task.entity.User;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.service.AuthorService;
+import by.epam.lab.task.util.HibernateUtil;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AuthorController {
@@ -18,7 +22,7 @@ public class AuthorController {
     AuthorService authorService;
     @RequestMapping(value = "/authors", method = RequestMethod.GET)
     public String printAuthor(ModelMap model) throws ServiceException {
-        ArrayList<Author> authorList = authorService.readAll();
+        List<Author> authorList = authorService.readAll();
         model.addAttribute("authorList", authorList);
         model.addAttribute("author", new Author());
         return "authors_index";

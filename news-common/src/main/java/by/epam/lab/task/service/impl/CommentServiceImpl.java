@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Ivan Dzinhala
@@ -49,10 +50,10 @@ public class CommentServiceImpl implements CommentService{
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ArrayList<Comment> readAllByNewsId(Long newsId) throws ServiceException {
+    public List<Comment> readAllByNewsId(Long newsId) throws ServiceException {
         logger.debug("Reading all comments by news id in CommentServiceImpl");
-        ArrayList<Comment> comments = null;
-        ArrayList<Long> commentIds=null;
+        List<Comment> comments = null;
+        List<Long> commentIds=null;
         try{
             commentIds=commentsRepository.readCommentsIdByNewsId(newsId);
             comments=new ArrayList<>();

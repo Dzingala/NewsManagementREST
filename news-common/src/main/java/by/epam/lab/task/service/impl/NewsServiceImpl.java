@@ -51,9 +51,9 @@ public class NewsServiceImpl implements NewsService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ArrayList<News> readAll() throws ServiceException {
+    public List<News> readAll() throws ServiceException {
         logger.debug("Reading all authors in AuthorService");
-        ArrayList<News> news = null;
+        List<News> news = null;
         try{
             news=newsRepository.readAll();
         } catch (DAOException e) {
@@ -69,9 +69,9 @@ public class NewsServiceImpl implements NewsService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ArrayList<News> readSortedByComments() throws ServiceException {
+    public List<News> readSortedByComments() throws ServiceException {
         logger.debug("Reading news sorted by comments in NewsServiceImpl");
-        ArrayList<News> newsList = null;
+        List<News> newsList = null;
         try {
 
             //newsList=newsRepository.readSortedByComments();
@@ -88,18 +88,18 @@ public class NewsServiceImpl implements NewsService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria, Long page) throws ServiceException {
+    public List<News> readBySearchCriteria(SearchCriteria searchCriteria, Long page) throws ServiceException {
         logger.debug("Reading news sorted by search criteria in NewsServiceImpl");
-        ArrayList<News> newsList = null;
+        List<News> newsList = null;
         String query = NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
         try{
             if(query==null){
-//            logger.error("ServiceException while creating a search criteria query in NewsServiceImpl");
-//            throw new ServiceException("ServiceException while creating a search criteria query.");
+                System.out.println("null query");
                 newsList=newsRepository.readAll();
                 newsList=NewsRepositoryImpl.getPageNews(newsList,page,NEWS_PER_PAGE);
             }
             else {
+                System.out.println("not null query:\n"+query);
                 newsList = newsRepository.readBySearchCriteria(query, page, NEWS_PER_PAGE);
             }
         } catch (DAOException e) {
@@ -141,7 +141,7 @@ public class NewsServiceImpl implements NewsService {
         logger.debug("Extraction news and all information connected with it from the news record in NewsServiceImpl");
         News news = newsTORecord.getNews();
         Long authorId=newsTORecord.getAuthorId();
-        ArrayList<Long> tagsId=newsTORecord.getTagIdList();
+        List<Long> tagsId=newsTORecord.getTagIdList();
         NewsTO newsTO = new NewsTO();
         newsTO.setNews(news);
         Author author=null;
@@ -175,8 +175,8 @@ public class NewsServiceImpl implements NewsService {
         //validation
         News news = newsTO.getNews();
         Author author = newsTO.getAuthor();
-        ArrayList<Comment> commentList = newsTO.getCommentList();
-        ArrayList<Tag> tagList = newsTO.getTagList();
+        List<Comment> commentList = newsTO.getCommentList();
+        List<Tag> tagList = newsTO.getTagList();
         try {
             Long newsId = null;
             if(news!=null){
@@ -217,8 +217,8 @@ public class NewsServiceImpl implements NewsService {
         try {
             News news = newsRepository.read(id);
             Author author = authorService.readByNewsId(id);
-            ArrayList<Tag> tagList = tagService.readTagsByNewsId(id);
-            ArrayList<Comment> commentList = commentService.readAllByNewsId(id);
+            List<Tag> tagList = tagService.readTagsByNewsId(id);
+            List<Comment> commentList = commentService.readAllByNewsId(id);
             newsTO = new NewsTO();
             newsTO.setNews(news);
             newsTO.setAuthor(author);
@@ -256,8 +256,8 @@ public class NewsServiceImpl implements NewsService {
         logger.debug("Deleting news and all information connected with it in NewsServiceImpl");
         News news = newsTO.getNews();
         Author author = newsTO.getAuthor();
-        ArrayList<Comment> commentList = newsTO.getCommentList();
-        ArrayList<Tag> tagList = newsTO.getTagList();
+        List<Comment> commentList = newsTO.getCommentList();
+        List<Tag> tagList = newsTO.getTagList();
         try {
             if(author!=null) {
                 newsRepository.disjoinNewsWithAuthor(news.getId(), author.getId());
@@ -288,7 +288,7 @@ public class NewsServiceImpl implements NewsService {
         NewsTORecord newsTORecord;
         NewsTO newsTO = readDataByNewsId(newsId);
         Author author;
-        ArrayList<Tag> tagList;
+        List<Tag> tagList;
         newsTORecord= new NewsTORecord();
         author=authorService.readByNewsId(newsId);
         tagList=tagService.readTagsByNewsId(newsId);
@@ -312,8 +312,8 @@ public class NewsServiceImpl implements NewsService {
         NewsTO newsTO=new NewsTO();
         newsTO.setNews(news);
         update(newsTO);
-        ArrayList<Long> tagIdList=newsTORecord.getTagIdList();
-        ArrayList<Tag> tagListBefore= tagService.readTagsByNewsId(news.getId());
+        List<Long> tagIdList=newsTORecord.getTagIdList();
+        List<Tag> tagListBefore= tagService.readTagsByNewsId(news.getId());
         try {
             if (tagListBefore.isEmpty()) {
                 if(tagIdList!=null) {
@@ -352,7 +352,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void deleteTag(Tag tag)throws ServiceException{
         logger.debug("Deleting tag from news in NewsServiceImpl");
-        ArrayList<Long> newsToDisjoinList=null;
+        List<Long> newsToDisjoinList=null;
         try {
             newsToDisjoinList = tagService.readNewsIdByTagId(tag.getId());
             for (Long newsId : newsToDisjoinList) {
@@ -372,7 +372,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public Long countPages()throws ServiceException{
         Long newsAmount;
-        Long newsPerPage=4l;
+        Long newsPerPage= 4L;
         try{
             newsAmount=newsRepository.countNews();
             if(newsAmount % newsPerPage !=0){
@@ -385,29 +385,6 @@ public class NewsServiceImpl implements NewsService {
         return newsAmount/newsPerPage;
     }
 
-//    @Transactional
-//    @Override
-//    public Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException{
-//        logger.debug("Counting pages of News according the search criteria in NewsServiceImpl");
-//        Long criteriaNewsAmount;
-//        String query = composeCriteriaNewsAmountQuery(searchCriteria);
-//        System.out.println("QUERY BUILT:" +query);
-//        Long newsPerPage = 4l;
-//        if (query == null) {
-//            return null;
-//        }
-//        try {
-//            criteriaNewsAmount = newsRepository.countNews(query);
-//            if (criteriaNewsAmount % 4 != 0) {
-//                return criteriaNewsAmount / newsPerPage + 1;
-//            }
-//        } catch (DAOException e) {
-//            logger.error("DAOException while counting pages of News according the search criteria in NewsServiceImpl");
-//            throw new ServiceException("ServiceException while counting pages of News according the search criteria", e);
-//        }
-//        return criteriaNewsAmount / newsPerPage;
-//
-//    }
 
 
     private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1="SELECT COUNT(SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +
@@ -420,7 +397,7 @@ public class NewsServiceImpl implements NewsService {
     public String composeCriteriaNewsAmountQuery(SearchCriteria searchCriteria){
         StringBuffer sb= new StringBuffer(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1);
         Long authorId =searchCriteria.getAuthorId();
-        ArrayList<Long> tagsId = searchCriteria.getTagsId();
+        List<Long> tagsId = searchCriteria.getTagsId();
         if(authorId == null && tagsId == null){
             return null;
         }

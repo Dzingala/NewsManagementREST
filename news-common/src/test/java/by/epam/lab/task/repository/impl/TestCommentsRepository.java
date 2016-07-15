@@ -20,6 +20,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.junit.Assert.*;
 /**
@@ -81,7 +82,7 @@ public class TestCommentsRepository {
     @Test
     public void findCommentsIdByNewsIdTest() throws DAOException {
         Long newsId = 4L;
-        ArrayList<Long> commentsId = commentDAO.readCommentsIdByNewsId(newsId);
+        List<Long> commentsId = commentDAO.readCommentsIdByNewsId(newsId);
         assertNotNull(commentsId);
     }
     @Test
@@ -92,7 +93,7 @@ public class TestCommentsRepository {
         comment.setNewsId(1l);
         comment.setText(tempCommentText);
         Long commentId=commentDAO.create(comment);
-        ArrayList<Comment> comments=commentDAO.readAll();
+        List<Comment> comments=commentDAO.readAll();
         assertFalse(comments.isEmpty());
     }
 

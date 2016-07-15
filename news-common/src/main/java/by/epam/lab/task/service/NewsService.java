@@ -8,7 +8,7 @@ import by.epam.lab.task.entity.dto.NewsTO;
 import by.epam.lab.task.entity.dto.NewsTORecord;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Ivan Dzinhala
@@ -19,14 +19,14 @@ public interface NewsService {
      * @return the list of all news.
      * @throws ServiceException
      */
-    ArrayList<News> readAll() throws ServiceException;
+    List<News> readAll() throws ServiceException;
 
     /**
      * Get all news that are sorted by comments.
      * @return the list of news which are sorted by comments
      * @throws ServiceException
      */
-    ArrayList<News> readSortedByComments() throws ServiceException;
+    List<News> readSortedByComments() throws ServiceException;
 
     /**
      * Get all news that are sorted by search criteria.
@@ -34,7 +34,7 @@ public interface NewsService {
      * @return the list of news sorted by the search criteria
      * @throws ServiceException
      */
-    ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria, Long page) throws ServiceException;
+    List<News> readBySearchCriteria(SearchCriteria searchCriteria, Long page) throws ServiceException;
 
     /**
      * Add news and all data that is connected

@@ -1,9 +1,19 @@
 package by.epam.lab.task.entity;
 
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * This entity is used for representing information about the Role.
  * @author Ivan Dzinhala
  */
+@Entity
+@Proxy(lazy=false)
+@Table(name="ROLES")
 public class Role {
     private Long id;
     private String name;
@@ -13,7 +23,8 @@ public class Role {
         this.id = id;
         this.name = name;
     }
-
+    @Id
+    @Column(name = "ROLE_ID", unique = true,nullable = false)
     public Long getId() {
         return id;
     }
@@ -21,7 +32,7 @@ public class Role {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @Column(name = "ROLE_NAME",nullable = false,length = 50)
     public String getName() {
         return name;
     }

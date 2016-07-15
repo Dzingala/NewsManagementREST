@@ -4,28 +4,24 @@ import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.AuthorRepository;
 import by.epam.lab.task.entity.Author;
 import by.epam.lab.task.exceptions.dao.DAOException;
+import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class AuthorRepositoryImpl implements AuthorRepository {
     private final static Logger logger= Logger.getLogger(AuthorRepositoryImpl.class);
-    private static final String CREATE_AUTHOR_QUERY= " INSERT INTO DZINHALA.AUTHOR (AUTHOR_NAME) VALUES (?) ";
-    private static final String READ_AUTHOR_QUERY= " SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
-    private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = ? ";
-    private static final String UPDATE_AUTHOR_QUERY = " UPDATE DZINHALA.AUTHOR SET AUTHOR_NAME = ? ,EXPIRED = ?  WHERE AUTHOR_ID = ? ";
-    private static final String DELETE_AUTHOR_QUERY = " DELETE FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
-    private static final String READ_ALL_AUTHORS_QUERY="SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR";
-
-    private static final String COLUMN_NAME_AUTHOR_ID = "AUTHOR_ID";
-    private static final String COLUMN_NAME_AUTHOR_NAME = "AUTHOR_NAME";
-    private static final String COLUMN_NAME_EXPIRED = "EXPIRED";
+    private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = :newsId ";
 
 
 
@@ -38,27 +34,26 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public Long create(Author author) throws DAOException {
         logger.debug("Creating author in AuthorRepositoryImpl");
-        Connection conn=null;
-        Long authorId=null;
-        String[] keys = {COLUMN_NAME_AUTHOR_ID};
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(CREATE_AUTHOR_QUERY, keys)) {
-                ps.setString(1, author.getName());
-                ps.executeUpdate();
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    rs.next();
-                    authorId = rs.getLong(1);
-                }
-            }finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        } catch (SQLException e){
+        Session session=null;
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(author);
+            session.getTransaction().commit();
+        }catch (Exception e) {
             logger.error("DAOException while creating author in AuthorRepositoryImpl");
             logger.debug("Author was not created");
             throw new DAOException();
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while closing connection");
+                }
+            }
         }
-        return authorId;
+        return null;
     }
     /**
      * Implementation of AuthorRepository method read.
@@ -68,34 +63,23 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public Author read(Long authorId) throws DAOException {
         logger.debug("Reading author in AuthorRepositoryImpl");
-        Connection conn=null;
+        Session session=null;
         Author author = null;
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(READ_AUTHOR_QUERY)) {
-                ps.setLong(1, authorId);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        author = new Author(authorId,
-                                rs.getString(COLUMN_NAME_AUTHOR_NAME),
-                                rs.getTimestamp(COLUMN_NAME_EXPIRED)
-                        );
-                    }
-                    else{
-                        logger.debug("Author with id="+authorId+" does not exist");
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        } catch (SQLException e) {
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            author=(Author)session.load(Author.class,authorId);
+        }catch (Exception e){
             logger.error("DAOException while reading author in AuthorRepositoryImpl");
             logger.debug("Author was not read");
             throw new DAOException(e);
-        }
-        if(author==null){
-            logger.debug("Author with id="+authorId+" does not exist");
-            throw new NoSuchEntityException("Author with id="+authorId+" does not exist");
+        } finally {
+            if (session != null && session.isOpen()) {
+                try{
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while reading an author");
+                }
+            }
         }
         return author;
     }
@@ -107,23 +91,27 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public void update(Long id, Author author) throws DAOException {
         logger.debug("Updating author in AuthorRepositoryImpl");
-        Connection conn =null;
+        Session session = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(UPDATE_AUTHOR_QUERY)) {
-
-                ps.setString(1, author.getName());
-                ps.setTimestamp(2, author.getExpired());
-                ps.setLong(3, id);
-                ps.executeUpdate();
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        } catch (SQLException e) {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            author.setId(id);
+            session.update(author);
+            session.getTransaction().commit();
+        } catch (Exception e) {
             logger.error("DAOException while updating author in AuthorRepositoryImpl");
             logger.debug("Author was not updated");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while closing connection");
+                }
+            }
         }
+
     }
     /**
      * Implementation of AuthorRepository method delete.
@@ -132,19 +120,25 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting author in AuthorRepositoryImpl");
-        Connection conn=null;
+        Session session = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(DELETE_AUTHOR_QUERY)) {
-                ps.setLong(1, id);
-                ps.executeUpdate();
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        } catch (SQLException e) {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Author toDeleteAuthor = (Author)session.load(Author.class,id);
+            session.delete(toDeleteAuthor);
+            session.getTransaction().commit();
+        } catch (Exception e) {
             logger.error("DAOException while deleting author in AuthorRepositoryImpl");
             logger.debug("Author was not deleted");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while deleting an author");
+                }
+            }
         }
 
     }
@@ -153,32 +147,25 @@ public class AuthorRepositoryImpl implements AuthorRepository {
      * @see by.epam.lab.task.exceptions.dao.DAOException
      */
     @Override
-    public ArrayList<Author> readAll() throws DAOException {
+    public List<Author> readAll() throws DAOException {
         logger.debug("Reading all authors in AuthorRepositoryImpl");
-        Connection conn=null;
-        ArrayList<Author> authors=null;
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_AUTHORS_QUERY)) {
-                try (ResultSet rs = ps.executeQuery()) {
-                    authors = new ArrayList<>();
-                    while (rs.next()) {
-                        authors.add(new Author(rs.getLong(COLUMN_NAME_AUTHOR_ID),
-                                rs.getString(COLUMN_NAME_AUTHOR_NAME),
-                                rs.getTimestamp(COLUMN_NAME_EXPIRED)
-                        ));
-                    }
-                    if (authors.isEmpty()) {
-                        logger.debug("There are no authors in database");
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        } catch (SQLException e) {
-            logger.error("DAOException while reading author in AuthorRepositoryImpl");
+        Session session= null;
+        List<Author> authors=new ArrayList<>();
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            authors=session.createCriteria(Author.class).list();
+        }catch (Exception e){
+            logger.error("DAOException while reading all authors in AuthorRepositoryImpl");
             logger.debug("Authors was not read");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading all authors");
+                }
+            }
         }
         return authors;
     }
@@ -190,30 +177,25 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public Long readAuthorIdByNewsId(Long newsId) throws DAOException {
         logger.debug("Reading author's id by news id in AuthorRepositoryImpl");
-        Connection conn=null;
-        Long authorId = null;
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(READ_AUTHOR_ID_BY_NEWS_ID_QUERY)) {
-                ps.setLong(1, newsId);
-                try (ResultSet resultSet = ps.executeQuery()) {
-                    if (resultSet.next()) {
-                        authorId = resultSet.getLong(1);
-                    }
-                    else {
-                        logger.debug("News with id="+newsId+" have not author assigned");
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        } catch (SQLException e) {
+        Long authorId=null;
+        Session session=null;
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            BigDecimal bd =(BigDecimal)session.createSQLQuery(READ_AUTHOR_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).uniqueResult();
+            authorId=bd.longValue();
+        }catch (Exception e){
             logger.error("DAOException while reading author's id by news id in AuthorRepositoryImpl");
-            logger.debug("Author's id was not received");
+            logger.debug("Author's id was not read");
             throw new DAOException(e);
-        }
-        if (authorId == null) {
-            throw new DAOException("News id="+newsId+" have not author assigned");
+        }finally {
+            if(session!=null && session.isOpen()){
+                try{
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading author's id by news id");
+                }
+            }
         }
         return authorId;
     }

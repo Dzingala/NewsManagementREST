@@ -3,7 +3,8 @@ package by.epam.lab.task.service;
 import by.epam.lab.task.entity.Comment;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
-import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  */
@@ -23,7 +24,7 @@ public interface CommentService {
      * @throws ServiceException
      * @return list of comments
      */
-    ArrayList<Comment> readAllByNewsId(Long newsId) throws ServiceException;
+    List<Comment> readAllByNewsId(Long newsId) throws ServiceException;
 
     /**
      * Delete comment from database.

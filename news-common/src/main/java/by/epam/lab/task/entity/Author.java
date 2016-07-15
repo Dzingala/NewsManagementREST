@@ -1,11 +1,17 @@
 package by.epam.lab.task.entity;
 
 
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 /**
  * This entity is used for representing information about an Author.
  * @author Ivan Dzinhala
  */
+@Entity
+@Proxy(lazy=false)
+@Table(name = "AUTHOR")
 public class Author {
     private long id;
     private String name;
@@ -17,7 +23,10 @@ public class Author {
         this.name = name;
         this.expired = expired;
     }
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "AUTHOR_SEQ")
+    @SequenceGenerator(name = "AUTHOR_SEQ", sequenceName = "AUTHOR_SEQ", allocationSize = 1, initialValue = 1)
+    @Column(name = "AUTHOR_ID", unique = true, nullable = false)
     public long getId() {
         return id;
     }
@@ -25,7 +34,7 @@ public class Author {
     public void setId(long id) {
         this.id = id;
     }
-
+    @Column(name = "AUTHOR_NAME", nullable = false, length = 30)
     public String getName() {
         return name;
     }
@@ -33,13 +42,13 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
-
+    @Column(name = "EXPIRED", nullable = true)
     public Timestamp getExpired() {
         return expired;
     }
 
-    public void setExpired() {
-        this.expired = new Timestamp(System.currentTimeMillis());
+    public void setExpired(Timestamp expired) {
+        this.expired = expired;
     }
 
     @Override

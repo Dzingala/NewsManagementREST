@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TagController {
@@ -24,7 +25,7 @@ public class TagController {
 
     @RequestMapping(value = "/tags", method = RequestMethod.GET)
     public String printNews(ModelMap model) throws ServiceException {
-        ArrayList<Tag> tagList = tagService.readAll();
+        List<Tag> tagList = tagService.readAll();
         model.addAttribute("tagList", tagList);
         model.addAttribute("tag", new Tag());
         return "tag_index";

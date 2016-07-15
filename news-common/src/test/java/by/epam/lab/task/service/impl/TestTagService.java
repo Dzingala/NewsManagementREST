@@ -14,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  */
@@ -83,7 +85,7 @@ public class TestTagService {
         ArrayList<Tag> tagsExpected=new ArrayList<>();
         tagsExpected.add(tagExpected);
         Mockito.when(tagRepository.readAll()).thenReturn(tagsExpected);
-        ArrayList<Tag> tags =tagService.readAll();
+        List<Tag> tags =tagService.readAll();
         assertTrue(tags.equals(tagsExpected));
     }
 }

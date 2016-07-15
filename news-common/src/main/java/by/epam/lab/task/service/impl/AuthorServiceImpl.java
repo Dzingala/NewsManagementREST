@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  * @see AuthorService
@@ -30,7 +33,7 @@ public class AuthorServiceImpl implements AuthorService {
      * @throws DAOException
      */
     private boolean isExisting(Author author)throws DAOException{
-        ArrayList<Author> authors = authorRepository.readAll();
+        List<Author> authors = authorRepository.readAll();
         return authors.contains(author);
     }
 
@@ -58,9 +61,9 @@ public class AuthorServiceImpl implements AuthorService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ArrayList<Author> readAll() throws ServiceException {
+    public List<Author> readAll() throws ServiceException {
         logger.debug("Reading all authors in AuthorService");
-        ArrayList<Author> authors = null;
+        List<Author> authors = new ArrayList<>();
         try{
             authors=authorRepository.readAll();
         } catch (DAOException e) {
@@ -120,7 +123,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void delete(Author author) throws ServiceException {
         logger.debug("Deleting author in AuthorService");
-        author.setExpired();
+        author.setExpired(new Timestamp(System.currentTimeMillis()));
         try {
             authorRepository.update(author.getId(), author);
         }catch (DAOException e){

@@ -4,7 +4,8 @@ package by.epam.lab.task.service;
 import by.epam.lab.task.entity.Tag;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
-import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  */
@@ -31,7 +32,7 @@ public interface TagService {
      * @param newsId
      * @throws ServiceException
      */
-    ArrayList<Tag> readTagsByNewsId(Long newsId)throws ServiceException;
+    List<Tag> readTagsByNewsId(Long newsId)throws ServiceException;
 
     /**
      * Update tag's content.
@@ -52,7 +53,7 @@ public interface TagService {
      * @return list of all tags
      * @throws ServiceException
      */
-    ArrayList<Tag> readAll()throws ServiceException;
+    List<Tag> readAll()throws ServiceException;
 
     /**
      * Read all news' id by tag id given.
@@ -60,6 +61,6 @@ public interface TagService {
      * @return
      * @throws ServiceException
      */
-    ArrayList<Long> readNewsIdByTagId(Long tagId)throws ServiceException;
+    List<Long> readNewsIdByTagId(Long tagId)throws ServiceException;
 
 }

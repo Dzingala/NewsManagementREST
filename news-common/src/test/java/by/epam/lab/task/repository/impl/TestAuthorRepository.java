@@ -18,7 +18,9 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 /**
@@ -56,7 +58,7 @@ public class TestAuthorRepository {
         Long authorId = 3L;
         Author author = authorRepository.read(authorId);
         author.setName(tempName);
-        author.setExpired();
+        author.setExpired(new Timestamp(System.currentTimeMillis()));
         authorRepository.update(authorId, author);
         Author authorExpected = authorRepository.read(authorId);
         assertTrue(author.equals(authorExpected));
@@ -81,7 +83,7 @@ public class TestAuthorRepository {
         Author author = new Author();
         author.setName(tempName);
         Long authorId= authorRepository.create(author);
-        ArrayList<Author> authors= authorRepository.readAll();
+        List<Author> authors= authorRepository.readAll();
         assertFalse(authors.isEmpty());
     }
 

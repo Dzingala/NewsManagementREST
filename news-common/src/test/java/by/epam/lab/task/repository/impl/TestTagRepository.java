@@ -18,6 +18,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 /**
@@ -67,7 +68,7 @@ public class TestTagRepository {
     @Test
     public void readTagsIdByNewsIdTest() throws DAOException {
         Long newsId = 1L;
-        ArrayList<Long> tagsId = tagDAO.readTagsIdByNewsId(newsId);
+        List<Long> tagsId = tagDAO.readTagsIdByNewsId(newsId);
         assertNotNull(tagsId);
 
     }
@@ -77,7 +78,7 @@ public class TestTagRepository {
         tag.setId(1L);
         tag.setName(tempName);
         Long tagId=tagDAO.create(tag);
-        ArrayList<Tag> tags=tagDAO.readAll();
+        List<Tag> tags=tagDAO.readAll();
         assertFalse(tags.isEmpty());
     }
 

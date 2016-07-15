@@ -7,6 +7,8 @@ import by.epam.lab.task.entity.Tag;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This entity is used for transferring data between News, Author, Tags and Comments.
  * @see Comment,Tag,Author,News
@@ -18,13 +20,13 @@ public class NewsTO implements Serializable{
 
     private News news;
     private Author author;
-    private ArrayList<Tag> tagList;
-    private ArrayList<Comment> commentList;
+    private List<Tag> tagList;
+    private List<Comment> commentList;
 
 
     public NewsTO() {}
 
-    public NewsTO(News news, Author author, ArrayList<Tag> tagList, ArrayList<Comment> commentList) {
+    public NewsTO(News news, Author author,List<Tag> tagList, List<Comment> commentList) {
         this.news = news;
         this.author = author;
         this.tagList = tagList;
@@ -47,19 +49,19 @@ public class NewsTO implements Serializable{
         this.author = author;
     }
 
-    public ArrayList<Tag> getTagList() {
+    public List<Tag> getTagList() {
         return tagList;
     }
 
-    public void setTagList(ArrayList<Tag> tagList) {
+    public void setTagList(List<Tag> tagList) {
         this.tagList = tagList;
     }
 
-    public ArrayList<Comment> getCommentList() {
+    public List<Comment> getCommentList() {
         return commentList;
     }
 
-    public void setCommentList(ArrayList<Comment> commentList) {
+    public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
     }
 

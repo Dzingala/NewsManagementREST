@@ -4,7 +4,8 @@ package by.epam.lab.task.repository;
 import by.epam.lab.task.entity.Comment;
 import by.epam.lab.task.exceptions.dao.DAOException;
 
-import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Ivan Dzinhala
  * @see by.epam.lab.task.repository.GenericRepository
@@ -16,5 +17,5 @@ public interface CommentsRepository extends GenericRepository<Comment> {
      * @throws DAOException
      * @return list of comments id
      */
-    ArrayList<Long> readCommentsIdByNewsId(Long newsId) throws DAOException;
+    List<Long> readCommentsIdByNewsId(Long newsId) throws DAOException;
 }
