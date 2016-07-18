@@ -1,8 +1,10 @@
 package by.epam.lab.task.entity;
 
-import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * This entity is used for representing information about the Tag.
@@ -10,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Proxy(lazy=false)
+//@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 @Table(name = "TAG")
 public class Tag {
     private long id;

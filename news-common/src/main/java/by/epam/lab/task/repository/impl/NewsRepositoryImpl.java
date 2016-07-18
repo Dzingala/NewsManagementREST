@@ -7,6 +7,7 @@ import by.epam.lab.task.entity.News;
 import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.CacheMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -24,16 +25,6 @@ import java.util.List;
 @Component
 public class NewsRepositoryImpl implements NewsRepository {
     private final static Logger logger= Logger.getLogger(NewsRepositoryImpl.class);
-    private static final String CREATE_NEWS_QUERY = " INSERT INTO DZINHALA.NEWS " +
-            "(TITLE,SHORT_TEXT,FULL_TEXT,CREATION_DATE," +
-            "MODIFICATION_DATE) VALUES (?,?,?,?,?) ";
-    private static final String READ_NEWS_BY_ID_QUERY = " SELECT NEWS_ID,TITLE,SHORT_TEXT,FULL_TEXT,CREATION_DATE,MODIFICATION_DATE " +
-            "FROM DZINHALA.NEWS WHERE NEWS_ID = ? ";
-    private static final String UPDATE_NEWS_QUERY = " UPDATE DZINHALA.NEWS SET TITLE = ?," +
-            "SHORT_TEXT = ?,FULL_TEXT = ?, CREATION_DATE = ?, " +
-            "MODIFICATION_DATE = ? WHERE NEWS_ID = ? ";
-    private static final String DELETE_NEWS_QUERY = " DELETE FROM DZINHALA.NEWS  WHERE NEWS_ID = ? ";
-    private static final String READ_ALL_NEWS_QUERY = " SELECT * FROM DZINHALA.NEWS";
     private static final String COUNT_NEWS_QUERY = " SELECT COUNT(NEWS_ID) FROM DZINHALA.NEWS";
 
     private static final String CONNECT_NEWS_TAGS_QUERY = " INSERT INTO DZINHALA.NEWS_TAG (NEWS_ID,TAG_ID)" +

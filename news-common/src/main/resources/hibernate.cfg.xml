@@ -11,6 +11,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="hibernate.default_schema">DZINHALA</property>
         <property name="show_sql">true</property>
+        <property name="hibernate.cache.use_second_level_cache">true</property>
         <mapping class="by.epam.lab.task.entity.User"/>
         <mapping class="by.epam.lab.task.entity.Author"/>
         <mapping class="by.epam.lab.task.entity.Comment"/>
@@ -18,4 +19,5 @@
         <mapping class="by.epam.lab.task.entity.Role"/>
         <mapping class="by.epam.lab.task.entity.Tag"/>
     </session-factory>
+    
 </hibernate-configuration>

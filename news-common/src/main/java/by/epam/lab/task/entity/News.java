@@ -1,10 +1,11 @@
 package by.epam.lab.task.entity;
 
 import oracle.sql.DATE;
-import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Date;
 import java.sql.Timestamp;
 /**
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Proxy(lazy=false)
+//@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 @Table(name = "NEWS")
 public class News {
     private long id;

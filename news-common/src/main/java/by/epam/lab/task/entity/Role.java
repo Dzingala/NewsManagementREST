@@ -1,5 +1,7 @@
 package by.epam.lab.task.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Proxy(lazy=false)
+//@Cache(usage= CacheConcurrencyStrategy.TRANSACTIONAL)
 @Table(name="ROLES")
 public class Role {
     private Long id;

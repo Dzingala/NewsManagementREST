@@ -1,9 +1,11 @@
 package by.epam.lab.task.entity;
 
 
-import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 /**
  * This entity is used for representing information about a Comment.
@@ -11,6 +13,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Proxy(lazy=false)
+//@org.hibernate.annotations.Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 @Table(name = "COMMENTS")
 public class Comment {
     private long id;

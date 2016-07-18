@@ -21,18 +21,7 @@ import java.util.stream.Collectors;
 @Component
 public class CommentsRepositoryImpl implements CommentsRepository {
     private final static Logger logger= Logger.getLogger(CommentsRepositoryImpl.class);
-    private static final String CREATE_COMMENT_QUERY = " INSERT INTO DZINHALA.COMMENTS (COMMENT_TEXT,CREATION_DATE,NEWS_ID) VALUES (?,?,?)";
-    private static final String READ_COMMENT_QUERY = " SELECT COMMENT_ID,NEWS_ID,COMMENT_TEXT,CREATION_DATE FROM DZINHALA.COMMENTS WHERE COMMENT_ID = ?";
-    private static final String UPDATE_COMMENT_QUERY = " UPDATE DZINHALA.COMMENTS SET COMMENT_TEXT = ?   WHERE COMMENT_ID = ?";
-    private static final String DELETE_COMMENT_QUERY = " DELETE FROM DZINHALA.COMMENTS WHERE COMMENT_ID = ?";
     private static final String FIND_COMMENTS_ID_BY_NEWS_ID_QUERY = " SELECT COMMENT_ID FROM DZINHALA.COMMENTS WHERE NEWS_ID = :newsId";
-    private static final String READ_ALL_COMMENTS_QUERY="SELECT COMMENT_ID,NEWS_ID,COMMENT_TEXT,CREATION_DATE FROM DZINHALA.COMMENTS";
-
-
-    private static final String COLUMN_NAME_NEWS_ID = "NEWS_ID";
-    private static final String COLUMN_NAME_COMMENTS_TEXT = "COMMENT_TEXT";
-    private static final String COLUMN_NAME_COMMENTS_DATE = "CREATION_DATE";
-    private static final String COLUMN_NAME_COMMENT_ID = "COMMENT_ID";
 
 
     @Autowired

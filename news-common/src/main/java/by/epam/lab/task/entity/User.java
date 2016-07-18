@@ -1,11 +1,11 @@
 package by.epam.lab.task.entity;
 
 import by.epam.lab.task.md5util.MD5Hashing;
-import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -14,6 +14,7 @@ import javax.persistence.Table;
  * @author Ivan Dzinhala
  */
 @Entity
+//@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 @Proxy(lazy=false)
 @Table(name = "USERS")
 public class User {
@@ -43,7 +44,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @Column(name="USER_NAME",nullable = false,length = 50)
     public String getName() {
         return name;
     }
@@ -51,7 +52,7 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
+    @Column(name="LOGIN",nullable = false,length = 30)
     public String getLogin() {
         return login;
     }
@@ -59,7 +60,7 @@ public class User {
     public void setLogin(String login) {
         this.login = login;
     }
-
+    @Column(name="PASSWORD",nullable = false,length = 32)
     public String getPassword() {
         return password;
     }
@@ -68,6 +69,7 @@ public class User {
         this.password = MD5Hashing.md5(password);
     }
 
+    @Column(name = "ROLE_ID",nullable = false)
     public Long getRoleId() {
         return roleId;
     }

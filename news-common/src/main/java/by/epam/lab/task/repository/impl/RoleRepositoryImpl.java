@@ -5,7 +5,10 @@ import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.RoleRepository;
 import by.epam.lab.task.entity.Role;
 import by.epam.lab.task.exceptions.dao.DAOException;
+import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class RoleRepositoryImpl implements RoleRepository {
@@ -37,28 +41,28 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public Long create(Role role) throws DAOException {
         logger.debug("Creating role in RoleRepositoryImpl");
-        Connection conn=null;
-        Long roleId=null;
-        String[] keys = {COLUMN_NAME_ROLE_ID};
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(CREATE_ROLE_QUERY, keys)) {
-                ps.setString(1, role.getName());
-                ps.executeUpdate();
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    rs.next();
-                    roleId = rs.getLong(1);
-                    logger.debug("Role id="+roleId+" was created");
-                }
-            }finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e){
+
+        Session session=null;
+        try{
+            session= HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(role);
+            session.getTransaction().commit();
+        }catch (Exception e) {
             logger.error("DAOException while creating role in RoleRepositoryImpl");
             logger.debug("Role was not created");
             throw new DAOException();
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while creating a tag");
+                }
+            }
         }
-        return roleId;
+
+        return null;
     }
     /**
      * Implementation of RoleRepository method read.
@@ -68,29 +72,24 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public Role read(Long roleId) throws DAOException {
         logger.debug("Reading role in RoleRepositoryImpl");
-        Connection conn=null;
+
+        Session session = null;
         Role role = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(READ_ROLE_QUERY)){
-                ps.setLong(1, roleId);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        role = new Role(roleId,
-                                rs.getString(COLUMN_NAME_ROLE_NAME)
-                        );
-                    }
-                    else{
-                        logger.debug("Role with id="+roleId+" does not exist");
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
+            session = HibernateUtil.getSessionFactory().openSession();
+            role = (Role) session.load(Role.class, roleId);
+        } catch (Exception e) {
             logger.error("DAOException while reading role in RoleRepositoryImpl");
             logger.debug("Role was not read");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                } catch (HibernateException e) {
+                    logger.error("HibernateException while reading a role");
+                }
+            }
         }
         if(role==null){
             logger.debug("Here is no role with id="+roleId);
@@ -106,20 +105,26 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public void update(Long id, Role role) throws DAOException {
         logger.debug("Updating role in RoleRepositoryImpl");
-        Connection conn =null;
+
+        Session session = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(UPDATE_ROLE_QUERY)) {
-                ps.setString(1, role.getName());
-                ps.setLong(2, id);
-                ps.executeUpdate();
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
+            session = HibernateUtil.getSessionFactory().openSession();
+            role.setId(id);
+            session.getTransaction().begin();
+            session.update(role);
+            session.getTransaction().commit();
+        } catch (Exception e) {
             logger.error("DAOException while updating role in RoleRepositoryImpl");
             logger.debug("Role was not updated");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while closing connection");
+                }
+            }
         }
     }
     /**
@@ -129,19 +134,25 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public void delete(Long id) throws DAOException {
         logger.debug("Deleting role in RoleRepositoryImpl");
-        Connection conn=null;
+        Session session = null;
         try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(DELETE_ROLE_QUERY)) {
-                ps.setLong(1, id);
-                ps.executeUpdate();
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Role toDeleteTag = (Role)session.load(Role.class,id);
+            session.delete(toDeleteTag);
+            session.getTransaction().commit();
+        } catch (Exception e) {
             logger.error("DAOException while deleting role in RoleRepositoryImpl");
             logger.debug("Role was not deleted");
             throw new DAOException(e);
+        } finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("HibernateException while deleting a role");
+                }
+            }
         }
     }
     /**
@@ -149,31 +160,25 @@ public class RoleRepositoryImpl implements RoleRepository {
      * @see by.epam.lab.task.exceptions.dao.DAOException
      */
     @Override
-    public ArrayList<Role> readAll() throws DAOException {
+    public List<Role> readAll() throws DAOException {
         logger.debug("Reading all roles in RoleRepositoryImpl");
-        Connection conn=null;
-        ArrayList<Role> roles = null;
-        try {
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(READ_ALL_ROLES_QUERY)){
-                try (ResultSet rs = ps.executeQuery()) {
-                    roles = new ArrayList<>();
-                    while (rs.next()) {
-                        roles.add(new Role(rs.getLong(COLUMN_NAME_ROLE_ID),
-                                rs.getString(COLUMN_NAME_ROLE_NAME)
-                        ));
-                    }
-                    if (roles.isEmpty()) {
-                        logger.debug("There are no roles in database");
-                    }
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
-            logger.error("DAOException while reading role in RoleRepositoryImpl");
-            logger.debug("Roles was not read");
+        Session session= null;
+        List<Role> roles=new ArrayList<>();
+        try{
+            session=HibernateUtil.getSessionFactory().openSession();
+            roles=session.createCriteria(Role.class).list();
+        }catch (Exception e){
+            logger.error("DAOException while reading all roles in RoleRepositoryImpl");
+            logger.debug("Authors was not read");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading all roles");
+                }
+            }
         }
         return roles;
     }

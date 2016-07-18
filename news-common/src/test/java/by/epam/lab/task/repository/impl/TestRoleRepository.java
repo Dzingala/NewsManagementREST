@@ -17,6 +17,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -72,7 +73,7 @@ public class TestRoleRepository {
         role.setId(1L);
         role.setName(tempName);
         Long roleId=roleDAO.create(role);
-        ArrayList<Role> roles=roleDAO.readAll();
+        List<Role> roles=roleDAO.readAll();
         assertFalse(roles.isEmpty());
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 /**
@@ -119,7 +120,7 @@ public class TestUserRepository {
         user.setPassword(tempPass);
 
         Long userId= userRepository.create(user);
-        ArrayList<User> users= userRepository.readAll();
+        List<User> users= userRepository.readAll();
         assertFalse(users.isEmpty());
     }
 
