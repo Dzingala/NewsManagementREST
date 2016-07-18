@@ -585,5 +585,4 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
         return criteriaNewsAmount;
     }
-
 }

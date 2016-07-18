@@ -57,7 +57,7 @@ public class ReadNewsCommand implements Command {
                     (requestHandler.parsePage(request)):
                     (1L);
 
-            ArrayList<News> newsList = newsService.readBySearchCriteria(searchCriteria, page);
+            List<News> newsList = newsService.readBySearchCriteria(searchCriteria, page);
             ArrayList<NewsTO> news = new ArrayList<>();
             for (News singleNew : newsList) {
                 NewsTO newsTO = newsService.readDataByNewsId(singleNew.getId());

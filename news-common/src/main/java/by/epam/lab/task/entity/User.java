@@ -13,12 +13,9 @@ import javax.persistence.Table;
  * This entity is used for representing information about User.
  * @author Ivan Dzinhala
  */
-<<<<<<< HEAD
-=======
 @Entity
 @Proxy(lazy=false)
 @Table(name = "USERS")
->>>>>>> aa4c67f3844e707556e1933f6c0fc60a63b81047
 public class User {
     private Long id;
     private String name;
@@ -36,12 +33,9 @@ public class User {
         this.password = password;
     }
     public void setReadyPassword(String password){this.password=password;}
-<<<<<<< HEAD
 
-=======
     @Id
     @Column(name = "USER_ID",unique = true,nullable = false)
->>>>>>> aa4c67f3844e707556e1933f6c0fc60a63b81047
     public Long getId() {
         return id;
     }
