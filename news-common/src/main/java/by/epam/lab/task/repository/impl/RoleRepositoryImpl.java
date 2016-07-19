@@ -21,15 +21,6 @@ import java.util.List;
 @Component
 public class RoleRepositoryImpl implements RoleRepository {
     private final static Logger logger= Logger.getLogger(RoleRepositoryImpl.class);
-    private static final String CREATE_ROLE_QUERY = " INSERT INTO DZINHALA.ROLES (ROLE_NAME) VALUES (?) ";
-    private static final String READ_ROLE_QUERY = " SELECT ROLE_ID, ROLE_NAME FROM DZINHALA.ROLES WHERE ROLE_ID = ? ";
-    private static final String UPDATE_ROLE_QUERY = " UPDATE DZINHALA.ROLES SET ROLE_NAME = ? WHERE ROLE_ID = ? ";
-    private static final String DELETE_ROLE_QUERY = " DELETE FROM DZINHALA.ROLES  WHERE ROLE_ID = ? ";
-    private static final String READ_ALL_ROLES_QUERY=" SELECT ROLE_NAME,ROLE_ID FROM DZINHALA.ROLES";
-
-    private static final String COLUMN_NAME_ROLE_NAME = "ROLE_NAME";
-    private static final String COLUMN_NAME_ROLE_ID = "ROLE_ID";
-
 
     @Autowired
     private DataSource dataSource;

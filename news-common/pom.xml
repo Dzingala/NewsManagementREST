@@ -28,12 +28,24 @@
     </repositories>
 
     <dependencies>
-        <!-- Hibernate dependencies-->
-
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
+            <!-- Hibernate dependencies-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>3.6.3.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.6.3.Final</version>
+        </dependency>
+
+        <!-- Spring ORM support -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>4.2.4.RELEASE</version>
         </dependency>
 
         <dependency>

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
-        <property name="hibernate.connection.username">dzinhala</property>
-        <property name="hibernate.connection.password">pass</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
-        <property name="hibernate.default_schema">DZINHALA</property>
-        <property name="show_sql">true</property>
-        <property name="hibernate.cache.use_second_level_cache">true</property>
-        <mapping class="by.epam.lab.task.entity.User"/>
-        <mapping class="by.epam.lab.task.entity.Author"/>
-        <mapping class="by.epam.lab.task.entity.Comment"/>
-        <mapping class="by.epam.lab.task.entity.News"/>
-        <mapping class="by.epam.lab.task.entity.Role"/>
-        <mapping class="by.epam.lab.task.entity.Tag"/>
-    </session-factory>
-    
+<session-factory>
+<property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+<property name="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/XE</property>
+<property name="hibernate.connection.username">dzinhala</property>
+<property name="hibernate.connection.password">pass</property>
+<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+<property name="hibernate.default_schema">DZINHALA</property>
+<property name="show_sql">true</property>
+<mapping class="by.epam.lab.task.entity.User"/>
+<mapping class="by.epam.lab.task.entity.Author"/>
+<mapping class="by.epam.lab.task.entity.Comment"/>
+<mapping class="by.epam.lab.task.entity.News"/>
+<mapping class="by.epam.lab.task.entity.Role"/>
+<mapping class="by.epam.lab.task.entity.Tag"/>
+</session-factory>
+
 </hibernate-configuration>

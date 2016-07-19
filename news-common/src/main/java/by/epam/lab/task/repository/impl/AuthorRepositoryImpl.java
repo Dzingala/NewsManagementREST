@@ -17,11 +17,12 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.orm.hibernate3.HibernateTemplate;
 @Component
 public class AuthorRepositoryImpl implements AuthorRepository {
     private final static Logger logger= Logger.getLogger(AuthorRepositoryImpl.class);
     private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = :newsId ";
+
 
 
 
