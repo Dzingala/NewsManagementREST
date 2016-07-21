@@ -8,6 +8,11 @@ import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.type.DateType;
+import org.hibernate.type.LongType;
+import org.hibernate.type.StringType;
+import org.hibernate.type.TimestampType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -53,18 +58,17 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String COLUMN_NAME_CREATION_DATE = "CREATION_DATE";
     private static final String COLUMN_NAME_MODIFICATION_DATE = "MODIFICATION_DATE";
 
-    private HibernateTemplate hibernateTemplate=new HibernateTemplate(HibernateUtil.getSessionFactory());
-
     private SessionFactory sessionFactory;
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory){
-        this.sessionFactory=sessionFactory;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
-
 
     @Autowired
     private DataSource dataSource;
+
+
+    private HibernateTemplate hibernateTemplate=new HibernateTemplate(HibernateUtil.getSessionFactory());
 
     /**
      * Implementation of NewsRepository method readSortedByComments.
@@ -180,13 +184,24 @@ public class NewsRepositoryImpl implements NewsRepository {
     public List<News> readAll() throws DAOException {
         logger.debug("Reading all news in NewsRepositoryImpl");
         List<News> news = new ArrayList<>();
-        Session session= null;
+        Session session = null;
         try{
+//            session=sessionFactory.openSession();
             news=hibernateTemplate.loadAll(News.class);
+            hibernateTemplate.evict(news);
+//            news=session.createCriteria(News.class).list();
         }catch (Exception e){
             logger.error("DAOException while reading all news in NewsRepositoryImpl");
             logger.debug("News was not read");
             throw new DAOException(e);
+        }finally {
+            if (session != null) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading all news");
+                }
+            }
         }
         return news;
     }
@@ -304,64 +319,44 @@ public class NewsRepositoryImpl implements NewsRepository {
         logger.debug("Reading by search criteria in NewsRepositoryImpl");
         System.out.println("CRITERIA:");
         System.out.println(SEARCH_CRITERIA_QUERY);
-
         List<News> news =new ArrayList<>();
-//        try {
-//            news = hibernateTemplate.execute(session -> {
-//                Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY);
-//                return (List<News>) query.executeUpdate();
-//            });
-//        } catch (Exception e) {
-//            logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
-//            logger.debug("News was not read by search criteria");
-//            throw new DAOException(e);
-//        }
-//        Session session = null;
-//        try{
-//            session=HibernateUtil.getSessionFactory().openSession();
-//            System.out.println("session is opened");
-//            session.beginTransaction();
-//            Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY);
-//            System.out.println("query is ready:"+query);
-//            news = (List<News>)query.list();
-//            session.getTransaction().commit();
-//            System.out.println("here is an error");
-//        }catch (Exception e){
-//            logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
-//            logger.debug("News was not disconnected with author");
-//            throw new DAOException(e);
-//        }finally {
-//            if (session != null && session.isOpen()) {
-//                try {
-//                    session.close();
-//                }catch (HibernateException e){
-//                    logger.error("Hibernate exception while reading news by search criteria with pages");
-//                }
-//            }
-//        }
-        Connection conn = null;
+        Session session = null;
         try{
-            conn=dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(SEARCH_CRITERIA_QUERY);
-                 ResultSet rs = ps.executeQuery()){
-                news = new ArrayList<>();
-                while( rs.next() ){
-                    news.add(new News(
-                            rs.getLong(COLUMN_NAME_ID),
-                            rs.getString(COLUMN_NAME_TITLE),
-                            rs.getString(COLUMN_NAME_SHORT_TEXT),
-                            rs.getString(COLUMN_NAME_FULL_TEXT),
-                            rs.getTimestamp(COLUMN_NAME_CREATION_DATE),
-                            rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
-                    ));
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
+            session=HibernateUtil.getSessionFactory().openSession();
+            System.out.println("session is opened");
+            session.beginTransaction();
+            Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY)
+                    .addScalar("NEWS_ID", new LongType())
+                    .addScalar("TITLE",new StringType())
+                    .addScalar("SHORT_TEXT",new StringType())
+                    .addScalar("FULL_TEXT",new StringType())
+                    .addScalar("CREATION_DATE", new TimestampType())
+                    .addScalar("MODIFICATION_DATE",new DateType());
+            System.out.println("query is ready:"+query);
+            List<Object[]> res = query.list();
+            for(Object[] newToAdd:res){
+                news.add(new News(
+                        (Long)newToAdd[0],
+                        (String)newToAdd[1],
+                        (String)newToAdd[2],
+                        (String)newToAdd[3],
+                        (Timestamp)newToAdd[4],
+                        (Date)newToAdd[5]
+                ));
             }
-        } catch (SQLException e) {
+            session.getTransaction().commit();
+        }catch (Exception e){
             logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
-            logger.debug("News was not read by search criteria");
+            logger.debug("News was not disconnected with author");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading news by search criteria with pages");
+                }
+            }
         }
         return getPageNews(news,page,newsPerPage);
     }
@@ -371,54 +366,45 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public List<News> readBySearchCriteriaFull(final String SEARCH_CRITERIA_QUERY) throws DAOException{
-        logger.debug("Reading by search criteria fully in NewsRepositoryImpl");
         System.out.println("CRITERIA:");
         System.out.println(SEARCH_CRITERIA_QUERY);
-        logger.debug("Reading by search criteria in NewsRepositoryImpl");
-        System.out.println("CRITERIA:");
-        System.out.println(SEARCH_CRITERIA_QUERY);
-
         List<News> news =new ArrayList<>();
-//        Session session = null;
-//        try{
-//            session=HibernateUtil.getSessionFactory().openSession();
-//            news = session.createSQLQuery(SEARCH_CRITERIA_QUERY).list();
-//        }catch (Exception e){
-//            logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
-//            logger.debug("News was not disconnected with author");
-//            throw new DAOException(e);
-//        }finally {
-//            if (session != null && session.isOpen()) {
-//                try {
-//                    session.close();
-//                }catch (HibernateException e){
-//                    logger.error("Hibernate exception while reading news by search criteria");
-//                }
-//            }
-//        }
-        Connection conn = null;
+        Session session = null;
         try{
-            conn=dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(SEARCH_CRITERIA_QUERY);
-                 ResultSet rs = ps.executeQuery()){
-                news = new ArrayList<>();
-                while( rs.next() ){
-                    news.add(new News(
-                            rs.getLong(COLUMN_NAME_ID),
-                            rs.getString(COLUMN_NAME_TITLE),
-                            rs.getString(COLUMN_NAME_SHORT_TEXT),
-                            rs.getString(COLUMN_NAME_FULL_TEXT),
-                            rs.getTimestamp(COLUMN_NAME_CREATION_DATE),
-                            rs.getDate(COLUMN_NAME_MODIFICATION_DATE)
-                    ));
-                }
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
+            session=HibernateUtil.getSessionFactory().openSession();
+            System.out.println("session is opened");
+            session.beginTransaction();
+            Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY)
+                    .addScalar("NEWS_ID", new LongType())
+                    .addScalar("TITLE",new StringType())
+                    .addScalar("SHORT_TEXT",new StringType())
+                    .addScalar("FULL_TEXT",new StringType())
+                    .addScalar("CREATION_DATE", new TimestampType())
+                    .addScalar("MODIFICATION_DATE",new DateType());
+            List<Object[]> res = query.list();
+            for(Object[] newToAdd:res){
+                news.add(new News(
+                        (Long)newToAdd[0],
+                        (String)newToAdd[1],
+                        (String)newToAdd[2],
+                        (String)newToAdd[3],
+                        (Timestamp)newToAdd[4],
+                        (Date)newToAdd[5]
+                ));
             }
-        } catch (SQLException e) {
-            logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
+            session.getTransaction().commit();
+        }catch (Exception e){
+            logger.error("DAOException while reading news by search criteria fully in NewsRepositoryImpl");
             logger.debug("News was not disconnected with author");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception while reading news by search criteria fully pages");
+                }
+            }
         }
         return news;
     }
