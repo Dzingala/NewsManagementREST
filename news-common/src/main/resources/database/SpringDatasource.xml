@@ -24,20 +24,25 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>by.epam.lab.task.entity.Tag</value>
-                <value>by.epam.lab.task.entity.Author</value>
                 <value>by.epam.lab.task.entity.News</value>
+                <value>by.epam.lab.task.entity.Author</value>
                 <value>by.epam.lab.task.entity.Comment</value>
+                <value>by.epam.lab.task.entity.Tag</value>
                 <value>by.epam.lab.task.entity.Role</value>
                 <value>by.epam.lab.task.entity.User</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
+                <prop key="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</prop>
+                <prop key="hibernate.connection.url">jdbc:oracle:thin:@//localhost:1521/XE</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.connection.username">dzinhala</prop>
+                <prop key="hibernate.connection.password">pass</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>
+
 
 </beans>

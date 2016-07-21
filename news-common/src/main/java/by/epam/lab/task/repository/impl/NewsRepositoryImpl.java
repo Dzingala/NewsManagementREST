@@ -54,6 +54,15 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String COLUMN_NAME_MODIFICATION_DATE = "MODIFICATION_DATE";
 
     private HibernateTemplate hibernateTemplate=new HibernateTemplate(HibernateUtil.getSessionFactory());
+
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory){
+        this.sessionFactory=sessionFactory;
+    }
+
+
     @Autowired
     private DataSource dataSource;
 
