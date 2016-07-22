@@ -25,8 +25,6 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String READ_TAGS_ID_BY_NEWS_ID_QUERY = " SELECT TAG_ID FROM DZINHALA.NEWS_TAG WHERE NEWS_ID = :newsId ";
     private static final String READ_NEWS_ID_BY_TAG_ID_QUERY = " SELECT NEWS_ID FROM DZINHALA.NEWS_TAG WHERE TAG_ID = :tagId ";
 
-    @Autowired
-    private DataSource dataSource;
 
     /**
      * Implementation of TagRepository method create.

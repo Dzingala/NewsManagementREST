@@ -22,8 +22,6 @@ import java.util.List;
 public class RoleRepositoryImpl implements RoleRepository {
     private final static Logger logger= Logger.getLogger(RoleRepositoryImpl.class);
 
-    @Autowired
-    private DataSource dataSource;
 
     /**
      * Implementation of RoleRepository method create.

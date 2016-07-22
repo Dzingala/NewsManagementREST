@@ -28,7 +28,6 @@
     </repositories>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
             <!-- Hibernate dependencies-->
         <dependency>
             <groupId>org.hibernate</groupId>

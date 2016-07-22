@@ -51,22 +51,6 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String DISCONNECT_NEWS_AUTHOR_QUERY = " DELETE FROM NEWS_AUTHOR WHERE NEWS_ID = :newsId AND AUTHOR_ID=:authorId ";
 
 
-    private static final String COLUMN_NAME_ID = "NEWS_ID";
-    private static final String COLUMN_NAME_TITLE = "TITLE";
-    private static final String COLUMN_NAME_SHORT_TEXT = "SHORT_TEXT";
-    private static final String COLUMN_NAME_FULL_TEXT = "FULL_TEXT";
-    private static final String COLUMN_NAME_CREATION_DATE = "CREATION_DATE";
-    private static final String COLUMN_NAME_MODIFICATION_DATE = "MODIFICATION_DATE";
-
-    private SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Autowired
-    private DataSource dataSource;
-
 
     private HibernateTemplate hibernateTemplate=new HibernateTemplate(HibernateUtil.getSessionFactory());
 

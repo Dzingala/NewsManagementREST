@@ -24,9 +24,6 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     private static final String FIND_COMMENTS_ID_BY_NEWS_ID_QUERY = " SELECT COMMENT_ID FROM DZINHALA.COMMENTS WHERE NEWS_ID = :newsId";
 
 
-    @Autowired
-    private DataSource dataSource;
-
     /**
      * Implementation of CommentsRepository method create.
      * @see by.epam.lab.task.exceptions.dao.DAOException

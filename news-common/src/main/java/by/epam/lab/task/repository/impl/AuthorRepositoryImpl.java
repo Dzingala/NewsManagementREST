@@ -24,10 +24,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = :newsId ";
 
 
-
-
-    @Autowired
-    private DataSource dataSource;
     /**
      * Implementation of AuthorRepository method create.
      * @see by.epam.lab.task.exceptions.dao.DAOException

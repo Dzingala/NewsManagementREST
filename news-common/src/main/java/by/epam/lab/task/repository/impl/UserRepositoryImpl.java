@@ -27,10 +27,6 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String READ_USER_ID_BY_LOGIN_QUERY = "SELECT USER_ID FROM DZINHALA.USERS WHERE LOGIN = :login ";
     private static final String SET_ROLE_QUERY="UPDATE DZINHALA.USERS SET ROLE_ID=:roleId WHERE USER_ID=:userId";
 
-
-    @Autowired
-    private DataSource dataSource;
-
     /**
      * Implementation of UserRepository method create.
      * @see by.epam.lab.task.exceptions.dao.DAOException
