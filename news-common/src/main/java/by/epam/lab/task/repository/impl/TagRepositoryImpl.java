@@ -8,13 +8,9 @@ import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -177,7 +173,6 @@ public class TagRepositoryImpl implements TagRepository {
         try{
             session=HibernateUtil.getSessionFactory().openSession();
             List<BigDecimal> bdTagsIdList = (List<BigDecimal>)session.createSQLQuery(READ_TAGS_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).list();
-
             tagsIdList.addAll(bdTagsIdList.stream().map(BigDecimal::longValue).collect(Collectors.toList()));
         }catch (Exception e){
             logger.error("DAOException while reading tags' id by news id in TagRepositoryImpl");

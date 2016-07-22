@@ -9,12 +9,8 @@ import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package by.epam.lab.task.repository.impl;
 
-import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.AuthorRepository;
 import by.epam.lab.task.entity.Author;
 import by.epam.lab.task.exceptions.dao.DAOException;
@@ -8,16 +7,11 @@ import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 @Component
 public class AuthorRepositoryImpl implements AuthorRepository {
     private final static Logger logger= Logger.getLogger(AuthorRepositoryImpl.class);

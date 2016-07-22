@@ -7,6 +7,7 @@ import by.epam.lab.task.entity.dto.UserTO;
 import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.exceptions.service.ServiceException;
+import by.epam.lab.task.md5util.MD5Hashing;
 import by.epam.lab.task.repository.UserRepository;
 import by.epam.lab.task.service.RolesService;
 import by.epam.lab.task.service.UserService;
@@ -104,7 +105,7 @@ public class UserServiceImpl implements UserService{
         try {
             Long userId = userRepository.readIdByLogin(login);
             User expectedUser = userRepository.read(userId);
-            if (password.equals(expectedUser.getPassword())) {
+            if (MD5Hashing.md5(password).equals(expectedUser.getPassword())) {
                 Long roleId = expectedUser.getRoleId();
                 Role userRole = roleService.readById(roleId);
                 userTO = new UserTO(expectedUser, userRole);

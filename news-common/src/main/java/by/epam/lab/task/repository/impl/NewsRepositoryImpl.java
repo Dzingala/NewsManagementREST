@@ -8,19 +8,14 @@ import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.type.DateType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.hibernate.type.TimestampType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,7 +60,6 @@ public class NewsRepositoryImpl implements NewsRepository {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
             newsList = (List<News>) session.createSQLQuery(READ_NEWS_SORTED_BY_COMMENTS_QUERY).list();
         } catch (Exception e) {
             logger.error("DAOException while reading all news sorted by comments descending in NewsRepositoryImpl");
@@ -110,8 +104,6 @@ public class NewsRepositoryImpl implements NewsRepository {
         News news = null;
         try{
             news=hibernateTemplate.load(News.class,newsId);
-//            session=HibernateUtil.getSessionFactory().openSession();
-//            news=(News)session.load(News.class,newsId);
         }catch (Exception e){
             logger.error("DAOException while reading news in NewsRepositoryImpl");
             logger.debug("News was not read");
@@ -129,7 +121,6 @@ public class NewsRepositoryImpl implements NewsRepository {
         logger.debug("Updating news in NewsRepositoryImpl");
         news.setId(id);
         news.setModificationDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-        Session session = null;
         try {
             hibernateTemplate.update(news);
         } catch (Exception e) {
@@ -149,11 +140,9 @@ public class NewsRepositoryImpl implements NewsRepository {
         try {
             session=hibernateTemplate.getSessionFactory().openSession();
             session.beginTransaction();
-
             News toDelNews = (News)session.load(News.class,id);
             session.delete(toDelNews);
             session.getTransaction().commit();
-
         } catch (Exception e) {
             logger.error("DAOException while deleting news in NewsRepositoryImpl");
             logger.debug("News was not deleted");
@@ -168,24 +157,12 @@ public class NewsRepositoryImpl implements NewsRepository {
     public List<News> readAll() throws DAOException {
         logger.debug("Reading all news in NewsRepositoryImpl");
         List<News> news = new ArrayList<>();
-        Session session = null;
         try{
-//            session=sessionFactory.openSession();
             news=hibernateTemplate.loadAll(News.class);
-            hibernateTemplate.evict(news);
-//            news=session.createCriteria(News.class).list();
         }catch (Exception e){
             logger.error("DAOException while reading all news in NewsRepositoryImpl");
             logger.debug("News was not read");
             throw new DAOException(e);
-        }finally {
-            if (session != null) {
-                try {
-                    session.close();
-                }catch (HibernateException e){
-                    logger.error("Hibernate exception while reading all news");
-                }
-            }
         }
         return news;
     }
@@ -209,7 +186,6 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.debug("News was not counted");
             throw new DAOException(e);
         }
-        System.out.println("newsAmount:"+newsAmount);
         return newsAmount;
     }
     /**
@@ -239,7 +215,6 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void joinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Connecting news with author in NewsRepositoryImpl");
-        System.out.println("newsId:"+newsId+", authorId:"+authorId);
         try{
             hibernateTemplate.execute((HibernateCallback) session -> {
                 session.beginTransaction();
@@ -301,13 +276,10 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public List<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY, Long page, int newsPerPage) throws DAOException{
         logger.debug("Reading by search criteria in NewsRepositoryImpl");
-        System.out.println("CRITERIA:");
-        System.out.println(SEARCH_CRITERIA_QUERY);
         List<News> news =new ArrayList<>();
         Session session = null;
         try{
             session=HibernateUtil.getSessionFactory().openSession();
-            System.out.println("session is opened");
             session.beginTransaction();
             Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY)
                     .addScalar("NEWS_ID", new LongType())
@@ -316,7 +288,7 @@ public class NewsRepositoryImpl implements NewsRepository {
                     .addScalar("FULL_TEXT",new StringType())
                     .addScalar("CREATION_DATE", new TimestampType())
                     .addScalar("MODIFICATION_DATE",new DateType());
-            System.out.println("query is ready:"+query);
+            logger.debug("query is ready:"+query);
             List<Object[]> res = query.list();
             for(Object[] newToAdd:res){
                 news.add(new News(
@@ -350,13 +322,10 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     @Override
     public List<News> readBySearchCriteriaFull(final String SEARCH_CRITERIA_QUERY) throws DAOException{
-        System.out.println("CRITERIA:");
-        System.out.println(SEARCH_CRITERIA_QUERY);
         List<News> news =new ArrayList<>();
         Session session = null;
         try{
             session=HibernateUtil.getSessionFactory().openSession();
-            System.out.println("session is opened");
             session.beginTransaction();
             Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY)
                     .addScalar("NEWS_ID", new LongType())

@@ -7,19 +7,10 @@ import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
-import org.hibernate.transform.ResultTransformer;
-import org.hibernate.type.Type;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.*;
 import java.util.*;
-import java.util.Date;
 
 @Component
 public class UserRepositoryImpl implements UserRepository {
