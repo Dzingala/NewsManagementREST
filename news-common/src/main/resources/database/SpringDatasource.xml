@@ -20,25 +20,5 @@
         <property name="password" value="pass"/>
 
     </bean>
-    <bean id="hibernate3AnnotatedSessionFactory"
-          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="annotatedClasses">
-            <list>
-                <value>by.epam.lab.task.entity.News</value>
-                <value>by.epam.lab.task.entity.Author</value>
-                <value>by.epam.lab.task.entity.Tag</value>
-                <value>by.epam.lab.task.entity.Comment</value>
-                <value>by.epam.lab.task.entity.Role</value>
-                <value>by.epam.lab.task.entity.User</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
-                <prop key="hibernate.current_session_context_class">thread</prop>
-                <prop key="hibernate.show_sql">false</prop>
-            </props>
-        </property>
-    </bean>
+
 </beans>
