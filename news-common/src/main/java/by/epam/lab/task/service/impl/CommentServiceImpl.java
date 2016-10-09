@@ -20,8 +20,13 @@ public class CommentServiceImpl implements CommentService{
 
     private final static Logger logger= Logger.getLogger(CommentServiceImpl.class);
 
+    private final CommentsRepository commentsRepository;
+
     @Autowired
-    private CommentsRepository commentsRepository;
+    public CommentServiceImpl(CommentsRepository commentsRepository) {
+        this.commentsRepository = commentsRepository;
+    }
+
     /**
      * Implementation of CommentService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException

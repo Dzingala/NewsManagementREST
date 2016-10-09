@@ -29,8 +29,13 @@ public class AuthorRepositoryImpl implements AuthorRepository {
 
 
 
+    private final DataSource dataSource;
+
     @Autowired
-    private DataSource dataSource;
+    public AuthorRepositoryImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     /**
      * Implementation of AuthorRepository method create.
      * @see by.epam.lab.task.exceptions.dao.DAOException

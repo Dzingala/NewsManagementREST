@@ -40,8 +40,12 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String COLUMN_NAME_USER_ID = "USER_ID";
 
 
+    private final DataSource dataSource;
+
     @Autowired
-    private DataSource dataSource;
+    public UserRepositoryImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     /**
      * Implementation of UserRepository method create.

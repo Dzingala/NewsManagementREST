@@ -20,8 +20,13 @@ public class TagServiceImpl implements TagService {
 
     private final static Logger logger= Logger.getLogger(TagServiceImpl.class);
 
+    private final TagRepository tagRepository;
+
     @Autowired
-    private TagRepository tagRepository;
+    public TagServiceImpl(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
+    }
+
     /**
      * Implementation of TagService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException

@@ -59,8 +59,12 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String COLUMN_NAME_MODIFICATION_DATE = "MODIFICATION_DATE";
 
 
+    private final DataSource dataSource;
+
     @Autowired
-    private DataSource dataSource;
+    public NewsRepositoryImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     /**
      * Implementation of NewsRepository method readSortedByComments.

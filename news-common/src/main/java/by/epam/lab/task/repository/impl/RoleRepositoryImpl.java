@@ -27,8 +27,12 @@ public class RoleRepositoryImpl implements RoleRepository {
     private static final String COLUMN_NAME_ROLE_ID = "ROLE_ID";
 
 
+    private final DataSource dataSource;
+
     @Autowired
-    private DataSource dataSource;
+    public RoleRepositoryImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     /**
      * Implementation of RoleRepository method create.
