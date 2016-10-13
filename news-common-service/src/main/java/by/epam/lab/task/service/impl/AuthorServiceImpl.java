@@ -21,12 +21,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final static Logger logger= Logger.getLogger(AuthorServiceImpl.class);
 
-    private final AuthorRepository authorRepository;
-
     @Autowired
-    public AuthorServiceImpl(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
+    private AuthorRepository authorRepository;
 
     /**
      * Because: checks either author exists in the list of all authors or not.

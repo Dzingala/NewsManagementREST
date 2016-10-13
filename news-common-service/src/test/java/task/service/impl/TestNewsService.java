@@ -1,4 +1,4 @@
-package by.epam.lab.task.service.impl;
+package task.service.impl;
 
 import by.epam.lab.task.entity.*;
 import by.epam.lab.task.entity.dto.NewsTO;
@@ -6,6 +6,10 @@ import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.repository.NewsRepository;
 import by.epam.lab.task.repository.impl.NewsRepositoryImpl;
+import by.epam.lab.task.service.impl.AuthorServiceImpl;
+import by.epam.lab.task.service.impl.CommentServiceImpl;
+import by.epam.lab.task.service.impl.NewsServiceImpl;
+import by.epam.lab.task.service.impl.TagServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

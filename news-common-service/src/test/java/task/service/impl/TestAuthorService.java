@@ -1,10 +1,11 @@
-package by.epam.lab.task.service.impl;
+package task.service.impl;
 
 import by.epam.lab.task.entity.Author;
 import by.epam.lab.task.entity.News;
 import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.repository.AuthorRepository;
+import by.epam.lab.task.service.impl.AuthorServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

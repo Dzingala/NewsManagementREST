@@ -1,4 +1,4 @@
-package by.epam.lab.task.service.impl;
+package task.service.impl;
 
 import by.epam.lab.task.entity.Role;
 import by.epam.lab.task.entity.User;
@@ -7,6 +7,8 @@ import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.repository.UserRepository;
+import by.epam.lab.task.service.impl.RoleServiceImpl;
+import by.epam.lab.task.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

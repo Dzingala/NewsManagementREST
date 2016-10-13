@@ -27,22 +27,17 @@ public class NewsServiceImpl implements NewsService {
 
     private final static Logger logger= Logger.getLogger(NewsServiceImpl.class);
 
-    private final NewsRepository newsRepository;
-
-    private final AuthorService authorService;
-
-    private final TagService tagService;
-
-    private final CommentService commentService;
+    @Autowired
+    private NewsRepository newsRepository;
 
     @Autowired
-    public NewsServiceImpl(AuthorService authorService, NewsRepository newsRepository, TagService tagService, CommentService commentService) {
-        this.authorService = authorService;
-        this.newsRepository = newsRepository;
-        this.tagService = tagService;
-        this.commentService = commentService;
-    }
+    private AuthorService authorService;
 
+    @Autowired
+    private TagService tagService;
+
+    @Autowired
+    private CommentService commentService;
     /**
      * Implementation of NewsService method readSortedByComments.
      * @see by.epam.lab.task.exceptions.service.ServiceException

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class UserRepositoryImpl implements UserRepository {
     private final static Logger logger= Logger.getLogger(UserRepositoryImpl.class);
     private static final String CREATE_USER_QUERY = " INSERT INTO DZINHALA.USERS " +
-            "(USER_NAME,LOGIN,PASSWORD) VALUES (?,?,?) ";
+            "(USER_NAME,LOGIN,PASSWORD,ROLE_ID) VALUES (?,?,?,?) ";
     private static final String READ_USER_QUERY = " SELECT USER_ID, USER_NAME," +
             " LOGIN, PASSWORD,ROLE_ID FROM DZINHALA.USERS WHERE USER_ID = ? ";
     private static final String UPDATE_USER_QUERY = " UPDATE DZINHALA.USERS SET USER_NAME = ?," +
@@ -40,12 +40,8 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String COLUMN_NAME_USER_ID = "USER_ID";
 
 
-    private final DataSource dataSource;
-
     @Autowired
-    public UserRepositoryImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    private DataSource dataSource;
 
     /**
      * Implementation of UserRepository method create.
@@ -63,6 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
                 ps.setString(1, user.getName());
                 ps.setString(2, user.getLogin());
                 ps.setString(3, user.getPassword());
+                ps.setLong(4, user.getRoleId());
                 ps.executeUpdate();
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     rs.next();

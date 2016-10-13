@@ -1,9 +1,10 @@
-package by.epam.lab.task.service.impl;
+package task.service.impl;
 
 import by.epam.lab.task.entity.Tag;
 import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.repository.TagRepository;
+import by.epam.lab.task.service.impl.TagServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -46,7 +47,7 @@ public class TestTagService {
 
     @Test
     public void readByItTest() throws DAOException, ServiceException {
-        Long tagId= 1L;
+        Long tagId=1l;
         tagService.readById(tagId);
         Mockito.verify(tagRepository).read(tagId);
     }

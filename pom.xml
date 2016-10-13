@@ -9,8 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>news-common-service</module>
         <module>news-common-dao</module>
+        <module>news-common-service</module>
     </modules>
-
 </project>

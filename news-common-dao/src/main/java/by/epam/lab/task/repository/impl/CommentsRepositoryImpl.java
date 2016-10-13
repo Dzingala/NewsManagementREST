@@ -31,12 +31,8 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     private static final String COLUMN_NAME_COMMENT_ID = "NEWS_ID";
 
 
-    private final DataSource dataSource;
-
     @Autowired
-    public CommentsRepositoryImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    private DataSource dataSource;
 
     /**
      * Implementation of CommentsRepository method create.

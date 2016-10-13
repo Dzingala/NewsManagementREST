@@ -29,12 +29,8 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String COLUMN_NAME_NEWS_TAG_TAG_ID = "TAG_ID";
 
 
-    private final DataSource dataSource;
-
     @Autowired
-    public TagRepositoryImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    private DataSource dataSource;
 
     /**
      * Implementation of TagRepository method create.

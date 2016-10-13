@@ -36,6 +36,7 @@ public class TestUserRepository {
     private static final String tempLogin="templogin";
     private static final String tempPass="temppass";
     private static final String tempLogin1="tempname1";
+    private static final Long tempRoleId=1L;
     @Autowired
     private UserRepositoryImpl userRepository;
 
@@ -45,6 +46,7 @@ public class TestUserRepository {
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
+        user.setRoleId(tempRoleId);
         Long userId = userRepository.create(user);
     }
 
@@ -54,7 +56,7 @@ public class TestUserRepository {
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
-        user.setRoleId(1l);
+        user.setRoleId(1L);
         Long userId = userRepository.create(user);
         userRepository.setRoleIdById(userId,user.getRoleId());
         user.setId(userId);
@@ -106,6 +108,7 @@ public class TestUserRepository {
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
+        user.setRoleId(tempRoleId);
         Long userId= userRepository.create(user);
         Long newUserId = userRepository.readIdByLogin(tempLogin);
         assertTrue(userId.longValue()==newUserId.longValue());
@@ -117,7 +120,7 @@ public class TestUserRepository {
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
-
+        user.setRoleId(tempRoleId);
         Long userId= userRepository.create(user);
         ArrayList<User> users= userRepository.readAll();
         assertFalse(users.isEmpty());

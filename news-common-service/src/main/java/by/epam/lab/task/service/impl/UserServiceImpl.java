@@ -23,15 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService{
     private final static Logger logger= Logger.getLogger(UserServiceImpl.class);
 
-    private final UserRepository userRepository;
-
-    private final RolesService roleService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(RolesService roleService, UserRepository userRepository) {
-        this.roleService = roleService;
-        this.userRepository = userRepository;
-    }
+    private RolesService roleService;
 
     /**
      * Method checks if the role exists.

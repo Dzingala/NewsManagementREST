@@ -21,18 +21,14 @@ public class CommentServiceImpl implements CommentService{
 
     private final static Logger logger= Logger.getLogger(CommentServiceImpl.class);
 
-    private final CommentsRepository commentsRepository;
-
     @Autowired
-    public CommentServiceImpl(CommentsRepository commentsRepository) {
-        this.commentsRepository = commentsRepository;
-    }
-
+    private CommentsRepository commentsRepository;
     /**
      * Implementation of CommentService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
     @Transactional(rollbackFor = Exception.class)
+    @Override
     public Long create(Comment comment) throws ServiceException {
         logger.debug("Creating comment in CommentServiceImpl");
         Long commentId = null;

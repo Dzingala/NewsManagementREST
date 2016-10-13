@@ -20,13 +20,8 @@ public class RoleServiceImpl implements RolesService{
 
     private final static Logger logger= Logger.getLogger(RoleServiceImpl.class);
 
-    private final RoleRepository roleRepository;
-
     @Autowired
-    public RoleServiceImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
-
+    private RoleRepository roleRepository;
     /**
      * Implementation of RolesService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException
