@@ -5,6 +5,7 @@ import by.epam.lab.task.entity.Role;
 import by.epam.lab.task.entity.User;
 
 import java.io.Serializable;
+
 /**
  * This entity is used for transfering data between Users and their Roles.
  * @see User,Role

@@ -2,6 +2,7 @@ package by.epam.lab.task.entity;
 
 
 import java.sql.Timestamp;
+
 /**
  * This entity is used for representing information about a Comment.
  * @author Ivan Dzinhala

@@ -11,5 +11,6 @@
     <modules>
         <module>news-common-dao</module>
         <module>news-common-service</module>
+        <module>news-common-entity</module>
     </modules>
 </project>
