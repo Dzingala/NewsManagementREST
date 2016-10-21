@@ -113,7 +113,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         } catch (SQLException e) {
             logger.error("DAOException while reading all news sorted by comments descending in NewsRepositoryImpl");
             logger.debug("Sorted news weren't read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading all news sorted by comments descending in NewsRepositoryImpl",e);
         }
 
         return newsList;
@@ -149,7 +149,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while creating news in NewsRepositoryImpl");
             logger.debug("News was not created");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while creating news in NewsRepositoryImpl",e);
         }
         if(rowsCount==0){//The same with if(newsId==null) check
             logger.debug("0 rows were returned");
@@ -189,7 +189,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading news in NewsRepositoryImpl");
             logger.debug("News was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading news in NewsRepositoryImpl",e);
         }
         return news;
     }
@@ -220,7 +220,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while updating news in NewsRepositoryImpl");
             logger.debug("News was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while updating news in NewsRepositoryImpl",e);
         }
     }
     /**
@@ -242,7 +242,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while updating news in NewsRepositoryImpl");
             logger.debug("News was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while updating news in NewsRepositoryImpl",e);
         }
     }
     /**
@@ -287,7 +287,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading all news in NewsRepositoryImpl");
             logger.debug("News was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading all news in NewsRepositoryImpl",e);
         }
         return news;
     }
@@ -336,7 +336,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         } catch (SQLException e) {
             logger.error("DAOException while connecting news with tags in NewsRepositoryImpl");
             logger.debug("News was not connected with tags");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while connecting news with tags in NewsRepositoryImpl",e);
         }
 
     }
@@ -360,7 +360,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         } catch (SQLException e) {
             logger.error("DAOException while connecting news with author in NewsRepositoryImpl");
             logger.debug("News was not connected with author");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while connecting news with author in NewsRepositoryImpl",e);
         }
 
     }
@@ -384,7 +384,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while disconnecting news with tags in NewsRepositoryImpl");
             logger.debug("News was not disconnected with tags");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while disconnecting news with tags in NewsRepositoryImpl",e);
         }
 
     }
@@ -408,7 +408,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         } catch (SQLException e) {
             logger.error("DAOException while disconnecting news with author in NewsRepositoryImpl");
             logger.debug("News was not disconnected with author");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while disconnecting news with author in NewsRepositoryImpl",e);
         }
 
     }
@@ -444,7 +444,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         } catch (SQLException e) {
             logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
             logger.debug("News was not disconnected with author");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading news by search criteria in NewsRepositoryImpl",e);
         }
         return news;
     }

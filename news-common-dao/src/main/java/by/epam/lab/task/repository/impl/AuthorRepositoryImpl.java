@@ -76,7 +76,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (SQLException e){
             logger.error("DAOException while creating author in AuthorRepositoryImpl");
             logger.debug("Author was not created");
-            throw new DAOException();
+            throw new DAOException("DAOException while creating author in AuthorRepositoryImpl",e);
         }
         return authorId;
     }
@@ -111,7 +111,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (SQLException e) {
             logger.error("DAOException while reading author in AuthorRepositoryImpl");
             logger.debug("Author was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading author in AuthorRepositoryImpl",e);
         }
         if(author==null){
             logger.debug("Author with id="+authorId+" does not exist");
@@ -142,7 +142,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (SQLException e) {
             logger.error("DAOException while updating author in AuthorRepositoryImpl");
             logger.debug("Author was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while updating author in AuthorRepositoryImpl",e);
         }
     }
     /**
@@ -164,7 +164,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (SQLException e) {
             logger.error("DAOException while deleting author in AuthorRepositoryImpl");
             logger.debug("Author was not deleted");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while deleting author in AuthorRepositoryImpl",e);
         }
 
     }
@@ -205,7 +205,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (SQLException e) {
             logger.error("DAOException while reading author in AuthorRepositoryImpl");
             logger.debug("Authors was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading author in AuthorRepositoryImpl",e);
         }
         return authors;
     }
@@ -237,10 +237,10 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (SQLException e) {
             logger.error("DAOException while reading author's id by news id in AuthorRepositoryImpl");
             logger.debug("Author's id was not received");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading author's id by news id in AuthorRepositoryImpl",e);
         }
         if (authorId == null) {
-            throw new DAOException("News id="+newsId+" have not author assigned");
+            throw new NoSuchEntityException("News id="+newsId+" have not author assigned");
         }
         return authorId;
     }

@@ -92,7 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
         }catch (SQLException e) {
             logger.error("DAOException while creating user in UserRepositoryImpl");
             logger.debug("User was not created");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while creating user in UserRepositoryImpl",e);
         }
         return userId;
     }
@@ -116,7 +116,7 @@ public class UserRepositoryImpl implements UserRepository {
         }catch (SQLException e) {
             logger.error("DAOException while setting role to user in UserRepositoryImpl");
             logger.debug("Role was not set to user");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while setting role to user in UserRepositoryImpl",e);
         }
     }
     /**
@@ -152,7 +152,7 @@ public class UserRepositoryImpl implements UserRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading user in UserRepositoryImpl");
             logger.debug("User was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading user in UserRepositoryImpl",e);
         }
         if(user==null){
             logger.debug("There is no user with id="+userId);
@@ -182,7 +182,7 @@ public class UserRepositoryImpl implements UserRepository {
         }catch (SQLException e) {
             logger.error("DAOException while updating user in UserRepositoryImpl");
             logger.debug("User was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while updating user in UserRepositoryImpl",e);
         }
     }
     /**
@@ -204,7 +204,7 @@ public class UserRepositoryImpl implements UserRepository {
         }catch (SQLException e) {
             logger.error("DAOException while deleting user in UserRepositoryImpl");
             logger.debug("User was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while deleting user in UserRepositoryImpl",e);
         }
     }
     /**
@@ -256,7 +256,7 @@ public class UserRepositoryImpl implements UserRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading user in UserRepositoryImpl");
             logger.debug("Users was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading user in UserRepositoryImpl",e);
         }
         return users;
     }
@@ -288,7 +288,7 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (SQLException e) {
             logger.error("DAOException while reading user id by login in UserRepositoryImpl");
             logger.debug("User id was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading user id by login in UserRepositoryImpl",e);
         }
         if (userId == null) {
             logger.debug("Here is no user with login="+login);

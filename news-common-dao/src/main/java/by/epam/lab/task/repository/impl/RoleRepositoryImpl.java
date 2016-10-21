@@ -76,7 +76,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         }catch (SQLException e){
             logger.error("DAOException while creating role in RoleRepositoryImpl");
             logger.debug("Role was not created");
-            throw new DAOException();
+            throw new DAOException("DAOException while creating role in RoleRepositoryImpl",e);
         }
         return roleId;
     }
@@ -110,12 +110,12 @@ public class RoleRepositoryImpl implements RoleRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading role in RoleRepositoryImpl");
             logger.debug("Role was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading role in RoleRepositoryImpl",e);
         }
         if(role==null){
             logger.debug("Here is no role with id="+roleId);
             logger.error("NoSuchEntity while reading role in RoleRepositoryImpl");
-            throw new NoSuchEntityException();
+            throw new NoSuchEntityException("NoSuchEntity while reading role in RoleRepositoryImpl");
         }
         return role;
     }
@@ -139,7 +139,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         }catch (SQLException e) {
             logger.error("DAOException while updating role in RoleRepositoryImpl");
             logger.debug("Role was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while updating role in RoleRepositoryImpl",e);
         }
     }
     /**
@@ -161,7 +161,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         }catch (SQLException e) {
             logger.error("DAOException while deleting role in RoleRepositoryImpl");
             logger.debug("Role was not deleted");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while deleting role in RoleRepositoryImpl",e);
         }
     }
     /**
@@ -198,7 +198,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading role in RoleRepositoryImpl");
             logger.debug("Roles was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading role in RoleRepositoryImpl",e);
         }
         return roles;
     }

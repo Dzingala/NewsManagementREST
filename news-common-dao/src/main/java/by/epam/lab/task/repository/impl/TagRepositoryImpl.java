@@ -78,7 +78,7 @@ public class TagRepositoryImpl implements TagRepository {
         }catch (SQLException e){
             logger.error("DAOException while creating tag in TagRepositoryImpl");
             logger.debug("Tag was not created");
-            throw new DAOException();
+            throw new DAOException("DAOException while creating tag in TagRepositoryImpl",e);
         }
         return tagId;
     }
@@ -111,7 +111,7 @@ public class TagRepositoryImpl implements TagRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading tag in TagRepositoryImpl");
             logger.debug("Tag was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading tag in TagRepositoryImpl",e);
         }
         if(tag==null){
             logger.debug("Tag with id="+tagId+" does not exist");
@@ -139,7 +139,7 @@ public class TagRepositoryImpl implements TagRepository {
         }catch (SQLException e) {
             logger.error("DAOException while updating tag in TagRepositoryImpl");
             logger.debug("Tag was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while updating tag in TagRepositoryImpl",e);
         }
     }
     /**
@@ -161,7 +161,7 @@ public class TagRepositoryImpl implements TagRepository {
         }catch (SQLException e) {
             logger.error("DAOException while deleting tag in TagRepositoryImpl");
             logger.debug("Tag was not deleted");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while deleting tag in TagRepositoryImpl",e);
         }
 
     }
@@ -200,7 +200,7 @@ public class TagRepositoryImpl implements TagRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading tag in TagRepositoryImpl");
             logger.debug("Tags was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading tag in TagRepositoryImpl",e);
         }
         return tags;
     }
@@ -234,7 +234,7 @@ public class TagRepositoryImpl implements TagRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading tags' id by news id in TagRepositoryImpl");
             logger.debug("Tags' id was not received");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading tags' id by news id in TagRepositoryImpl",e);
         }
         if (tagsIdList == null) {
             throw new NoSuchEntityException("News id="+newsId+" have no tags assigned");

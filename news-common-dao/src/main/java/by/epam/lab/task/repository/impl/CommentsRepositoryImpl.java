@@ -82,7 +82,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }catch (SQLException e) {
             logger.error("SQLException while creating comment in CommentsRepositoryImpl");
             logger.debug("Comment was not created");
-            throw new DAOException(e);
+            throw new DAOException("SQLException while creating comment in CommentsRepositoryImpl",e);
         }
 
         return commentId;
@@ -120,11 +120,11 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while reading comment in CommentsRepositoryImpl");
             logger.debug("Comment was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading comment in CommentsRepositoryImpl",e);
         }
         if(comment==null){
             logger.debug("Here is no comment with id="+commentId);
-            throw new NoSuchEntityException();
+            throw new NoSuchEntityException("Here is no comment with id="+commentId);
         }
         return comment;
     }
@@ -148,7 +148,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while updating comment in CommentsRepositoryImpl");
             logger.debug("Comment was not updated");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while updating comment in CommentsRepositoryImpl",e);
         }
 
     }
@@ -169,8 +169,9 @@ public class CommentsRepositoryImpl implements CommentsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-
-            throw new DAOException(e);
+            logger.error("DAOException while deleting a comment in CommentsRepositoryImpl");
+            logger.debug("Comment was not updated");
+            throw new DAOException("DAOException while deleting a comment in CommentsRepositoryImpl",e);
         }
     }
     /**
@@ -211,13 +212,13 @@ public class CommentsRepositoryImpl implements CommentsRepository {
                 DataSourceUtils.releaseConnection(conn, dataSource);
             }
         }catch (SQLException e) {
-            logger.error("DAOException while reading comment in CommentsRepositoryImpl");
+            logger.error("DAOException while reading all comments in CommentsRepositoryImpl");
             logger.debug("Comments was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while reading all comments in CommentsRepositoryImpl",e);
         }
         if(comments==null){
             logger.debug("There are no comments in database");
-            throw new NoSuchEntityException();
+            throw new NoSuchEntityException("There are no comments in database");
         }
         return comments;
     }
@@ -246,7 +247,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         }catch (SQLException e) {
             logger.error("DAOException while getting comments list in CommentsRepositoryImpl");
             logger.debug("Comments list was not read");
-            throw new DAOException(e);
+            throw new DAOException("DAOException while getting comments list in CommentsRepositoryImpl",e);
         }
         return commentsIds;
     }
