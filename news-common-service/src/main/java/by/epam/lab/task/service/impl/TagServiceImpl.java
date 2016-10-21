@@ -8,6 +8,7 @@ import by.epam.lab.task.service.TagService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class TagServiceImpl implements TagService {
      * Implementation of TagService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public Long create(Tag tag) throws ServiceException {
         logger.debug("Creating tag in TagService");
@@ -44,7 +45,7 @@ public class TagServiceImpl implements TagService {
      * Implementation of TagService method readById.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public Tag readById(Long id) throws ServiceException {
         logger.debug("Reading tag by id in TagService");
@@ -61,7 +62,7 @@ public class TagServiceImpl implements TagService {
      * Implementation of TagService method readTagsByNewsId.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public ArrayList<Tag> readTagsByNewsId(Long newsId) throws ServiceException {
         logger.debug("Reading tags by news id in TagService");
@@ -83,7 +84,7 @@ public class TagServiceImpl implements TagService {
      * Implementation of TagService method update.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public void update(Tag tag) throws ServiceException {
         logger.debug("Updating tag in TagService");
@@ -98,7 +99,7 @@ public class TagServiceImpl implements TagService {
      * Implementation of TagService method delete.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
     @Override
     public void delete(Tag tag) throws ServiceException {
         logger.debug("Deleting tag in TagService");

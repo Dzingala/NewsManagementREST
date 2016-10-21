@@ -13,6 +13,7 @@ import by.epam.lab.task.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService{
      * Implementation of UserService method registration.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public UserTO registration(UserTO userTO) throws ServiceException {
         logger.debug("Registering user in UserService");
@@ -96,7 +97,7 @@ public class UserServiceImpl implements UserService{
      * Implementation of UserService method login.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public UserTO login (String login, String password) throws ServiceException {
         logger.debug("Authentication of user in UserService");
@@ -127,7 +128,7 @@ public class UserServiceImpl implements UserService{
      * Implementation of UserService method delete.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
     @Override
     public void delete (UserTO userTO) throws ServiceException {
         logger.debug("Deleting user in UserService");
@@ -143,7 +144,7 @@ public class UserServiceImpl implements UserService{
      * Implementation of UserService method edit.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public void edit (UserTO userTO) throws ServiceException {
         logger.debug("Updating user in UserService");

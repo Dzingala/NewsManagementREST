@@ -14,6 +14,7 @@ import by.epam.lab.task.service.TagService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class NewsServiceImpl implements NewsService {
      * Implementation of NewsService method readSortedByComments.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public ArrayList<News> readSortedByComments() throws ServiceException {
         logger.debug("Reading news sorted by comments in NewsServiceImpl");
@@ -51,7 +52,7 @@ public class NewsServiceImpl implements NewsService {
             newsList = newsRepository.readSortedByComments();
         } catch (DAOException e) {
             logger.error("DAOException while reading news sorted by comments in NewsServiceImpl");
-            throw new ServiceException("ServiceException while reading news sorted by comments");
+            throw new ServiceException("ServiceException while reading news sorted by comments",e);
         }
         return newsList;
     }
@@ -59,21 +60,17 @@ public class NewsServiceImpl implements NewsService {
      * Implementation of NewsService method readBySearchCriteria.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public ArrayList<News> readBySearchCriteria(SearchCriteria searchCriteria) throws ServiceException {
         logger.debug("Reading news sorted by search criteria in NewsServiceImpl");
         ArrayList<News> newsList = null;
         String query = NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
-        if(query==null){
-            logger.error("ServiceException while creating a search criteria query in NewsServiceImpl");
-            throw new ServiceException("ServiceException while creating a search criteria query.");
-        }
         try{
             newsList=newsRepository.readBySearchCriteria(query);
         } catch (DAOException e) {
             logger.error("DAOException while reading news sorted by search criteria in NewsServiceImpl");
-            throw new ServiceException("ServiceException while reading news sorted by search criteria");
+            throw new ServiceException("ServiceException while reading news sorted by search criteria",e);
         }
         return newsList;
     }
@@ -81,7 +78,7 @@ public class NewsServiceImpl implements NewsService {
      * Implementation of NewsService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public void create(NewsTO newsTO) throws ServiceException {
         logger.debug("Creating news and all information connected with it in NewsServiceImpl");
@@ -122,7 +119,7 @@ public class NewsServiceImpl implements NewsService {
      * Implementation of NewsService method readDataByNewsId.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public NewsTO readDataByNewsId(Long id) throws ServiceException {
         logger.debug("Reading news and all information connected with it in NewsServiceImpl");
@@ -147,7 +144,7 @@ public class NewsServiceImpl implements NewsService {
      * Implementation of NewsService method update.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public void update(NewsTO newsTO) throws ServiceException {
         logger.debug("Updating news and all information connected with it in NewsServiceImpl");
@@ -162,7 +159,7 @@ public class NewsServiceImpl implements NewsService {
      * Implementation of NewsService method delete.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
     @Override
     public void delete(NewsTO newsTO) throws ServiceException {
         logger.debug("Deleting news and all information connected with it in NewsServiceImpl");
