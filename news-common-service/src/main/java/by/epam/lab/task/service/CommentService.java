@@ -1,0 +1,53 @@
+package by.epam.lab.task.service;
+
+import by.epam.lab.task.entity.Comment;
+import by.epam.lab.task.exceptions.service.ServiceException;
+
+<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/service/CommentService.java
+import java.util.List;
+=======
+import java.util.ArrayList;
+>>>>>>> develop/netcracker:news-common-service/src/main/java/by/epam/lab/task/service/CommentService.java
+
+/**
+ * @author Ivan Dzinhala
+ */
+public interface CommentService {
+
+    /**
+     * Add comment to database.
+     * @param comment
+     * @throws ServiceException
+     * @return comment id
+     */
+    Long create(Comment comment) throws ServiceException;
+
+    /**
+     * Get all comments for that news.
+     * @param newsId
+     * @throws ServiceException
+     * @return list of comments
+     */
+    List<Comment> readAllByNewsId(Long newsId) throws ServiceException;
+
+    /**
+     * Delete comment from database.
+     * @param comment
+     * @throws ServiceException
+     */
+    void delete(Comment comment) throws ServiceException;
+
+    /**
+     * Update comment content.
+     * @param comment
+     * @throws ServiceException
+     */
+    void update(Comment comment) throws ServiceException;
+
+    /**
+     * Get comment by id.
+     * @param commentId
+     * @throws ServiceException
+     */
+    Comment read(Long commentId)throws ServiceException;
+}
