@@ -6,6 +6,7 @@ import by.epam.lab.task.entity.User;
 import by.epam.lab.task.exceptions.dao.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +40,25 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String COLUMN_NAME_USER_PASSWORD = "PASSWORD";
     private static final String COLUMN_NAME_USER_ID = "USER_ID";
 
+    @Value("${db.user}")
+    private String DBUSER;
+    @Value("${db.driver}")
+    private String DBDRIVER;
+    @Value("${db.url}")
+    private String DBURL;
+    @Value("${db.password}")
+    private String DBPASSWORD;
+    @Value("\nDriver: #{dataSource.driverClassName}\nUrl: #{dataSource.url}\nUsername: #{dataSource.username}\nPassword: #{dataSource.password}")
+    public void setDriverClassName(String dbConfigString){
+        logger.debug("Connected to the database:");
+        logger.debug(dbConfigString);
+        logger.debug("@Value data got:\n" +
+                "Driver: "+DBDRIVER+"\n" +
+                "Url: "+DBURL+"\n" +
+                "Username: "+ DBUSER+"\n" +
+                "Password: "+DBPASSWORD
+        );
+    }
 
     @Autowired
     private DataSource dataSource;

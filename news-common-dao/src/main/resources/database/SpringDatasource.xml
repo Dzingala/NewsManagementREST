@@ -10,10 +10,6 @@
     <context:annotation-config/>
     <context:component-scan base-package="by.epam.lab.task"/>
     <context:property-placeholder location="classpath:JdbcConfig.properties"/>
-    <!--<bean-->
-            <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="location" value="JdbcConfig.properties"/>-->
-    <!--</bean>-->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="{db.driver}"/>
         <property name="url" value="{db.url}"/>
