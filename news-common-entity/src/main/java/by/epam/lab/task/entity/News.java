@@ -1,8 +1,6 @@
 package by.epam.lab.task.entity;
 
-import oracle.sql.DATE;
 import org.hibernate.annotations.*;
-import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import javax.persistence.Entity;

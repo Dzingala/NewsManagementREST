@@ -8,15 +8,11 @@ import by.epam.lab.task.service.CommentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/service/impl/CommentServiceImpl.java
-import java.util.Date;
 import java.util.List;
-=======
->>>>>>> develop/netcracker:news-common-service/src/main/java/by/epam/lab/task/service/impl/CommentServiceImpl.java
 
 /**
  * @author Ivan Dzinhala
@@ -33,13 +29,12 @@ public class CommentServiceImpl implements CommentService{
      * Implementation of CommentService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public Long create(Comment comment) throws ServiceException {
         logger.debug("Creating comment in CommentServiceImpl");
         Long commentId = null;
         try{
-            comment.setCreationDate(new Timestamp(new Date().getTime()));
             commentId=commentsRepository.create(comment);
         }catch (DAOException e){
             logger.error("DAOException while creating comment in CommentServiceImpl");
@@ -51,7 +46,7 @@ public class CommentServiceImpl implements CommentService{
      * Implementation of CommentService method readAllByNewsId.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public List<Comment> readAllByNewsId(Long newsId) throws ServiceException {
         logger.debug("Reading all comments by news id in CommentServiceImpl");
@@ -73,7 +68,7 @@ public class CommentServiceImpl implements CommentService{
      * Implementation of CommentService method delete.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.DEFAULT, rollbackFor = Exception.class)
     @Override
     public void delete(Comment comment) throws ServiceException {
         logger.debug("Deleting comment in CommentServiceImpl");
@@ -88,7 +83,7 @@ public class CommentServiceImpl implements CommentService{
      * Implementation of CommentService method update.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public void update(Comment comment) throws ServiceException {
         logger.debug("Updating comment in CommentServiceImpl");
@@ -103,7 +98,7 @@ public class CommentServiceImpl implements CommentService{
      * Implementation of CommentService method read.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public Comment read(Long commentId) throws ServiceException {
         logger.debug("Reading comment in CommentServiceImpl");

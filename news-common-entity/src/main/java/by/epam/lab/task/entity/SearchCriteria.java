@@ -2,10 +2,7 @@ package by.epam.lab.task.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/entity/SearchCriteria.java
 import java.util.List;
-=======
->>>>>>> develop/netcracker:news-common-entity/src/main/java/by/epam/lab/task/entity/SearchCriteria.java
 
 /**
  * This entity is used for searching news accordingly the certain search criteria.

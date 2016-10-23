@@ -55,7 +55,7 @@ public class TestUserService {
         Mockito.verify(roleService).create(role);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void loginTest() throws ServiceException, DAOException {
         Role role = new Role(1L,testName);
         User user = new User(role.getId(),1L, testName, testName, testName);

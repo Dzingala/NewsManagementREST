@@ -8,14 +8,12 @@ import by.epam.lab.task.service.AuthorService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/service/impl/AuthorServiceImpl.java
 import java.util.List;
-=======
->>>>>>> develop/netcracker:news-common-service/src/main/java/by/epam/lab/task/service/impl/AuthorServiceImpl.java
 
 /**
  * @author Ivan Dzinhala
@@ -39,12 +37,11 @@ public class AuthorServiceImpl implements AuthorService {
         List<Author> authors = authorRepository.readAll();
         return authors.contains(author);
     }
-
     /**
      * Implementation of AuthorService method read.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public Author read(Long id) throws ServiceException {
         logger.debug("Reading author in AuthorService");
@@ -62,7 +59,7 @@ public class AuthorServiceImpl implements AuthorService {
      * Implementation of AuthorService method readAll.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
     @Override
     public List<Author> readAll() throws ServiceException {
         logger.debug("Reading all authors in AuthorService");
@@ -75,12 +72,11 @@ public class AuthorServiceImpl implements AuthorService {
         }
         return authors;
     }
-
     /**
      * Implementation of AuthorService method create.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public Long create(Author author) throws ServiceException {
         logger.debug("Creating author in AuthorService");
@@ -103,7 +99,7 @@ public class AuthorServiceImpl implements AuthorService {
      * Implementation of AuthorService method readByNewsId.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED,rollbackFor = Exception.class)
     @Override
     public Author readByNewsId(Long newsId) throws ServiceException {
         logger.debug("Reading author by news id in AuthorService");
@@ -122,7 +118,7 @@ public class AuthorServiceImpl implements AuthorService {
      * Implementation of AuthorService method delete.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
     @Override
     public void delete(Author author) throws ServiceException {
         logger.debug("Deleting author in AuthorService");
@@ -139,7 +135,7 @@ public class AuthorServiceImpl implements AuthorService {
      * Implementation of AuthorService method update.
      * @see by.epam.lab.task.exceptions.service.ServiceException
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     @Override
     public void update(Author author) throws ServiceException {
         logger.debug("Updating author in AuthorService");

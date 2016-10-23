@@ -1,7 +1,6 @@
 package by.epam.lab.task.entity;
 
 import by.epam.lab.task.md5util.MD5Hashing;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/entity/User.java
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
 
@@ -9,8 +8,6 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-=======
->>>>>>> develop/netcracker:news-common-entity/src/main/java/by/epam/lab/task/entity/User.java
 
 /**
  * This entity is used for representing information about User.

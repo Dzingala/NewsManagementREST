@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,7 +30,12 @@ import java.util.List;
 @Service("newsService")
 public class NewsServiceImpl implements NewsService {
 
-    private final static Logger logger= Logger.getLogger(NewsServiceImpl.class);
+    private static final Logger logger= Logger.getLogger(NewsServiceImpl.class);
+    private static final String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1="SELECT COUNT(SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +
+            "NEWS.FULL_TEXT,NEWS.CREATION_DATE,NEWS.MODIFICATION_DATE" +
+            " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
+            " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
+            " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID ";
 
     @Autowired
     private NewsRepository newsRepository;
@@ -73,12 +79,10 @@ public class NewsServiceImpl implements NewsService {
         logger.debug("Reading news sorted by comments in NewsServiceImpl");
         List<News> newsList = null;
         try {
-
-            //newsList=newsRepository.readSortedByComments();
             newsList = newsRepository.readAll();
         } catch (DAOException e) {
             logger.error("DAOException while reading news sorted by comments in NewsServiceImpl");
-            throw new ServiceException("ServiceException while reading news sorted by comments");
+            throw new ServiceException("ServiceException while reading news sorted by comments",e);
         }
         return newsList;
     }
@@ -94,17 +98,17 @@ public class NewsServiceImpl implements NewsService {
         String query = NewsRepositoryImpl.composeSearchCriteriaQuery(searchCriteria);
         try{
             if(query==null){
-                System.out.println("null query");
+                logger.debug("Null query has come");
                 newsList=newsRepository.readAll();
                 newsList=NewsRepositoryImpl.getPageNews(newsList,page,NEWS_PER_PAGE);
             }
             else {
-                System.out.println("not null query:\n"+query);
+                logger.debug("Not null query has come:\n"+query);
                 newsList = newsRepository.readBySearchCriteria(query, page, NEWS_PER_PAGE);
             }
         } catch (DAOException e) {
             logger.error("DAOException while reading news sorted by search criteria in NewsServiceImpl");
-            throw new ServiceException("ServiceException while reading news sorted by search criteria");
+            throw new ServiceException("ServiceException while reading news sorted by search criteria",e);
         }
         return newsList;
     }
@@ -126,7 +130,7 @@ public class NewsServiceImpl implements NewsService {
             pagesAmount=size%NEWS_PER_PAGE==0?size/NEWS_PER_PAGE:size/NEWS_PER_PAGE+1;
         } catch (DAOException e) {
             logger.error("DAOException while counting news sorted by search criteria in NewsServiceImpl");
-            throw new ServiceException("ServiceException while reading news sorted by search criteria");
+            throw new ServiceException("ServiceException while reading news sorted by search criteria",e);
         }
 
         return pagesAmount;
@@ -137,22 +141,22 @@ public class NewsServiceImpl implements NewsService {
      */
     @Transactional(rollbackFor = ServiceException.class)
     @Override
-    public void createNews(NewsTORecord newsTORecord) throws ServiceException {
+    public Long createNews(NewsTORecord newsTORecord) throws ServiceException {
         logger.debug("Extraction news and all information connected with it from the news record in NewsServiceImpl");
         News news = newsTORecord.getNews();
         Long authorId=newsTORecord.getAuthorId();
         List<Long> tagsId=newsTORecord.getTagIdList();
         NewsTO newsTO = new NewsTO();
         newsTO.setNews(news);
-        Author author=null;
+        Author author;
         if(authorId!=null) {
             author=authorService.read(authorId);
         }
         else{
-            return;
+            return null;
         }
         newsTO.setAuthor(author);
-        ArrayList<Tag> tags=null;
+        List<Tag> tags=null;
         if(tagsId!=null){
             tags=new ArrayList<>();
             for(Long id: tagsId){
@@ -160,7 +164,7 @@ public class NewsServiceImpl implements NewsService {
             }
         }
         newsTO.setTagList(tags);
-        create(newsTO);
+        return create(newsTO);
 
     }
 
@@ -170,15 +174,15 @@ public class NewsServiceImpl implements NewsService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void create(NewsTO newsTO) throws ServiceException {
+    public Long create(NewsTO newsTO) throws ServiceException {
         logger.debug("Creating news and all information connected with it in NewsServiceImpl");
         //validation
         News news = newsTO.getNews();
         Author author = newsTO.getAuthor();
         List<Comment> commentList = newsTO.getCommentList();
         List<Tag> tagList = newsTO.getTagList();
+        Long newsId = null;
         try {
-            Long newsId = null;
             if(news!=null){
                 newsId=newsRepository.create(news);
                 if(commentList!=null) {
@@ -188,12 +192,10 @@ public class NewsServiceImpl implements NewsService {
                     }
                 }
                 if(author!=null) {
-                    //Long authorId= authorService.create(author);
                     newsRepository.joinNewsWithAuthor(newsId, author.getId());
                 }
                 if(tagList!=null) {
                     for (Tag tag : tagList) {
-                        //Long tagId = tagService.create(tag);
                         newsRepository.joinNewsWithTag(newsId, tag.getId());
                     }
                 }
@@ -204,6 +206,7 @@ public class NewsServiceImpl implements NewsService {
             logger.error("DAOException while filling news in NewsServiceImpl");
             throw new ServiceException("ServiceException while filling news", e);
         }
+        return newsId;
     }
     /**
      * Implementation of NewsService method readDataByNewsId.
@@ -294,7 +297,7 @@ public class NewsServiceImpl implements NewsService {
         tagList=tagService.readTagsByNewsId(newsId);
         newsTORecord.setNews(newsTO.getNews());
         newsTORecord.setAuthorId(author.getId());
-        ArrayList<Long> tagIdList = new ArrayList<>();
+        List<Long> tagIdList = new ArrayList<>();
         for(Tag tag: tagList){
             tagIdList.add(tag.getId());
         }
@@ -385,17 +388,9 @@ public class NewsServiceImpl implements NewsService {
         return newsAmount/newsPerPage;
     }
 
-
-
-    private static String GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1="SELECT COUNT(SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +
-            "NEWS.FULL_TEXT,NEWS.CREATION_DATE,NEWS.MODIFICATION_DATE" +
-            " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
-            " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
-            " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID ";
-
     @Override
     public String composeCriteriaNewsAmountQuery(SearchCriteria searchCriteria){
-        StringBuffer sb= new StringBuffer(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1);
+        StringBuilder sb= new StringBuilder(GET_PAGES_AMOUNT_BY_SEARCH_CRITERIA_QUERY_PART_1);
         Long authorId =searchCriteria.getAuthorId();
         List<Long> tagsId = searchCriteria.getTagsId();
         if(authorId == null && tagsId == null){
@@ -424,7 +419,7 @@ public class NewsServiceImpl implements NewsService {
             sb.append(")");
         }
         sb.append(')');
-        System.out.println("CRITERIA QUERY GOT:"+sb);
+        logger.debug("Criteria query was made:\n"+sb);
         return sb.toString();
     }
 }

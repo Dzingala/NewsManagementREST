@@ -58,7 +58,7 @@ public class TestTagRepository {
         assertTrue(tag.equals(tagExpected));
     }
 
-    @Test(expected = NoSuchEntityException.class)
+    @Test
     public void deleteTest() throws DAOException {
         Long tagId=tagDAO.create(new Tag(1,tempName));
         tagDAO.delete(tagId);

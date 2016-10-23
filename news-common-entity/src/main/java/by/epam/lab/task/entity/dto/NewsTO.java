@@ -6,19 +6,11 @@ import by.epam.lab.task.entity.News;
 import by.epam.lab.task.entity.Tag;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/entity/dto/NewsTO.java
 import java.util.List;
-
-/**
- * This entity is used for transferring data between News, Author, Tags and Comments.
- * @see Comment,Tag,Author,News
-=======
 
 /**
  * This entity is used for transfering data between News, Author, Tags and Comments.
  * @see by.epam.lab.task.entity.Comment,Tag, by.epam.lab.task.entity.Author,News
->>>>>>> develop/netcracker:news-common-entity/src/main/java/by/epam/lab/task/entity/dto/NewsTO.java
  * @author Ivan Dzinhala
  */
 public class NewsTO implements Serializable{

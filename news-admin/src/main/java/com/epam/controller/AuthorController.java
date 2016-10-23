@@ -4,7 +4,6 @@ import by.epam.lab.task.entity.Author;
 import by.epam.lab.task.entity.User;
 import by.epam.lab.task.exceptions.service.ServiceException;
 import by.epam.lab.task.service.AuthorService;
-import by.epam.lab.task.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

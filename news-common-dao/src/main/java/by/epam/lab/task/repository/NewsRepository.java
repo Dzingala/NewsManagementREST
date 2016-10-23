@@ -57,13 +57,6 @@ public interface NewsRepository extends GenericRepository<News> {
     void disjoinNewsWithAuthor(Long newsId, Long authorId) throws DAOException;
 
     /**
-     * Read all news sorted by descending.
-     * @throws DAOException
-     * @return list of sorted by amount of comments' descending news
-     */
-    List<News> readSortedByComments()throws DAOException;
-
-    /**
      * Read all news sorted by authors and tags according to the page.
      * @param SEARCH_CRITERIA_QUERY
      * @return set of news id

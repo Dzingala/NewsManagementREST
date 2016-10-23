@@ -4,11 +4,7 @@ package by.epam.lab.task.service;
 import by.epam.lab.task.entity.Tag;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/service/TagService.java
 import java.util.List;
-=======
-import java.util.ArrayList;
->>>>>>> develop/netcracker:news-common-service/src/main/java/by/epam/lab/task/service/TagService.java
 
 /**
  * @author Ivan Dzinhala

@@ -5,9 +5,8 @@ import by.epam.lab.task.entity.SearchCriteria;
 import by.epam.lab.task.repository.NewsRepository;
 import by.epam.lab.task.entity.News;
 import by.epam.lab.task.exceptions.dao.DAOException;
-import by.epam.lab.task.util.HibernateUtil;
+import by.epam.lab.task.utils.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
 import org.hibernate.*;
 import org.hibernate.type.DateType;
 import org.hibernate.type.LongType;
@@ -15,11 +14,9 @@ import org.hibernate.type.StringType;
 import org.hibernate.type.TimestampType;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-=======
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.DataSourceUtils;
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -30,28 +27,6 @@ import java.util.List;
 
 @Component
 public class NewsRepositoryImpl implements NewsRepository {
-    private final static Logger logger= Logger.getLogger(NewsRepositoryImpl.class);
-    private static final String COUNT_NEWS_QUERY = " SELECT COUNT(NEWS_ID) FROM DZINHALA.NEWS";
-
-    private static final String CONNECT_NEWS_TAGS_QUERY = " INSERT INTO DZINHALA.NEWS_TAG (NEWS_ID,TAG_ID)" +
-            " VALUES (:newsId, :tagId) ";
-    private static final String CONNECT_NEWS_AUTHOR_QUERY = " INSERT INTO DZINHALA.NEWS_AUTHOR (NEWS_ID,AUTHOR_ID)" +
-            " VALUES (:newsId, :authorId) ";
-
-    private static final String READ_NEWS_SORTED_BY_COMMENTS_QUERY="SELECT NEWS.NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, " +
-            " NEWS.CREATION_DATE, MODIFICATION_DATE, COUNT(COMMENT_ID) " +
-            " FROM DZINHALA.NEWS " +
-            " LEFT JOIN DZINHALA.COMMENTS " +
-            " ON NEWS.NEWS_ID = COMMENTS.NEWS_ID " +
-            " GROUP BY NEWS.NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, " +
-            " NEWS.CREATION_DATE, MODIFICATION_DATE " +
-            " ORDER BY 2 DESC, 5 DESC, 6 DESC";
-
-
-    private static final String DISCONNECT_NEWS_TAG_QUERY = "  DELETE FROM NEWS_TAG WHERE NEWS_ID = :newsId AND TAG_ID=:tagId  ";
-    private static final String DISCONNECT_NEWS_AUTHOR_QUERY = " DELETE FROM NEWS_AUTHOR WHERE NEWS_ID = :newsId AND AUTHOR_ID=:authorId ";
-
-
     @Value("${db.user}")
     private String DBUSER;
     @Value("${db.driver}")
@@ -71,40 +46,31 @@ public class NewsRepositoryImpl implements NewsRepository {
                 "Password: "+DBPASSWORD
         );
     }
+    private static final Logger logger= Logger.getLogger(NewsRepositoryImpl.class);
+    private static final String COUNT_NEWS_QUERY = " SELECT COUNT(NEWS_ID) FROM DZINHALA.NEWS";
+
+    private static final String CONNECT_NEWS_TAGS_QUERY = " INSERT INTO DZINHALA.NEWS_TAG (NEWS_ID,TAG_ID)" +
+            " VALUES (:newsId, :tagId) ";
+    private static final String CONNECT_NEWS_AUTHOR_QUERY = " INSERT INTO DZINHALA.NEWS_AUTHOR (NEWS_ID,AUTHOR_ID)" +
+            " VALUES (:newsId, :authorId) ";
+
+    private static final String DISCONNECT_NEWS_TAG_QUERY = "  DELETE FROM NEWS_TAG WHERE NEWS_ID = :newsId AND TAG_ID=:tagId  ";
+    private static final String DISCONNECT_NEWS_AUTHOR_QUERY = " DELETE FROM NEWS_AUTHOR WHERE NEWS_ID = :newsId AND AUTHOR_ID=:authorId ";
+    private static final String READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY=
+            "SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +
+                    "NEWS.FULL_TEXT,NEWS.CREATION_DATE,NEWS.MODIFICATION_DATE" +
+                    " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
+                    " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
+                    " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID ";
+
+    private static final String NEWS_ID="newsId";
+    private static final String TAG_ID="tagId";
+    private static final String AUTHOR_ID="authorId";
+
+    private static final String NEWS_AUTHOR_WARN_MSG="News was not disconnected with author";
 
     private HibernateTemplate hibernateTemplate=new HibernateTemplate(HibernateUtil.getSessionFactory());
 
-    /**
-     * Implementation of NewsRepository method readSortedByComments.
-     * @see by.epam.lab.task.exceptions.dao.DAOException
-     */
-    @Override
-    public List<News> readSortedByComments() throws DAOException {
-        logger.debug("Reading all news sorted by comments descendingin NewsRepositoryImpl");
-        List<News> newsList = new ArrayList<>();
-        Session session = null;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            newsList = (List<News>) session.createSQLQuery(READ_NEWS_SORTED_BY_COMMENTS_QUERY).list();
-        } catch (Exception e) {
-            logger.error("DAOException while reading all news sorted by comments descending in NewsRepositoryImpl");
-            logger.debug("Sorted news weren't read");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
-            throw new DAOException(e);
-        }finally {
-            if(session!=null && session.isOpen()){
-                try{
-                    session.close();
-                }catch (HibernateException e){
-                    logger.error("Hibernate exception while reading news sorted by comments");
-                }
-            }
-=======
-            throw new DAOException("DAOException while reading all news sorted by comments descending in NewsRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
-        }
-        return newsList;
-    }
     /**
      * Implementation of NewsRepository method create.
      * @see by.epam.lab.task.exceptions.dao.DAOException
@@ -117,17 +83,8 @@ public class NewsRepositoryImpl implements NewsRepository {
             id = (Long)hibernateTemplate.save(news);
         }catch (Exception e) {
             logger.error("DAOException while creating news in NewsRepositoryImpl");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
             logger.debug("News were not created");
-            throw new DAOException();
-=======
-            logger.debug("News was not created");
-            throw new DAOException("DAOException while creating news in NewsRepositoryImpl",e);
-        }
-        if(rowsCount==0){//The same with if(newsId==null) check
-            logger.debug("0 rows were returned");
-            throw new DAOException("News was not created");
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
+            throw new DAOException(e);
         }
         return id;
     }
@@ -145,7 +102,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (Exception e){
             logger.error("DAOException while reading news in NewsRepositoryImpl");
             logger.debug("News was not read");
-            throw new DAOException("DAOException while reading news in NewsRepositoryImpl",e);
+            throw new DAOException(e);
         }
         return news;
     }
@@ -164,7 +121,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         } catch (Exception e) {
             logger.error("DAOException while updating news in NewsRepositoryImpl");
             logger.debug("News was not updated");
-            throw new DAOException("DAOException while updating news in NewsRepositoryImpl",e);
+            throw new DAOException(e);
         }
     }
     /**
@@ -176,7 +133,6 @@ public class NewsRepositoryImpl implements NewsRepository {
         logger.debug("Deleting news in NewsRepositoryImpl");
         Session session = null;
         try {
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
             session=hibernateTemplate.getSessionFactory().openSession();
             session.beginTransaction();
             News toDelNews = (News)session.load(News.class,id);
@@ -186,19 +142,6 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.error("DAOException while deleting news in NewsRepositoryImpl");
             logger.debug("News was not deleted");
             throw new DAOException(e);
-=======
-            conn = dataSource.getConnection();
-            try (PreparedStatement ps = conn.prepareStatement(DELETE_NEWS_QUERY)) {
-                ps.setLong(1, id);
-                ps.executeUpdate();
-            } finally {
-                DataSourceUtils.releaseConnection(conn, dataSource);
-            }
-        }catch (SQLException e) {
-            logger.error("DAOException while updating news in NewsRepositoryImpl");
-            logger.debug("News was not updated");
-            throw new DAOException("DAOException while updating news in NewsRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
         }
     }
     /**
@@ -214,7 +157,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         }catch (Exception e){
             logger.error("DAOException while reading all news in NewsRepositoryImpl");
             logger.debug("News was not read");
-            throw new DAOException("DAOException while reading all news in NewsRepositoryImpl",e);
+            throw new DAOException(e);
         }
         return news;
     }
@@ -250,14 +193,14 @@ public class NewsRepositoryImpl implements NewsRepository {
         try{
             hibernateTemplate.execute((HibernateCallback) session -> {
                 session.beginTransaction();
-                session.createSQLQuery(CONNECT_NEWS_TAGS_QUERY).setLong("newsId",newsId).setLong("tagId",tagId).executeUpdate();
+                session.createSQLQuery(CONNECT_NEWS_TAGS_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID,tagId).executeUpdate();
                 session.getTransaction().commit();
                 return null;
             });
         }catch (Exception e){
             logger.error("DAOException while connecting news with tags in NewsRepositoryImpl");
             logger.debug("News was not connected with tags");
-            throw new DAOException("DAOException while connecting news with tags in NewsRepositoryImpl",e);
+            throw new DAOException(e);
         }
     }
     /**
@@ -270,14 +213,14 @@ public class NewsRepositoryImpl implements NewsRepository {
         try{
             hibernateTemplate.execute((HibernateCallback) session -> {
                 session.beginTransaction();
-                session.createSQLQuery(CONNECT_NEWS_AUTHOR_QUERY).setLong("newsId",newsId).setLong("authorId",authorId).executeUpdate();
+                session.createSQLQuery(CONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
                 session.getTransaction().commit();
                 return null;
             });
         }catch (Exception e) {
             logger.error("DAOException while connecting news with author in NewsRepositoryImpl");
             logger.debug("News was not connected with author");
-            throw new DAOException("DAOException while connecting news with author in NewsRepositoryImpl",e);
+            throw new DAOException(e);
         }
     }
     /**
@@ -291,14 +234,14 @@ public class NewsRepositoryImpl implements NewsRepository {
         try{
             hibernateTemplate.execute((HibernateCallback) session -> {
                 session.beginTransaction();
-                session.createSQLQuery(DISCONNECT_NEWS_TAG_QUERY).setLong("newsId",newsId).setLong("tagId",tagId).executeUpdate();
+                session.createSQLQuery(DISCONNECT_NEWS_TAG_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID,tagId).executeUpdate();
                 session.getTransaction().commit();
                 return null;
             });
         }catch (Exception e){
             logger.error("DAOException while disconnecting news with tag in NewsRepositoryImpl");
             logger.debug("News was not disconnected with tags");
-            throw new DAOException("DAOException while disconnecting news with tags in NewsRepositoryImpl",e);
+            throw new DAOException(e);
         }
     }
     /**
@@ -311,14 +254,14 @@ public class NewsRepositoryImpl implements NewsRepository {
         try{
             hibernateTemplate.execute((HibernateCallback) session -> {
                 session.beginTransaction();
-                session.createSQLQuery(DISCONNECT_NEWS_AUTHOR_QUERY).setLong("newsId",newsId).setLong("authorId",authorId).executeUpdate();
+                session.createSQLQuery(DISCONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
                 session.getTransaction().commit();
                 return null;
             });
         }catch (Exception e) {
             logger.error("DAOException while disconnecting news with author in NewsRepositoryImpl");
-            logger.debug("News was not disconnected with author");
-            throw new DAOException("DAOException while disconnecting news with author in NewsRepositoryImpl",e);
+            logger.debug(NEWS_AUTHOR_WARN_MSG);
+            throw new DAOException(e);
         }
     }
     /**
@@ -326,14 +269,14 @@ public class NewsRepositoryImpl implements NewsRepository {
      * @see by.epam.lab.task.exceptions.dao.DAOException
      */
     @Override
-    public List<News> readBySearchCriteria(final String SEARCH_CRITERIA_QUERY, Long page, int newsPerPage) throws DAOException{
+    public List<News> readBySearchCriteria(final String searchCriteriaQuery, Long page, int newsPerPage) throws DAOException{
         logger.debug("Reading by search criteria in NewsRepositoryImpl");
         List<News> news =new ArrayList<>();
         Session session = null;
         try{
             session=HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY)
+            Query query = session.createSQLQuery(searchCriteriaQuery)
                     .addScalar("NEWS_ID", new LongType())
                     .addScalar("TITLE",new StringType())
                     .addScalar("SHORT_TEXT",new StringType())
@@ -355,15 +298,14 @@ public class NewsRepositoryImpl implements NewsRepository {
             session.getTransaction().commit();
         }catch (Exception e){
             logger.error("DAOException while reading news by search criteria in NewsRepositoryImpl");
-            logger.debug("News was not disconnected with author");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
+            logger.debug(NEWS_AUTHOR_WARN_MSG);
             throw new DAOException(e);
         }finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("Hibernate exception while reading news by search criteria with pages");
+                    logger.error("Hibernate exception while reading news by search criteria with pages: "+e);
                 }
             }
         }
@@ -374,13 +316,13 @@ public class NewsRepositoryImpl implements NewsRepository {
      * @see by.epam.lab.task.exceptions.dao.DAOException
      */
     @Override
-    public List<News> readBySearchCriteriaFull(final String SEARCH_CRITERIA_QUERY) throws DAOException{
+    public List<News> readBySearchCriteriaFull(final String searchCriteriaQuery) throws DAOException{
         List<News> news =new ArrayList<>();
         Session session = null;
         try{
             session=HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            Query query = session.createSQLQuery(SEARCH_CRITERIA_QUERY)
+            Query query = session.createSQLQuery(searchCriteriaQuery)
                     .addScalar("NEWS_ID", new LongType())
                     .addScalar("TITLE",new StringType())
                     .addScalar("SHORT_TEXT",new StringType())
@@ -401,19 +343,16 @@ public class NewsRepositoryImpl implements NewsRepository {
             session.getTransaction().commit();
         }catch (Exception e){
             logger.error("DAOException while reading news by search criteria fully in NewsRepositoryImpl");
-            logger.debug("News was not disconnected with author");
+            logger.debug(NEWS_AUTHOR_WARN_MSG);
             throw new DAOException(e);
         }finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("Hibernate exception while reading news by search criteria fully pages");
+                    logger.error("Hibernate exception while reading news by search criteria fully pages: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while reading news by search criteria in NewsRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/NewsRepositoryImpl.java
         }
         return news;
     }
@@ -424,6 +363,14 @@ public class NewsRepositoryImpl implements NewsRepository {
         }
         return (int) l;
     }
+
+    /**
+     * Is used for getting the news on the page come.
+     * @param news news list
+     * @param page page to get
+     * @param newsPerPage news per page(for calculation
+     * @return the list of news contained on the page come.
+     */
     public static List<News> getPageNews(List<News> news,Long page,int newsPerPage) {//18,4,5
         List<News> newsOnPage = new ArrayList<>();
         long from = (page - 1) * newsPerPage;
@@ -436,15 +383,6 @@ public class NewsRepositoryImpl implements NewsRepository {
         return newsOnPage;
     }
 
-
-    private static final String READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY=
-            "SELECT DISTINCT NEWS.NEWS_ID,NEWS.TITLE,NEWS.SHORT_TEXT," +
-                    "NEWS.FULL_TEXT,NEWS.CREATION_DATE,NEWS.MODIFICATION_DATE" +
-                    " FROM DZINHALA.NEWS LEFT JOIN DZINHALA.COMMENTS ON NEWS.NEWS_ID=COMMENTS.NEWS_ID" +
-                    " LEFT JOIN DZINHALA.NEWS_AUTHOR ON NEWS.NEWS_ID=NEWS_AUTHOR.NEWS_ID" +
-                    " LEFT JOIN DZINHALA.NEWS_TAG ON NEWS.NEWS_ID=NEWS_TAG.NEWS_ID ";
-
-
     /**
      * Static method for composing search criteria query according to the certain requirements.
      * @param criteria
@@ -452,7 +390,7 @@ public class NewsRepositoryImpl implements NewsRepository {
      */
     public static String composeSearchCriteriaQuery(SearchCriteria criteria){
         logger.debug("Composing search criteria query in NewsRepositoryImpl");
-        StringBuffer sb= new StringBuffer(READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY);
+        StringBuilder sb= new StringBuilder(READ_NEWS_BY_AUTHOR_AND_TAGS_QUERY);
         Long authorId =criteria.getAuthorId();
         List<Long> tagsId = criteria.getTagsId();
         if(authorId == null && tagsId == null){

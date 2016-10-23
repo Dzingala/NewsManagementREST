@@ -1,4 +1,4 @@
-package by.epam.lab.task.md5util;
+package by.epam.lab.task.utils.md5;
 
 
 import java.math.BigInteger;

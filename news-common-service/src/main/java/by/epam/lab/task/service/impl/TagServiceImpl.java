@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/service/impl/TagServiceImpl.java
 import java.util.List;
-=======
->>>>>>> develop/netcracker:news-common-service/src/main/java/by/epam/lab/task/service/impl/TagServiceImpl.java
 
 /**
  * @author Ivan Dzinhala

@@ -15,11 +15,7 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-<<<<<<< HEAD:news-common/src/test/java/by/epam/lab/task/service/impl/TestTagService.java
 import java.util.List;
-=======
->>>>>>> develop/netcracker:news-common-service/src/test/java/task/service/impl/TestTagService.java
-
 /**
  * @author Ivan Dzinhala
  */

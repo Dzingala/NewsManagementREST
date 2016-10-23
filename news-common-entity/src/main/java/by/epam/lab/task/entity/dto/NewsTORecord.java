@@ -3,7 +3,6 @@ package by.epam.lab.task.entity.dto;
 import by.epam.lab.task.entity.News;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsTORecord implements Serializable {

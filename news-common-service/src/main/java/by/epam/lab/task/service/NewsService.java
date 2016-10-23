@@ -30,7 +30,8 @@ public interface NewsService {
 
     /**
      * Get all news that are sorted by search criteria.
-     * @param searchCriteria
+     * @param searchCriteria search criteria come
+     * @param page single page number of news list
      * @return the list of news sorted by the search criteria
      * @throws ServiceException
      */
@@ -39,15 +40,16 @@ public interface NewsService {
     /**
      * Add news and all data that is connected
      * with news (author, tag ...) to database.
-     * @param newsTO
+     * @param newsTO news transfer object
+     * @return The identifier(id) of news created
      * @throws ServiceException
      */
-    void create(NewsTO newsTO)throws ServiceException;
+    Long create(NewsTO newsTO)throws ServiceException;
 
     /**
      * Get news and all data that is connected
      * with news by news id.
-     * @param id
+     * @param id news id
      * @throws ServiceException
      * @return NewsTO object consisting of all information required.
      */
@@ -56,7 +58,7 @@ public interface NewsService {
     /**
      * Edit news and data that is connected
      * with that news.
-     * @param newsTO
+     * @param newsTO news transfer object
      * @throws ServiceException
      */
     void update(NewsTO newsTO)throws ServiceException;
@@ -64,14 +66,14 @@ public interface NewsService {
     /**
      * Delete news and data that is connected
      * with that news.
-     * @param newsTO
+     * @param newsTO news transfer object
      * @throws ServiceException
      */
     void delete(NewsTO newsTO)throws ServiceException;
 
     /**
      * Get all information concerning news by news id in record format.
-     * @param newsId
+     * @param newsId news id
      * @return NewsTORecord object consisting of all information required in record form.
      * @throws ServiceException
      */
@@ -79,14 +81,14 @@ public interface NewsService {
 
     /**
      * Update all information concerning certain piece of news given in record form.
-     * @param newsTORecord
+     * @param newsTORecord news transfer object record
      * @throws ServiceException
      */
     void updateNews(NewsTORecord newsTORecord)throws ServiceException;
 
     /**
      * Deletes tag and disconnects it with the piece of news.
-     * @param tag
+     * @param tag tag to be deleted
      * @throws ServiceException
      */
     void deleteTag(Tag tag)throws ServiceException;
@@ -103,18 +105,18 @@ public interface NewsService {
      * @return The amount of pages depending on the results of the search criteria.
      * @throws ServiceException
      */
-//    Long countCriteriaPages(SearchCriteria searchCriteria)throws ServiceException;
 
     /**
      * Make query for getting the count of pages according certain search criteria.
-     * @param searchCriteria
+     * @param searchCriteria search criteria come
      * @return Query that is ready for injection.
      */
     String composeCriteriaNewsAmountQuery(SearchCriteria searchCriteria);
 
     /**
      * Count pages suitable for search criteria.
-     * @param searchCriteria
+     * @param searchCriteria search criteria come
+     * @param page a single page of the news list constructed
      * @return The amount of pages suitable for search criteria.
      * @throws ServiceException
      */
@@ -122,8 +124,9 @@ public interface NewsService {
 
     /**
      * Creates news with all information concerned according to the certain news record.
-     * @param newsTORecord
+     * @param newsTORecord news transfer object record
+     * @return The identifier(id) of news created
      * @throws ServiceException
      */
-    void createNews(NewsTORecord newsTORecord) throws ServiceException;
+    Long createNews(NewsTORecord newsTORecord) throws ServiceException;
 }

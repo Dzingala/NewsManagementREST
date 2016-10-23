@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>groupId</groupId>
+    <groupId>com.epam.client</groupId>
     <artifactId>news-client</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
@@ -33,39 +33,54 @@
         <spring.version>4.2.5.RELEASE</spring.version>
         <dbcp.version>1.4</dbcp.version>
         <orace-jdbc.version>11.2.0</orace-jdbc.version>
-        <apache-commons.version>3.4</apache-commons.version>
+        <apache-commons.version>1.4</apache-commons.version>
         <jstl.version>1.2</jstl.version>
         <spring-tx.version>3.2.4.RELEASE</spring-tx.version>
         <el-api.version>3.0.0</el-api.version>
     </properties>
 
     <dependencies>
+
+        <!-- Slf4j -->
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>org.slf4j</groupId>-->
             <!--<artifactId>slf4j-simple</artifactId>-->
             <!--<version>${slf4j.version}</version>-->
         <!--</dependency>-->
+
+        <!-- Javax, javaee -->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet-api.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>${jsp-api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>${el-api.version}</version>
+        </dependency>
+
+        <!-- Apache commons -->
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${apache-commons.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -75,27 +90,20 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${apache-log4j.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
+        <!-- Spring framework -->
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -103,41 +111,34 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>${el-api.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>${spring-tx.version}</version>
         </dependency>
-
-        <!-- Oracle JDBC -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>${orace-jdbc.version}</version>
-        </dependency>
-
-        <!-- Commons Database Connection Pooling -->
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>${dbcp.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
-        <!-- news-common module -->
+        <!-- Oracle JDBC -->
+
         <dependency>
-            <groupId>com.epam</groupId>
-            <artifactId>news-common</artifactId>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+        </dependency>
+
+        <!-- Commons Database Connection Pooling -->
+
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
+
+        <!-- news-common-service module -->
+
+        <dependency>
+            <groupId>by.epam.services</groupId>
+            <artifactId>news-common-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

@@ -8,6 +8,7 @@
     <artifactId>news-management</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>news-admin</module>
         <module>news-client</module>
@@ -15,21 +16,137 @@
         <module>news-common-service</module>
         <module>news-common-entity</module>
     </modules>
+
     <repositories>
         <!-- Repository for ORACLE ojdbc6. -->
         <repository>
             <id>codelds</id>
             <url>http://nexus.axiomalaska.com/nexus/content/repositories/public</url>
         </repository>
+
+        <repository>
+            <id>forplay-legacy</id>
+            <url>http://forplay.googlecode.com/svn/mavenrepo</url>
+        </repository>
+        <repository>
+            <id>JBoss repository</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>Java.Net</id>
+            <url>http://download.java.net/maven/2/</url>
+        </repository>
+        <repository>
+            <id>MySQL</id>
+            <url>https://mvnrepository.com/artifact/mysql/mysql-connector-java</url>
+        </repository>
     </repositories>
+
+    <properties>
+        <application.version>1.0-SNAPSHOT</application.version>
+        <apache-log4j.version>1.2.17</apache-log4j.version>
+        <spring.version>4.2.4.RELEASE</spring.version>
+        <orace-jdbc.version>11.2.0</orace-jdbc.version>
+        <apache-commons.version>1.4</apache-commons.version>
+        <mockito.version>2.0.2-beta</mockito.version>
+        <db-unit.version>2.5.1</db-unit.version>
+        <spring-db-unit.version>1.2.1</spring-db-unit.version>
+        <hibernate.version>3.6.3.Final</hibernate.version>
+        <javassist.version>3.12.1.GA</javassist.version>
+        <mysql-connector.version>5.1.6</mysql-connector.version>
+        <spring-tx.version>4.2.4.RELEASE</spring-tx.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
+
+            <!-- Service module -->
+
+            <dependency>
+                <groupId>by.epam.services</groupId>
+                <artifactId>news-common-service</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <!-- DAO module -->
+
+            <dependency>
+                <groupId>by.epam.dao</groupId>
+                <artifactId>news-common-dao</artifactId>
+                <version>${application.version}</version>
+            </dependency>
+
             <!-- Entity module -->
 
             <dependency>
                 <groupId>by.epam.entity</groupId>
                 <artifactId>news-common-entity</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${application.version}</version>
+            </dependency>
+
+            <!-- MySQL connector java -->
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+
+            <!-- Hibernate dependencies-->
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+
+            <!-- Spring ORM support -->
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- Javax, Javassist -->
+
+            <dependency>
+                <groupId>javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${el-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>${jsp-api.version}</version>
+            </dependency>
+
+            <!-- Slf4j -->
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
 
             <!-- Logging -->
@@ -37,7 +154,7 @@
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
+                <version>${apache-log4j.version}</version>
             </dependency>
 
             <!-- Spring framework -->
@@ -45,17 +162,27 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring-tx.version}</version>
             </dependency>
 
             <!-- Oracle JDBC -->
@@ -63,14 +190,25 @@
             <dependency>
                 <groupId>com.oracle</groupId>
                 <artifactId>ojdbc6</artifactId>
-                <version>11.2.0</version>
+                <version>${orace-jdbc.version}</version>
             </dependency>
-            <!-- Commons connection pool -->
+
+            <!-- Apache commons -->
 
             <dependency>
                 <groupId>commons-dbcp</groupId>
                 <artifactId>commons-dbcp</artifactId>
-                <version>1.4</version>
+                <version>${apache-commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache-commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
             </dependency>
 
             <!-- Tests -->
@@ -78,24 +216,17 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.springtestdbunit</groupId>
                 <artifactId>spring-test-dbunit</artifactId>
-                <version>1.2.1</version>
+                <version>${spring-db-unit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
-                <version>2.5.1</version>
-            </dependency>
-            <!-- DAO module -->
-
-            <dependency>
-                <groupId>by.epam.dao</groupId>
-                <artifactId>news-common-dao</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${db-unit.version}</version>
             </dependency>
 
             <!-- Mocking tests -->
@@ -103,7 +234,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
-                <version>2.0.2-beta</version>
+                <version>${mockito.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

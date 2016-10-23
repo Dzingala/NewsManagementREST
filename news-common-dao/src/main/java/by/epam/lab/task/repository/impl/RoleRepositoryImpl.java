@@ -5,53 +5,21 @@ import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.RoleRepository;
 import by.epam.lab.task.entity.Role;
 import by.epam.lab.task.exceptions.dao.DAOException;
-import by.epam.lab.task.util.HibernateUtil;
+import by.epam.lab.task.utils.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.datasource.DataSourceUtils;
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Represents the means of manipulating with Role entity and database.
+ */
 @Component
 public class RoleRepositoryImpl implements RoleRepository {
-    private final static Logger logger= Logger.getLogger(RoleRepositoryImpl.class);
+    private static final Logger logger= Logger.getLogger(RoleRepositoryImpl.class);
 
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
-=======
-    private static final String COLUMN_NAME_ROLE_NAME = "ROLE_NAME";
-    private static final String COLUMN_NAME_ROLE_ID = "ROLE_ID";
-
-    @Value("${db.user}")
-    private String DBUSER;
-    @Value("${db.driver}")
-    private String DBDRIVER;
-    @Value("${db.url}")
-    private String DBURL;
-    @Value("${db.password}")
-    private String DBPASSWORD;
-    @Value("\nDriver: #{dataSource.driverClassName}\nUrl: #{dataSource.url}\nUsername: #{dataSource.username}\nPassword: #{dataSource.password}")
-    public void setDriverClassName(String dbConfigString){
-        logger.debug("Connected to the database:");
-        logger.debug(dbConfigString);
-        logger.debug("@Value data got:\n" +
-                "Driver: "+DBDRIVER+"\n" +
-                "Url: "+DBURL+"\n" +
-                "Username: "+ DBUSER+"\n" +
-                "Password: "+DBPASSWORD
-        );
-    }
-
-    @Autowired
-    private DataSource dataSource;
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
 
     /**
      * Implementation of RoleRepository method create.
@@ -60,32 +28,27 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public Long create(Role role) throws DAOException {
         logger.debug("Creating role in RoleRepositoryImpl");
-
+        Long roleId=null;
         Session session=null;
         try{
             session= HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(role);
+            roleId=(Long)session.save(role);
             session.getTransaction().commit();
         }catch (Exception e) {
             logger.error("DAOException while creating role in RoleRepositoryImpl");
             logger.debug("Role was not created");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
-            throw new DAOException();
+            throw new DAOException(e);
         } finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("HibernateException while creating a tag");
+                    logger.error("HibernateException while creating a tag: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while creating role in RoleRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
         }
-
-        return null;
+        return roleId;
     }
     /**
      * Implementation of RoleRepository method read.
@@ -100,28 +63,19 @@ public class RoleRepositoryImpl implements RoleRepository {
         Role role = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            role = (Role) session.load(Role.class, roleId);
+            role = (Role) session.get(Role.class, roleId);
         } catch (Exception e) {
             logger.error("DAOException while reading role in RoleRepositoryImpl");
             logger.debug("Role was not read");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
             throw new DAOException(e);
         } finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 } catch (HibernateException e) {
-                    logger.error("HibernateException while reading a role");
+                    logger.error("HibernateException while reading a role: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while reading role in RoleRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
-        }
-        if(role==null){
-            logger.debug("Here is no role with id="+roleId);
-            logger.error("NoSuchEntity while reading role in RoleRepositoryImpl");
-            throw new NoSuchEntityException("NoSuchEntity while reading role in RoleRepositoryImpl");
         }
         return role;
     }
@@ -143,19 +97,15 @@ public class RoleRepositoryImpl implements RoleRepository {
         } catch (Exception e) {
             logger.error("DAOException while updating role in RoleRepositoryImpl");
             logger.debug("Role was not updated");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
             throw new DAOException(e);
         } finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("HibernateException while closing connection");
+                    logger.error("HibernateException while closing connection: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while updating role in RoleRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
         }
     }
     /**
@@ -175,19 +125,15 @@ public class RoleRepositoryImpl implements RoleRepository {
         } catch (Exception e) {
             logger.error("DAOException while deleting role in RoleRepositoryImpl");
             logger.debug("Role was not deleted");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
             throw new DAOException(e);
         } finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("HibernateException while deleting a role");
+                    logger.error("HibernateException while deleting a role: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while deleting role in RoleRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
         }
     }
     /**
@@ -211,16 +157,9 @@ public class RoleRepositoryImpl implements RoleRepository {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("Hibernate exception while reading all roles");
+                    logger.error("Hibernate exception while reading all roles: "+e);
                 }
             }
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
-=======
-        }catch (SQLException e) {
-            logger.error("DAOException while reading role in RoleRepositoryImpl");
-            logger.debug("Roles was not read");
-            throw new DAOException("DAOException while reading role in RoleRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/RoleRepositoryImpl.java
         }
         return roles;
     }

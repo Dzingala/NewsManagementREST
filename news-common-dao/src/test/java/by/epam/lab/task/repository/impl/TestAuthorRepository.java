@@ -64,7 +64,7 @@ public class TestAuthorRepository {
         assertTrue(author.equals(authorExpected));
     }
 
-    @Test(expected = NoSuchEntityException.class)
+    @Test(expected = DAOException.class)
     public void deleteTest() throws DAOException {
         Long authorId = 3L;
         authorRepository.delete(authorId);

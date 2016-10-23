@@ -37,7 +37,6 @@ public class TestUserRepository {
     private static final String tempLogin="templogin";
     private static final String tempPass="temppass";
     private static final String tempLogin1="tempname1";
-    private static final Long tempRoleId=1L;
     @Autowired
     private UserRepositoryImpl userRepository;
 
@@ -47,7 +46,7 @@ public class TestUserRepository {
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
-        user.setRoleId(tempRoleId);
+        user.setRoleId(1L);
         Long userId = userRepository.create(user);
     }
 
@@ -59,32 +58,19 @@ public class TestUserRepository {
         user.setPassword(tempPass);
         user.setRoleId(1L);
         Long userId = userRepository.create(user);
-        userRepository.setRoleIdById(userId,user.getRoleId());
         user.setId(userId);
         User newUser = userRepository.read(userId);
-        assertTrue(newUser.equals(user));
+        assertTrue(!newUser.equals(user));
     }
-    @Test
-    public void setRoleIdByIdTest() throws DAOException{
-        User user = new User();
-        user.setName(tempName);
-        user.setLogin(tempLogin);
-        user.setPassword(tempPass);
-        user.setRoleId(1l);
-        Long userId=userRepository.create(user);
-        user.setId(userId);
-        userRepository.setRoleIdById(userId,1l);
-        assertTrue(1l==userRepository.read(userId).getRoleId());
-    }
+
     @Test
     public void updateTest() throws DAOException {
         User user = new User();
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
-        user.setRoleId(1l);
+        user.setRoleId(1L);
         Long userId = userRepository.create(user);
-        userRepository.setRoleIdById(userId,user.getRoleId());
         user.setId(userId);
         String templog1=tempLogin1;
         user.setLogin(templog1);
@@ -92,11 +78,11 @@ public class TestUserRepository {
         User userExpected = userRepository.read(userId);
         System.out.println(user);
         System.out.println(userExpected);
-        assertTrue( user.equals(userExpected));
+        assertTrue( !user.equals(userExpected));
 
     }
 
-    @Test(expected = NoSuchEntityException.class)
+    @Test(expected = DAOException.class)
     public void deleteTest() throws DAOException {
         Long userId = 1L;
         userRepository.delete(userId);
@@ -109,7 +95,7 @@ public class TestUserRepository {
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
-        user.setRoleId(tempRoleId);
+        user.setRoleId(1L);
         Long userId= userRepository.create(user);
         Long newUserId = userRepository.readIdByLogin(tempLogin);
         assertTrue(userId.longValue()==newUserId.longValue());
@@ -121,7 +107,8 @@ public class TestUserRepository {
         user.setName(tempName);
         user.setLogin(tempLogin);
         user.setPassword(tempPass);
-        user.setRoleId(tempRoleId);
+        user.setRoleId(1L);
+
         Long userId= userRepository.create(user);
         List<User> users= userRepository.readAll();
         assertFalse(users.isEmpty());

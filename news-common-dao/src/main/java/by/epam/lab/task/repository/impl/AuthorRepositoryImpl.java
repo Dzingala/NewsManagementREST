@@ -1,19 +1,14 @@
 package by.epam.lab.task.repository.impl;
 
+import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.AuthorRepository;
 import by.epam.lab.task.entity.Author;
 import by.epam.lab.task.exceptions.dao.DAOException;
-import by.epam.lab.task.util.HibernateUtil;
+import by.epam.lab.task.utils.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DataSourceUtils;
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -22,20 +17,7 @@ import java.util.List;
 @Component
 public class AuthorRepositoryImpl implements AuthorRepository {
     private final static Logger logger= Logger.getLogger(AuthorRepositoryImpl.class);
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
     private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = :newsId ";
-
-=======
-    private static final String CREATE_AUTHOR_QUERY= " INSERT INTO DZINHALA.AUTHOR (AUTHOR_NAME) VALUES (?) ";
-    private static final String READ_AUTHOR_QUERY= " SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
-    private static final String READ_AUTHOR_ID_BY_NEWS_ID_QUERY = " SELECT AUTHOR_ID FROM DZINHALA.NEWS_AUTHOR WHERE NEWS_ID = ? ";
-    private static final String UPDATE_AUTHOR_QUERY = " UPDATE DZINHALA.AUTHOR SET AUTHOR_NAME = ? ,EXPIRED = ?  WHERE AUTHOR_ID = ? ";
-    private static final String DELETE_AUTHOR_QUERY = " DELETE FROM DZINHALA.AUTHOR WHERE AUTHOR_ID = ? ";
-    private static final String READ_ALL_AUTHORS_QUERY="SELECT AUTHOR_ID,AUTHOR_NAME,EXPIRED FROM DZINHALA.AUTHOR";
-
-    private static final String COLUMN_NAME_AUTHOR_ID = "AUTHOR_ID";
-    private static final String COLUMN_NAME_AUTHOR_NAME = "AUTHOR_NAME";
-    private static final String COLUMN_NAME_EXPIRED = "EXPIRED";
 
     @Value("${db.user}")
     private String DBUSER;
@@ -56,7 +38,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                 "Password: "+DBPASSWORD
         );
     }
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
 
     /**
      * Implementation of AuthorRepository method create.
@@ -66,29 +47,26 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     public Long create(Author author) throws DAOException {
         logger.debug("Creating author in AuthorRepositoryImpl");
         Session session=null;
+        Long authorId=null;
         try{
             session=HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.save(author);
+            authorId=(Long)session.save(author);
             session.getTransaction().commit();
         }catch (Exception e) {
-            logger.error("DAOException while creating author in AuthorRepositoryImpl");
+            logger.error("DAOException while creating author in AuthorRepositoryImpl: "+e);
             logger.debug("Author was not created");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
             throw new DAOException();
         } finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("HibernateException while closing connection");
+                    logger.error("HibernateException while closing connection: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while creating author in AuthorRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
         }
-        return null;
+        return authorId;
     }
     /**
      * Implementation of AuthorRepository method read.
@@ -106,23 +84,15 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }catch (Exception e){
             logger.error("DAOException while reading author in AuthorRepositoryImpl");
             logger.debug("Author was not read");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
             throw new DAOException(e);
         } finally {
             if (session != null && session.isOpen()) {
                 try{
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("HibernateException while reading an author");
+                    logger.error("HibernateException while reading an author: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while reading author in AuthorRepositoryImpl",e);
-        }
-        if(author==null){
-            logger.debug("Author with id="+authorId+" does not exist");
-            throw new NoSuchEntityException("Author with id="+authorId+" does not exist");
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
         }
         return author;
     }
@@ -144,19 +114,15 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } catch (Exception e) {
             logger.error("DAOException while updating author in AuthorRepositoryImpl");
             logger.debug("Author was not updated");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
             throw new DAOException(e);
         } finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("HibernateException while closing connection");
+                    logger.error("HibernateException while closing connection: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while updating author in AuthorRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
         }
 
     }
@@ -171,25 +137,21 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            Author toDeleteAuthor = (Author)session.load(Author.class,id);
+            Author toDeleteAuthor = (Author)session.get(Author.class,id);
             session.delete(toDeleteAuthor);
             session.getTransaction().commit();
         } catch (Exception e) {
             logger.error("DAOException while deleting author in AuthorRepositoryImpl");
             logger.debug("Author was not deleted");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
             throw new DAOException(e);
         } finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("HibernateException while deleting an author");
+                    logger.error("HibernateException while deleting an author: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while deleting author in AuthorRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
         }
 
     }
@@ -208,19 +170,15 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         }catch (Exception e){
             logger.error("DAOException while reading all authors in AuthorRepositoryImpl");
             logger.debug("Authors was not read");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
             throw new DAOException(e);
         }finally {
             if (session != null && session.isOpen()) {
                 try {
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("Hibernate exception while reading all authors");
+                    logger.error("Hibernate exception while reading all authors: "+e);
                 }
             }
-=======
-            throw new DAOException("DAOException while reading author in AuthorRepositoryImpl",e);
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
         }
         return authors;
     }
@@ -241,7 +199,6 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             authorId=bd.longValue();
         }catch (Exception e){
             logger.error("DAOException while reading author's id by news id in AuthorRepositoryImpl");
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
             logger.debug("Author's id was not read");
             throw new DAOException(e);
         }finally {
@@ -249,19 +206,13 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                 try{
                     session.close();
                 }catch (HibernateException e){
-                    logger.error("Hibernate exception while reading author's id by news id");
+                    logger.error("Hibernate exception while reading author's id by news id: "+e);
                 }
             }
-=======
-            logger.debug("Author's id was not received");
-            throw new DAOException("DAOException while reading author's id by news id in AuthorRepositoryImpl",e);
-        }
-        if (authorId == null) {
-            throw new NoSuchEntityException("News id="+newsId+" have not author assigned");
->>>>>>> develop/netcracker:news-common-dao/src/main/java/by/epam/lab/task/repository/impl/AuthorRepositoryImpl.java
         }
         return authorId;
     }
+
 
 
 

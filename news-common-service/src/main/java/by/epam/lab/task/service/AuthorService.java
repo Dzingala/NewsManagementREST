@@ -4,11 +4,8 @@ package by.epam.lab.task.service;
 import by.epam.lab.task.entity.Author;
 import by.epam.lab.task.exceptions.service.ServiceException;
 
-<<<<<<< HEAD:news-common/src/main/java/by/epam/lab/task/service/AuthorService.java
 import java.util.List;
 
-=======
->>>>>>> develop/netcracker:news-common-service/src/main/java/by/epam/lab/task/service/AuthorService.java
 /**
  * @author Ivan Dzinhala
  */
