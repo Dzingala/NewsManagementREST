@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.epam</groupId>
+    <groupId>by.epam</groupId>
     <artifactId>news-management</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -55,6 +55,7 @@
         <javassist.version>3.12.1.GA</javassist.version>
         <mysql-connector.version>5.1.6</mysql-connector.version>
         <spring-tx.version>4.2.4.RELEASE</spring-tx.version>
+        <slf4j.version>1.7.21</slf4j.version>
     </properties>
 
     <dependencyManagement>
@@ -86,11 +87,11 @@
 
             <!-- MySQL connector java -->
 
-            <dependency>
+            <!--<dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
-            </dependency>
+            </dependency>-->
 
             <!-- Hibernate dependencies-->
 

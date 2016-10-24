@@ -9,7 +9,7 @@
 
     <parent>
         <artifactId>news-management</artifactId>
-        <groupId>com.epam</groupId>
+        <groupId>by.epam</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <repositories>
