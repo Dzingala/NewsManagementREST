@@ -13,21 +13,48 @@
         <module>news-common-service</module>
         <module>news-common-entity</module>
     </modules>
+
+
+    <properties>
+        <application.version>1.0-SNAPSHOT</application.version>
+        <apache-log4j.version>1.2.17</apache-log4j.version>
+        <spring.version>4.2.4.RELEASE</spring.version>
+        <orace-jdbc.version>11.2.0</orace-jdbc.version>
+        <apache-commons.version>1.4</apache-commons.version>
+        <mockito.version>2.0.2-beta</mockito.version>
+        <db-unit.version>2.5.1</db-unit.version>
+        <mysql-connector.version>5.1.6</mysql-connector.version>
+        <spring-test-dbunit.version>1.2.1</spring-test-dbunit.version>
+    </properties>
     <repositories>
         <!-- Repository for ORACLE ojdbc6. -->
         <repository>
             <id>codelds</id>
             <url>http://nexus.axiomalaska.com/nexus/content/repositories/public</url>
         </repository>
+        <!-- Repository for MySQL-connector -->
+        <!--<repository>-->
+            <!--<id>MySQL</id>-->
+            <!--<url>https://mvnrepository.com/artifact/mysql/mysql-connector-java</url>-->
+        <!--</repository>-->
     </repositories>
     <dependencyManagement>
         <dependencies>
+
+            <!-- Mysql connection -->
+
+            <!--<dependency>-->
+                <!--<groupId>mysql</groupId>-->
+                <!--<artifactId>mysql-connector-java</artifactId>-->
+                <!--<version>${mysql-connector.version}</version>-->
+            <!--</dependency>-->
+
             <!-- Entity module -->
 
             <dependency>
                 <groupId>by.epam.entity</groupId>
                 <artifactId>news-common-entity</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${application.version}</version>
             </dependency>
 
             <!-- Logging -->
@@ -35,7 +62,7 @@
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
+                <version>${apache-log4j.version}</version>
             </dependency>
 
             <!-- Spring framework -->
@@ -43,17 +70,17 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <!-- Oracle JDBC -->
@@ -63,12 +90,13 @@
                 <artifactId>ojdbc6</artifactId>
                 <version>11.2.0</version>
             </dependency>
+
             <!-- Commons connection pool -->
 
             <dependency>
                 <groupId>commons-dbcp</groupId>
                 <artifactId>commons-dbcp</artifactId>
-                <version>1.4</version>
+                <version>${apache-commons.version}</version>
             </dependency>
 
             <!-- Tests -->
@@ -76,24 +104,25 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>4.2.4.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.springtestdbunit</groupId>
                 <artifactId>spring-test-dbunit</artifactId>
-                <version>1.2.1</version>
+                <version>${spring-test-dbunit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
-                <version>2.5.1</version>
+                <version>${db-unit.version}</version>
             </dependency>
+
             <!-- DAO module -->
 
             <dependency>
                 <groupId>by.epam.dao</groupId>
                 <artifactId>news-common-dao</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${application.version}</version>
             </dependency>
 
             <!-- Mocking tests -->
@@ -101,7 +130,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
-                <version>2.0.2-beta</version>
+                <version>${mockito.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -24,6 +24,7 @@
     <bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
         <property name="datatypeFactory">
             <bean class="org.dbunit.ext.oracle.OracleDataTypeFactory" />
+            <!--<bean class="org.dbunit.ext.mysql.MySqlDataTypeFactory" />-->
         </property>
         <property name="caseSensitiveTableNames" value="false"/>
     </bean>

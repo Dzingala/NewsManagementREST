@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
  * @author Ivan Dzinhala
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:SpringDatasourceTest.xml")
+@ContextConfiguration(locations = {"classpath:SpringModule.xml","classpath:SpringDatasourceTest.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
