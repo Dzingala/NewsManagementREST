@@ -46,18 +46,20 @@ public class TestRoleRepository {
 
     @Test
     public void readTest() throws DAOException{
-        Long id=roleDAO.create(new Role(3l,tempName));
+        Long id=roleDAO.create(new Role(3L,tempName));
         Role role = roleDAO.read(id);
-        assertTrue(role.getId()==id);
+        assertTrue(role.getId().equals(id));
     }
 
     @Test
     public void updateTest() throws DAOException {
-        Role role = new Role(1l,tempName);
-        role.setId(roleDAO.create(role));;
-        roleDAO.update(role.getId(), role);
-        Role roleExpected = roleDAO.read(role.getId());
-        assertTrue(role.equals(roleExpected));
+        Long roleId=1L;
+        Role role= roleDAO.read(roleId);
+        role.setName(tempName);
+        roleDAO.update(roleId,role);
+        Role expectedRole=roleDAO.read(roleId);
+        assertTrue(role.equals(expectedRole));
+
     }
 
     @Test(expected = DAOException.class)
@@ -69,11 +71,7 @@ public class TestRoleRepository {
 
     @Test
     public void readAllTest() throws DAOException{
-        Role role = new Role();
-        role.setId(1L);
-        role.setName(tempName);
-        Long roleId=roleDAO.create(role);
-        List<Role> roles=roleDAO.readAll();
-        assertFalse(roles.isEmpty());
+        List<Role> newsList = roleDAO.readAll();
+        assertNotNull(newsList);
     }
 }

@@ -60,6 +60,7 @@ public class TestNewsRepository {
         news.setCreationDate(new Timestamp(new java.util.Date().getTime()));
         news.setModificationDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         Long newsId = newsRepository.create(news);
+        assertNotNull(newsRepository.read(newsId));
 
     }
 

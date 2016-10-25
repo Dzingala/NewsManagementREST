@@ -79,8 +79,12 @@ public class NewsRepositoryImpl implements NewsRepository {
     public Long create(News news) throws DAOException {
         logger.debug("Creating news in NewsRepositoryImpl");
         Long id = null;
+        Session session = null;
         try{
-            id = (Long)hibernateTemplate.save(news);
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            id=(Long)session.save(news);
+            session.getTransaction().commit();
         }catch (Exception e) {
             logger.error("DAOException while creating news in NewsRepositoryImpl");
             logger.debug("News were not created");
@@ -116,8 +120,12 @@ public class NewsRepositoryImpl implements NewsRepository {
         logger.debug("Updating news in NewsRepositoryImpl");
         news.setId(id);
         news.setModificationDate(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        Session session = null;
         try {
-            hibernateTemplate.update(news);
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.getTransaction().begin();
+            session.update(news);
+            session.getTransaction().commit();
         } catch (Exception e) {
             logger.error("DAOException while updating news in NewsRepositoryImpl");
             logger.debug("News was not updated");

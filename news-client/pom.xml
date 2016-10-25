@@ -7,38 +7,12 @@
     <groupId>by.epam.client</groupId>
     <artifactId>news-client</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <parent>
         <artifactId>news-management</artifactId>
         <groupId>by.epam</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <properties>
-        <servlet-api.version>3.1.0</servlet-api.version>
-        <jsp-api.version>2.2</jsp-api.version>
-        <slf4j.version>1.7.19</slf4j.version>
-        <apache-log4j.version>1.2.17</apache-log4j.version>
-        <spring.version>4.2.5.RELEASE</spring.version>
-        <dbcp.version>1.4</dbcp.version>
-        <orace-jdbc.version>11.2.0</orace-jdbc.version>
-        <apache-commons.version>1.4</apache-commons.version>
-        <jstl.version>1.2</jstl.version>
-        <spring-tx.version>3.2.4.RELEASE</spring-tx.version>
-        <el-api.version>3.0.0</el-api.version>
-    </properties>
-
     <dependencies>
 
         <!-- Slf4j -->
@@ -50,7 +24,6 @@
         <!--<dependency>-->
             <!--<groupId>org.slf4j</groupId>-->
             <!--<artifactId>slf4j-simple</artifactId>-->
-            <!--<version>${slf4j.version}</version>-->
         <!--</dependency>-->
 
         <!-- Javax, javaee -->
@@ -58,22 +31,18 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp-api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
-            <version>${el-api.version}</version>
         </dependency>
 
         <!-- Apache commons -->
@@ -85,7 +54,6 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -97,23 +65,19 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>${spring-tx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -139,8 +103,21 @@
         <dependency>
             <groupId>by.epam.services</groupId>
             <artifactId>news-common-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

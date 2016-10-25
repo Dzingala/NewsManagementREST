@@ -89,32 +89,31 @@ public class News {
         this.modificationDate = modificationDate;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof News)) return false;
 
         News news = (News) o;
 
         if (id != news.id) return false;
-        if (creationDate != null ? !creationDate.equals(news.creationDate) : news.creationDate != null) return false;
-        if (fullText != null ? !fullText.equals(news.fullText) : news.fullText != null) return false;
-        if (modificationDate != null ? !modificationDate.equals(news.modificationDate) : news.modificationDate != null)
-            return false;
-        if (shortText != null ? !shortText.equals(news.shortText) : news.shortText != null) return false;
-        if (title != null ? !title.equals(news.title) : news.title != null) return false;
+        if (!title.equals(news.title)) return false;
+        if (!shortText.equals(news.shortText)) return false;
+        if (!fullText.equals(news.fullText)) return false;
+        if (!creationDate.equals(news.creationDate)) return false;
+        return modificationDate.equals(news.modificationDate);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (shortText != null ? shortText.hashCode() : 0);
-        result = 31 * result + (fullText != null ? fullText.hashCode() : 0);
-        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + (modificationDate != null ? modificationDate.hashCode() : 0);
+        result = 31 * result + title.hashCode();
+        result = 31 * result + shortText.hashCode();
+        result = 31 * result + fullText.hashCode();
+        result = 31 * result + creationDate.hashCode();
+        result = 31 * result + modificationDate.hashCode();
         return result;
     }
 

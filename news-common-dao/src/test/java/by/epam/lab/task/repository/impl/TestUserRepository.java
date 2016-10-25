@@ -48,6 +48,7 @@ public class TestUserRepository {
         user.setPassword(tempPass);
         user.setRoleId(1L);
         Long userId = userRepository.create(user);
+        assertNotNull(userRepository.read(userId));
     }
 
     @Test
@@ -84,7 +85,14 @@ public class TestUserRepository {
 
     @Test(expected = DAOException.class)
     public void deleteTest() throws DAOException {
-        Long userId = 1L;
+
+        User user = new User();
+        user.setId(1L);
+        user.setName(tempName);
+        user.setLogin(tempLogin);
+        user.setPassword(tempPass);
+        user.setRoleId(1L);
+        Long userId = userRepository.create(user);
         userRepository.delete(userId);
         assertNull(userRepository.read(userId));
     }

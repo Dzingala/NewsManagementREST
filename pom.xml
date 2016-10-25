@@ -18,7 +18,7 @@
     </modules>
 
     <repositories>
-        <!-- Repository for ORACLE ojdbc6. -->
+        <!-- Repository for ORACLE ojdbc6 -->
         <repository>
             <id>codelds</id>
             <url>http://nexus.axiomalaska.com/nexus/content/repositories/public</url>
@@ -56,6 +56,12 @@
         <mysql-connector.version>5.1.6</mysql-connector.version>
         <spring-tx.version>4.2.4.RELEASE</spring-tx.version>
         <slf4j.version>1.7.21</slf4j.version>
+        <commons-logging.version>1.1.1</commons-logging.version>
+        <spring-security.version>4.0.4.RELEASE</spring-security.version>
+        <apache-tiles.version>3.0.5</apache-tiles.version>
+        <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+        <javax-validation.version>1.1.0.Final</javax-validation.version>
+        <aspect-j.version>1.8.8</aspect-j.version>
     </properties>
 
     <dependencyManagement>
@@ -149,6 +155,11 @@
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
 
             <!-- Logging -->
 
@@ -186,6 +197,29 @@
                 <version>${spring-tx.version}</version>
             </dependency>
 
+            <!-- Spring security -->
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-taglibs</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+
             <!-- Oracle JDBC -->
 
             <dependency>
@@ -209,7 +243,7 @@
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>1.1.1</version>
+                <version>${commons-logging.version}</version>
             </dependency>
 
             <!-- Tests -->
@@ -236,6 +270,40 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito.version}</version>
+            </dependency>
+
+            <!-- Apache tiles -->
+
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-extras</artifactId>
+                <version>${apache-tiles.version}</version>
+            </dependency>
+
+            <!-- Validation -->
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax-validation.version}</version>
+            </dependency>
+
+            <!-- AspectJ -->
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspect-j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspect-j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

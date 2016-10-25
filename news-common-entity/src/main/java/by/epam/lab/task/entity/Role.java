@@ -2,10 +2,7 @@ package by.epam.lab.task.entity;
 
 import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * This entity is used for representing information about the Role.
@@ -25,6 +22,8 @@ public class Role {
         this.name = name;
     }
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "ROLES_SEQ")
+    @SequenceGenerator(name = "ROLES_SEQ", sequenceName = "ROLES_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "ROLE_ID", unique = true,nullable = false)
     public Long getId() {
         return id;
