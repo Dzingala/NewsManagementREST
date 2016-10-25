@@ -1,7 +1,6 @@
 package by.epam.lab.task.utils.hibernate;
 
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

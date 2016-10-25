@@ -48,6 +48,7 @@
         <spring.version>4.2.4.RELEASE</spring.version>
         <orace-jdbc.version>11.2.0</orace-jdbc.version>
         <apache-commons.version>1.4</apache-commons.version>
+        <apache-commons-lang.version>2.5</apache-commons-lang.version>
         <mockito.version>2.0.2-beta</mockito.version>
         <db-unit.version>2.5.1</db-unit.version>
         <spring-db-unit.version>1.2.1</spring-db-unit.version>
@@ -62,6 +63,10 @@
         <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
         <javax-validation.version>1.1.0.Final</javax-validation.version>
         <aspect-j.version>1.8.8</aspect-j.version>
+        <el-api.version>3.0.0</el-api.version>
+        <jstl.version>1.2</jstl.version>
+        <servlet-api.version>3.1.0</servlet-api.version>
+        <jsp-api.version>2.2</jsp-api.version>
     </properties>
 
     <dependencyManagement>
@@ -193,6 +198,11 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>${spring-tx.version}</version>
             </dependency>
@@ -236,9 +246,9 @@
                 <version>${apache-commons.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${apache-commons.version}</version>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${apache-commons-lang.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
