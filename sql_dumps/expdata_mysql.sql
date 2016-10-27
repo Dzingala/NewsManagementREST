@@ -1,9 +1,9 @@
 --
--- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.1.31.0
--- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 10/23/2016 8:37:28 PM
--- Версия сервера: 5.6.15
--- Версия клиента: 4.1
+-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Devart dbForge Studio for MySQL, пїЅпїЅпїЅпїЅпїЅпїЅ 7.1.31.0
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: http://www.devart.com/ru/dbforge/mysql/studio
+-- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: 10/23/2016 8:37:28 PM
+-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: 5.6.15
+-- пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: 4.1
 --
 
 
@@ -50,47 +50,6 @@ INSERT INTO dzinhala.author(AUTHOR_ID, AUTHOR_NAME, EXPIRED) VALUES
 INSERT INTO dzinhala.author(AUTHOR_ID, AUTHOR_NAME, EXPIRED) VALUES
 (20, 'Scot', '2014-07-02 16:39:18');
 
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(1, 1, 'comment text', '2014-07-02 06:14:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(2, 2, 'amazing!', '2015-08-12 06:15:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(3, 17, 'wow!', '2011-01-03 08:25:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(4, 15, 'heyyy!', '2009-07-02 12:45:00');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(5, 14, 'heyaaa, nice!', '2014-12-12 06:41:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(6, 8, 'baaaad', '2011-01-01 06:27:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(7, 9, 'boooriing', '2007-07-02 17:58:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(8, 13, 'i am not quite sure but it is ok', '2003-09-24 19:14:00');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(9, 11, 'well done', '2016-01-01 22:14:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(10, 5, 'would be nice', '2004-01-13 06:41:00');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(11, 4, 'great', '2016-11-08 06:29:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(12, 20, 'huh, it rocks!', '2014-07-02 06:31:01');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(13, 19, 'bad idea imho', '2014-07-02 07:32:02');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(14, 19, 'not so bad', '2014-07-02 08:33:13');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(15, 18, 'bullshit.', '2014-07-02 11:34:14');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(16, 7, 'exciting note', '2014-07-02 12:35:16');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(17, 3, 'noteworthy words', '2014-07-02 14:36:14');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(18, 9, 'enjoyable piece of information', '2014-07-02 13:37:17');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(19, 11, 'i love this one', '2014-07-02 15:38:16');
-INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
-(20, 12, 'i like the way it discribed', '2014-07-02 16:39:18');
-
 INSERT INTO dzinhala.news(NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, CREATION_DATE, MODIFICATION_DATE) VALUES
 (1, 'unbelievable', 'breaking news', 'crash of a train and its explanation', '2014-07-02 06:14:01', '2015-07-02');
 INSERT INTO dzinhala.news(NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, CREATION_DATE, MODIFICATION_DATE) VALUES
@@ -132,6 +91,47 @@ INSERT INTO dzinhala.news(NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, CREATION_DATE, 
 INSERT INTO dzinhala.news(NEWS_ID, TITLE, SHORT_TEXT, FULL_TEXT, CREATION_DATE, MODIFICATION_DATE) VALUES
 (20, 'just a title', 'for a piece of news', 'with a long-long-long-long full text conterning news itself', '2015-07-02 07:15:01', '2016-07-02');
 
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (1, 1, 'comment text', '2014-07-02 06:14:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (2, 2, 'amazing!', '2015-08-12 06:15:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (3, 17, 'wow!', '2011-01-03 08:25:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (4, 15, 'heyyy!', '2009-07-02 12:45:00');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (5, 14, 'heyaaa, nice!', '2014-12-12 06:41:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (6, 8, 'baaaad', '2011-01-01 06:27:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (7, 9, 'boooriing', '2007-07-02 17:58:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (8, 13, 'i am not quite sure but it is ok', '2003-09-24 19:14:00');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (9, 11, 'well done', '2016-01-01 22:14:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (10, 5, 'would be nice', '2004-01-13 06:41:00');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (11, 4, 'great', '2016-11-08 06:29:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (12, 20, 'huh, it rocks!', '2014-07-02 06:31:01');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (13, 19, 'bad idea imho', '2014-07-02 07:32:02');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (14, 19, 'not so bad', '2014-07-02 08:33:13');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (15, 18, 'bullshit.', '2014-07-02 11:34:14');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (16, 7, 'exciting note', '2014-07-02 12:35:16');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (17, 3, 'noteworthy words', '2014-07-02 14:36:14');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (18, 9, 'enjoyable piece of information', '2014-07-02 13:37:17');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (19, 11, 'i love this one', '2014-07-02 15:38:16');
+INSERT INTO dzinhala.comments(COMMENT_ID, NEWS_ID, COMMENT_TEXT, CREATION_DATE) VALUES
+  (20, 12, 'i like the way it discribed', '2014-07-02 16:39:18');
+
 INSERT INTO dzinhala.news_author(NEWS_ID, AUTHOR_ID) VALUES
 (1, 3);
 INSERT INTO dzinhala.news_author(NEWS_ID, AUTHOR_ID) VALUES
@@ -172,47 +172,6 @@ INSERT INTO dzinhala.news_author(NEWS_ID, AUTHOR_ID) VALUES
 (19, 10);
 INSERT INTO dzinhala.news_author(NEWS_ID, AUTHOR_ID) VALUES
 (20, 4);
-
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(3, 1);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(2, 2);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(3, 3);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(2, 4);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(4, 5);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(6, 6);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(7, 7);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(11, 8);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(12, 9);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(13, 10);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(17, 11);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(19, 12);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(3, 13);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(5, 14);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(17, 15);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(13, 16);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(11, 17);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(9, 18);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(10, 19);
-INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
-(4, 20);
 
 INSERT INTO dzinhala.roles(ROLE_ID, ROLE_NAME) VALUES
 (1, 'author');
@@ -295,6 +254,47 @@ INSERT INTO dzinhala.tag(TAG_ID, TAG_NAME) VALUES
 (19, 'improbable');
 INSERT INTO dzinhala.tag(TAG_ID, TAG_NAME) VALUES
 (20, 'startling');
+
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (3, 1);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (2, 2);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (3, 3);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (2, 4);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (4, 5);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (6, 6);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (7, 7);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (11, 8);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (12, 9);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (13, 10);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (17, 11);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (19, 12);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (3, 13);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (5, 14);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (17, 15);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (13, 16);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (11, 17);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (9, 18);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (10, 19);
+INSERT INTO dzinhala.news_tag(NEWS_ID, TAG_ID) VALUES
+  (4, 20);
 
 INSERT INTO dzinhala.users(USER_ID, USER_NAME, LOGIN, PASSWORD, ROLE_ID) VALUES
 (1, 'Scot', 'login1', 'pass1', 1);
