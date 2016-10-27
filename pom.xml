@@ -98,11 +98,11 @@
 
             <!-- MySQL connector java -->
 
-            <!--<dependency>
+            <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
-            </dependency>-->
+            </dependency>
 
             <!-- Hibernate dependencies-->
 
@@ -232,11 +232,11 @@
 
             <!-- Oracle JDBC -->
 
-            <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc6</artifactId>
-                <version>${orace-jdbc.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.oracle</groupId>-->
+                <!--<artifactId>ojdbc6</artifactId>-->
+                <!--<version>${orace-jdbc.version}</version>-->
+            <!--</dependency>-->
 
             <!-- Apache commons -->
 

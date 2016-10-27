@@ -47,10 +47,10 @@
 
         <!-- MySQL connector java -->
 
-        <!--<dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!-- Logging -->
 
@@ -76,10 +76,10 @@
 
         <!-- Oracle JDBC -->
 
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.oracle</groupId>-->
+            <!--<artifactId>ojdbc6</artifactId>-->
+        <!--</dependency>-->
 
         <!-- Commons connection pool -->
 

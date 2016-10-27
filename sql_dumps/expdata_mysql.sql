@@ -301,7 +301,7 @@ INSERT INTO dzinhala.users(USER_ID, USER_NAME, LOGIN, PASSWORD, ROLE_ID) VALUES
 INSERT INTO dzinhala.users(USER_ID, USER_NAME, LOGIN, PASSWORD, ROLE_ID) VALUES
 (2, 'Marc', 'login2', 'pass2', 2);
 INSERT INTO dzinhala.users(USER_ID, USER_NAME, LOGIN, PASSWORD, ROLE_ID) VALUES
-(3, 'Kalem', 'login3', '3afc79b597f88a72528e864cf81856d2', 3);
+(3, 'Kalem', 'login3', 'pass3', 3);
 INSERT INTO dzinhala.users(USER_ID, USER_NAME, LOGIN, PASSWORD, ROLE_ID) VALUES
 (4, 'Irwin', 'login4', 'pass4', 4);
 INSERT INTO dzinhala.users(USER_ID, USER_NAME, LOGIN, PASSWORD, ROLE_ID) VALUES
