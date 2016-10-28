@@ -22,8 +22,9 @@ public class Role {
         this.name = name;
     }
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "ROLES_SEQ")
-    @SequenceGenerator(name = "ROLES_SEQ", sequenceName = "ROLES_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "ROLES_SEQ")
+//    @SequenceGenerator(name = "ROLES_SEQ", sequenceName = "ROLES_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "ROLE_ID", unique = true,nullable = false)
     public Long getId() {
         return id;

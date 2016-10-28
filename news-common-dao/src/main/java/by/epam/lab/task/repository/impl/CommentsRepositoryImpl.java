@@ -205,9 +205,13 @@ public class CommentsRepositoryImpl implements CommentsRepository {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            List<BigDecimal> bigDecCommentIds = (List<BigDecimal>) session.createSQLQuery(FIND_COMMENTS_ID_BY_NEWS_ID_QUERY).setParameter("newsId", newsId).list();
+//            List<BigDecimal> bigDecCommentIds = (List<BigDecimal>) session.createSQLQuery(FIND_COMMENTS_ID_BY_NEWS_ID_QUERY).setParameter("newsId", newsId).list();
+//
+//            commentsIds.addAll(bigDecCommentIds.stream().map(BigDecimal::longValue).collect(Collectors.toList()));
+            List<Integer> bigDecCommentIds = (List<Integer>) session.createSQLQuery(FIND_COMMENTS_ID_BY_NEWS_ID_QUERY).setParameter("newsId", newsId).list();
 
-            commentsIds.addAll(bigDecCommentIds.stream().map(BigDecimal::longValue).collect(Collectors.toList()));
+            commentsIds.addAll(bigDecCommentIds.stream().map(Integer::longValue).collect(Collectors.toList()));
+            session.getTransaction().commit();
         }catch (Exception e){
             logger.error("DAOException while getting comments list in CommentsRepositoryImpl");
             logger.debug("Comments list was not read");

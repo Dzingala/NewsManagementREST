@@ -34,8 +34,9 @@ public class News {
         this.modificationDate = modificationDate;
     }
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "NEWS_SEQ")
-    @SequenceGenerator(name = "NEWS_SEQ", sequenceName = "NEWS_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "NEWS_SEQ")
+//    @SequenceGenerator(name = "NEWS_SEQ", sequenceName = "NEWS_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "NEWS_ID", unique = true, nullable = false)
     public long getId() {
         return id;

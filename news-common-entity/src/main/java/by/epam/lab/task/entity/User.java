@@ -36,8 +36,9 @@ public class User {
     public void setReadyPassword(String password){this.password=password;}
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "USERS_SEQ")
-    @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "USERS_SEQ")
+//    @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "USER_ID",unique = true,nullable = false)
     public Long getId() {
         return id;

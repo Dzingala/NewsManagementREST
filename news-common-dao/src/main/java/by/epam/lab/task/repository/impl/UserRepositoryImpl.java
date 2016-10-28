@@ -179,8 +179,9 @@ public class UserRepositoryImpl implements UserRepository {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            BigDecimal bd =(BigDecimal)session.createSQLQuery(READ_USER_ID_BY_LOGIN_QUERY).setString("login",login).uniqueResult();
-            id=bd.longValue();
+//            BigDecimal bd =(BigDecimal)session.createSQLQuery(READ_USER_ID_BY_LOGIN_QUERY).setString("login",login).uniqueResult();
+//            id=bd.longValue();
+            id =(Long)session.createSQLQuery(READ_USER_ID_BY_LOGIN_QUERY).setString("login",login).uniqueResult();
         }catch (Exception e){
             logger.error("DAOException while reading user id by login in UserRepositoryImpl");
             logger.debug("User id was not read");

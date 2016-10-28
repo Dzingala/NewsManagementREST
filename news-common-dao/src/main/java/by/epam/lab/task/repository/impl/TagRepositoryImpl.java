@@ -175,8 +175,11 @@ public class TagRepositoryImpl implements TagRepository {
         List<Long> tagsIdList = new ArrayList<>();
         try{
             session=HibernateUtil.getSessionFactory().openSession();
-            List<BigDecimal> bdTagsIdList = (List<BigDecimal>)session.createSQLQuery(READ_TAGS_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).list();
-            tagsIdList.addAll(bdTagsIdList.stream().map(BigDecimal::longValue).collect(Collectors.toList()));
+//            List<BigDecimal> bdTagsIdList = (List<BigDecimal>)session.createSQLQuery(READ_TAGS_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).list();
+//            tagsIdList.addAll(bdTagsIdList.stream().map(BigDecimal::longValue).collect(Collectors.toList()));
+            List<Integer> bdTagsIdList = (List<Integer>)session.createSQLQuery(READ_TAGS_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).list();
+            tagsIdList.addAll(bdTagsIdList.stream().map(Integer::longValue).collect(Collectors.toList()));
+
         }catch (Exception e){
             logger.error("DAOException while reading tags' id by news id in TagRepositoryImpl");
             logger.debug("Tags' id was not received");

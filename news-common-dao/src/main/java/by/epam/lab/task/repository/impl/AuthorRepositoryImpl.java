@@ -195,7 +195,8 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         try{
             session=HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            BigDecimal bd =(BigDecimal)session.createSQLQuery(READ_AUTHOR_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).uniqueResult();
+//            BigDecimal bd =(BigDecimal)session.createSQLQuery(READ_AUTHOR_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).uniqueResult();
+            Integer bd =(Integer)session.createSQLQuery(READ_AUTHOR_ID_BY_NEWS_ID_QUERY).setParameter("newsId",newsId).uniqueResult();
             authorId=bd.longValue();
         }catch (Exception e){
             logger.error("DAOException while reading author's id by news id in AuthorRepositoryImpl");

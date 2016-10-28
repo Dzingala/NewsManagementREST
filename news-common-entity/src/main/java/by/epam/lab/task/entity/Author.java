@@ -28,8 +28,10 @@ public class Author {
         this.expired = expired;
     }
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "AUTHOR_SEQ")
-    @SequenceGenerator(name = "AUTHOR_SEQ", sequenceName = "AUTHOR_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    for oracle:
+//    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "AUTHOR_SEQ")
+//    @SequenceGenerator(name = "AUTHOR_SEQ", sequenceName = "AUTHOR_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "AUTHOR_ID", unique = true, nullable = false)
     public long getId() {
         return id;

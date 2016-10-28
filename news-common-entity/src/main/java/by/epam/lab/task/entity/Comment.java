@@ -29,8 +29,9 @@ public class Comment {
         this.creationDate = creationDate;
     }
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "COMMENTS_SEQ")
-    @SequenceGenerator(name = "COMMENTS_SEQ", sequenceName = "COMMENTS_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "COMMENTS_SEQ")
+//    @SequenceGenerator(name = "COMMENTS_SEQ", sequenceName = "COMMENTS_SEQ", allocationSize = 1, initialValue = 1)
     @Column(name = "COMMENT_ID", unique = true, nullable = false)
     public long getId() {
         return id;
