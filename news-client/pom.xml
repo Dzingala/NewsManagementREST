@@ -21,10 +21,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-simple</artifactId>-->
-        <!--</dependency>-->
 
         <!-- Javax, javaee -->
 
@@ -45,16 +41,8 @@
             <artifactId>javax.el-api</artifactId>
         </dependency>
 
-        <!-- Apache commons -->
+        <!-- logging -->
 
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>commons-logging</groupId>-->
-            <!--<artifactId>commons-logging</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -75,35 +63,20 @@
             <artifactId>spring-web</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-
-        <!-- Oracle JDBC -->
-
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-        </dependency>
-
-        <!-- Commons Database Connection Pooling -->
-
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-        </dependency>
-
         <!-- news-common-service module -->
 
         <dependency>
             <groupId>by.epam.services</groupId>
             <artifactId>news-common-service</artifactId>
         </dependency>
+
+        <!-- news-common-entity module -->
+
+        <dependency>
+            <groupId>by.epam.entity</groupId>
+            <artifactId>news-common-entity</artifactId>
+        </dependency>
+
 
     </dependencies>
 
