@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
+
 @Controller
 public class CommentController {
     @Autowired
@@ -25,6 +27,7 @@ public class CommentController {
             return "redirect:/news/" + newsId;
         }
         comment.setNewsId(newsId);
+        comment.setCreationDate(new Timestamp(System.currentTimeMillis()));
         commentService.create(comment);
         return "redirect:/news/view/" + newsId;
     }
