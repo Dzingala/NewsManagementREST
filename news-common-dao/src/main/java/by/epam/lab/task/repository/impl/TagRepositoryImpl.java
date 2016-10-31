@@ -8,7 +8,7 @@ import by.epam.lab.task.utils.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Represents the means of manipulating with Tag entity and database.
  */
-@Component
+@Repository
 public class TagRepositoryImpl implements TagRepository {
     private static final Logger logger= Logger.getLogger(TagRepositoryImpl.class);
     private static final String READ_TAGS_ID_BY_NEWS_ID_QUERY = " SELECT TAG_ID FROM DZINHALA.NEWS_TAG WHERE NEWS_ID = :newsId ";

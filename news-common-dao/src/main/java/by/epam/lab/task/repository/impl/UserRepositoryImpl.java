@@ -7,14 +7,14 @@ import by.epam.lab.task.exceptions.dao.DAOException;
 import by.epam.lab.task.utils.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.*;
 /**
  * Represents the means of manipulating with User entity and database.
  */
-@Component
+@Repository
 public class UserRepositoryImpl implements UserRepository {
     private static final Logger logger= Logger.getLogger(UserRepositoryImpl.class);
     private static final String READ_USER_ID_BY_LOGIN_QUERY = "SELECT USER_ID FROM DZINHALA.USERS WHERE LOGIN = :login ";

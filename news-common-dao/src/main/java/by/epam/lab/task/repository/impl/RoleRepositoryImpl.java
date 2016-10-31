@@ -1,7 +1,6 @@
 package by.epam.lab.task.repository.impl;
 
 
-import by.epam.lab.task.exceptions.dao.NoSuchEntityException;
 import by.epam.lab.task.repository.RoleRepository;
 import by.epam.lab.task.entity.Role;
 import by.epam.lab.task.exceptions.dao.DAOException;
@@ -9,14 +8,14 @@ import by.epam.lab.task.utils.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 /**
  * Represents the means of manipulating with Role entity and database.
  */
-@Component
+@Repository
 public class RoleRepositoryImpl implements RoleRepository {
     private static final Logger logger= Logger.getLogger(RoleRepositoryImpl.class);
 

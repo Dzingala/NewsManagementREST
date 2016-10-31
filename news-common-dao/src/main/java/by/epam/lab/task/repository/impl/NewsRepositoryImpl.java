@@ -14,10 +14,8 @@ import org.hibernate.type.StringType;
 import org.hibernate.type.TimestampType;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-@Component
+@Repository
 public class NewsRepositoryImpl implements NewsRepository {
     @Value("${db.user}")
     private String DBUSER;
