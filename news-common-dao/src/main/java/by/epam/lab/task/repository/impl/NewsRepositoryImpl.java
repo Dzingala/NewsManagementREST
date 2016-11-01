@@ -12,8 +12,6 @@ import org.hibernate.type.DateType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.hibernate.type.TimestampType;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -38,10 +36,10 @@ public class NewsRepositoryImpl implements NewsRepository {
         logger.debug("Connected to the database:");
         logger.debug(dbConfigString);
         logger.debug("@Value data got:\n" +
-                "Driver: "+DBDRIVER+"\n" +
-                "Url: "+DBURL+"\n" +
-                "Username: "+ DBUSER+"\n" +
-                "Password: "+DBPASSWORD
+                        "Driver: "+DBDRIVER+"\n" +
+                        "Url: "+DBURL+"\n" +
+                        "Username: "+ DBUSER+"\n" +
+                        "Password: "+DBPASSWORD
         );
     }
     private static final Logger logger= Logger.getLogger(NewsRepositoryImpl.class);
@@ -67,7 +65,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     private static final String NEWS_AUTHOR_WARN_MSG="News was not disconnected with author";
 
-    private HibernateTemplate hibernateTemplate=new HibernateTemplate(HibernateUtil.getSessionFactory());
+    // private HibernateTemplate hibernateTemplate=new HibernateTemplate(HibernateUtil.getSessionFactory());
 
     /**
      * Implementation of NewsRepository method create.
@@ -87,6 +85,14 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.error("DAOException while creating news in NewsRepositoryImpl");
             logger.debug("News were not created");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
         return id;
     }
@@ -99,12 +105,23 @@ public class NewsRepositoryImpl implements NewsRepository {
     public News read(Long newsId) throws DAOException {
         logger.debug("Reading news in NewsRepositoryImpl");
         News news = null;
+        Session session = null;
         try{
-            news=hibernateTemplate.load(News.class,newsId);
+            session=HibernateUtil.getSessionFactory().openSession();
+            news=(News)session.load(News.class,newsId);
+            //news=hibernateTemplate.load(News.class,newsId);
         }catch (Exception e){
             logger.error("DAOException while reading news in NewsRepositoryImpl");
             logger.debug("News was not read");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
         return news;
     }
@@ -128,6 +145,14 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.error("DAOException while updating news in NewsRepositoryImpl");
             logger.debug("News was not updated");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
     }
     /**
@@ -139,7 +164,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         logger.debug("Deleting news in NewsRepositoryImpl");
         Session session = null;
         try {
-            session=hibernateTemplate.getSessionFactory().openSession();
+            session=HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             News toDelNews = (News)session.load(News.class,id);
             session.delete(toDelNews);
@@ -148,6 +173,14 @@ public class NewsRepositoryImpl implements NewsRepository {
             logger.error("DAOException while deleting news in NewsRepositoryImpl");
             logger.debug("News was not deleted");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
     }
     /**
@@ -158,12 +191,23 @@ public class NewsRepositoryImpl implements NewsRepository {
     public List<News> readAll() throws DAOException {
         logger.debug("Reading all news in NewsRepositoryImpl");
         List<News> news = new ArrayList<>();
+        Session session=null;
         try{
-            news=hibernateTemplate.loadAll(News.class);
+            session=HibernateUtil.getSessionFactory().openSession();
+            news=session.createCriteria(News.class).list();
+            //news=hibernateTemplate.loadAll(News.class);
         }catch (Exception e){
             logger.error("DAOException while reading all news in NewsRepositoryImpl");
             logger.debug("News was not read");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
         return news;
     }
@@ -175,17 +219,29 @@ public class NewsRepositoryImpl implements NewsRepository {
     public Long countNews() throws DAOException {
         logger.debug("Counting news in NewsRepositoryImpl");
         Long newsAmount = null;
+        Session session = null;
         try {
-            newsAmount=(Long)hibernateTemplate.execute(
-                    (HibernateCallback) session -> {
-                        SQLQuery query = session.createSQLQuery(COUNT_NEWS_QUERY);
-                        return ((Number)query.uniqueResult()).longValue();
-                    }
-            );
+            session=HibernateUtil.getSessionFactory().openSession();
+            SQLQuery query=session.createSQLQuery(COUNT_NEWS_QUERY);
+            newsAmount= ((Number)query.uniqueResult()).longValue();
+//            newsAmount=(Long)hibernateTemplate.execute(
+//                    (HibernateCallback) session -> {
+//                        SQLQuery query = session.createSQLQuery(COUNT_NEWS_QUERY);
+//                        return ((Number)query.uniqueResult()).longValue();
+//                    }
+//            );
         }catch (Exception e){
             logger.error("DAOException while counting news in NewsRepositoryImpl");
             logger.debug("News was not counted");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
         return newsAmount;
     }
@@ -196,17 +252,30 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void joinNewsWithTag(Long newsId, Long tagId) throws DAOException {
         logger.debug("Connecting news with tags in NewsRepositoryImpl");
+        Session session=null;
         try{
-            hibernateTemplate.execute((HibernateCallback) session -> {
-                session.beginTransaction();
-                session.createSQLQuery(CONNECT_NEWS_TAGS_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID,tagId).executeUpdate();
-                session.getTransaction().commit();
-                return null;
-            });
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.createSQLQuery(CONNECT_NEWS_TAGS_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID, tagId).executeUpdate();
+            session.getTransaction().commit();
+//            hibernateTemplate.execute((HibernateCallback) session -> {
+//                session.beginTransaction();
+//                session.createSQLQuery(CONNECT_NEWS_TAGS_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID,tagId).executeUpdate();
+//                session.getTransaction().commit();
+//                return null;
+//            });
         }catch (Exception e){
             logger.error("DAOException while connecting news with tags in NewsRepositoryImpl");
             logger.debug("News was not connected with tags");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
     }
     /**
@@ -216,17 +285,30 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void joinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Connecting news with author in NewsRepositoryImpl");
+        Session session = null;
         try{
-            hibernateTemplate.execute((HibernateCallback) session -> {
-                session.beginTransaction();
-                session.createSQLQuery(CONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
-                session.getTransaction().commit();
-                return null;
-            });
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.createSQLQuery(CONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
+            session.getTransaction().commit();
+//            hibernateTemplate.execute((HibernateCallback) session -> {
+//                session.beginTransaction();
+//                session.createSQLQuery(CONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
+//                session.getTransaction().commit();
+//                return null;
+//            });
         }catch (Exception e) {
             logger.error("DAOException while connecting news with author in NewsRepositoryImpl");
             logger.debug("News was not connected with author");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
     }
     /**
@@ -236,18 +318,30 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void disjoinNewsWithTag(Long newsId, Long tagId) throws DAOException {
         logger.debug("Disconnecting news with tags in NewsRepositoryImpl");
-
+        Session session=null;
         try{
-            hibernateTemplate.execute((HibernateCallback) session -> {
-                session.beginTransaction();
-                session.createSQLQuery(DISCONNECT_NEWS_TAG_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID,tagId).executeUpdate();
-                session.getTransaction().commit();
-                return null;
-            });
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.createSQLQuery(DISCONNECT_NEWS_TAG_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID,tagId).executeUpdate();
+            session.getTransaction().commit();
+//            hibernateTemplate.execute((HibernateCallback) session -> {
+//                session.beginTransaction();
+//                session.createSQLQuery(DISCONNECT_NEWS_TAG_QUERY).setLong(NEWS_ID,newsId).setLong(TAG_ID,tagId).executeUpdate();
+//                session.getTransaction().commit();
+//                return null;
+//            });
         }catch (Exception e){
             logger.error("DAOException while disconnecting news with tag in NewsRepositoryImpl");
             logger.debug("News was not disconnected with tags");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
     }
     /**
@@ -257,17 +351,30 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void disjoinNewsWithAuthor(Long newsId, Long authorId) throws DAOException {
         logger.debug("Disconnecting news with author in NewsRepositoryImpl");
+        Session session = null;
         try{
-            hibernateTemplate.execute((HibernateCallback) session -> {
-                session.beginTransaction();
-                session.createSQLQuery(DISCONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
-                session.getTransaction().commit();
-                return null;
-            });
+            session=HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.createSQLQuery(DISCONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
+            session.getTransaction().commit();
+//            hibernateTemplate.execute((HibernateCallback) session -> {
+//                session.beginTransaction();
+//                session.createSQLQuery(DISCONNECT_NEWS_AUTHOR_QUERY).setLong(NEWS_ID,newsId).setLong(AUTHOR_ID,authorId).executeUpdate();
+//                session.getTransaction().commit();
+//                return null;
+//            });
         }catch (Exception e) {
             logger.error("DAOException while disconnecting news with author in NewsRepositoryImpl");
             logger.debug(NEWS_AUTHOR_WARN_MSG);
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
     }
     /**
@@ -431,17 +538,29 @@ public class NewsRepositoryImpl implements NewsRepository {
     public Long countNews(final String countQuery)throws DAOException{
         logger.debug("Counting criteria News in NewsRepositoryImpl");
         Long criteriaNewsAmount=null;
+        Session session = null;
         try{
-            criteriaNewsAmount=(Long)hibernateTemplate.execute(
-                    (HibernateCallback) session -> {
-                        SQLQuery query = session.createSQLQuery(countQuery);
-                        return ((Number)query.uniqueResult()).longValue();
-                    }
-            );
+            session=HibernateUtil.getSessionFactory().openSession();
+            SQLQuery query = session.createSQLQuery(countQuery);
+            criteriaNewsAmount=((Number)query.uniqueResult()).longValue();
+//            criteriaNewsAmount=(Long)hibernateTemplate.execute(
+//                    (HibernateCallback) session -> {
+//                        SQLQuery query = session.createSQLQuery(countQuery);
+//                        return ((Number)query.uniqueResult()).longValue();
+//                    }
+//            );
         }catch (Exception e){
             logger.error("DAOException while counting criteria News in NewsRepositoryImpl");
             logger.debug("Criteria news were not counted");
             throw new DAOException(e);
+        }finally {
+            if (session != null && session.isOpen()) {
+                try {
+                    session.close();
+                }catch (HibernateException e){
+                    logger.error("Hibernate exception "+e);
+                }
+            }
         }
         return criteriaNewsAmount;
     }
