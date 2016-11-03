@@ -52,13 +52,6 @@
             <!--<artifactId>mysql-connector-java</artifactId>-->
         <!--</dependency>-->
 
-        <!-- Logging -->
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-
         <!-- Spring framework -->
 
         <dependency>
@@ -113,6 +106,12 @@
             <!--<version>1.7.21</version>-->
         <!--</dependency>-->
 
+        <!-- Logging -->
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
 
     </dependencies>
 
