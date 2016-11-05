@@ -64,7 +64,7 @@ public class NewsController {
     @RequestMapping(value = "/news/create", method = RequestMethod.POST)
     public String createNews(@ModelAttribute @Validated NewsTORecord newsTORecord, BindingResult result) throws ServiceException {
         if (result.hasErrors()) {
-            return "redirect:/news/add";
+            return "redirect:/news/creation";
         }
         News news = newsTORecord.getNews();
         news.setCreationDate(new Timestamp(System.currentTimeMillis()));
@@ -74,7 +74,7 @@ public class NewsController {
         return "redirect:/news/add";
     }
 
-    @RequestMapping(value = "/news/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/news/creation", method = RequestMethod.GET)
     public String loadPageAddNews(ModelMap model) throws ServiceException {
         List<Author> authors = authorService.readAll();
         List<Tag> tags = tagService.readAll();

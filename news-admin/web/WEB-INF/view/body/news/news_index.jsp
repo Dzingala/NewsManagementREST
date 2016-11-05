@@ -83,7 +83,7 @@
     </table>
     <input type="submit" name="command" value="Delete"/>
     </sf:form>
-    <c:url value="/news/add" var="add" />
+    <c:url value="/news/creation" var="add" />
     <form action="${add}" method="get" id="creationPage">
         <div>
             <input name="command" type="submit" value="Create"/>
