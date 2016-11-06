@@ -8,6 +8,7 @@ import by.epam.lab.task.utils.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -23,6 +24,25 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String READ_TAGS_ID_BY_NEWS_ID_QUERY = " SELECT TAG_ID FROM DZINHALA.NEWS_TAG WHERE NEWS_ID = :newsId ";
     private static final String READ_NEWS_ID_BY_TAG_ID_QUERY = " SELECT NEWS_ID FROM DZINHALA.NEWS_TAG WHERE TAG_ID = :tagId ";
 
+    @Value("${db.user}")
+    private String DBUSER;
+    @Value("${db.driver}")
+    private String DBDRIVER;
+    @Value("${db.url}")
+    private String DBURL;
+    @Value("${db.password}")
+    private String DBPASSWORD;
+    @Value("\nDriver: ${db.driver}\nUrl: ${db.url}\nUsername: ${db.user}\nPassword: ${db.password}")
+    public void setDriverClassName(String dbConfigString){
+        logger.debug("Connected to the database:");
+        logger.debug(dbConfigString);
+        logger.debug("@Value data got:\n" +
+                        "Driver: "+DBDRIVER+"\n" +
+                        "Url: "+DBURL+"\n" +
+                        "Username: "+ DBUSER+"\n" +
+                        "Password: "+DBPASSWORD
+        );
+    }
 
     /**
      * Implementation of TagRepository method create.

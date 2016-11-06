@@ -12,7 +12,6 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     private String DBURL;
     @Value("${db.password}")
     private String DBPASSWORD;
-    @Value("\nDriver: #{dataSource.driverClassName}\nUrl: #{dataSource.url}\nUsername: #{dataSource.username}\nPassword: #{dataSource.password}")
+    @Value("\nDriver: ${db.driver}\nUrl: ${db.url}\nUsername: ${db.user}\nPassword: ${db.password}")
     public void setDriverClassName(String dbConfigString){
         logger.debug("Connected to the database:");
         logger.debug(dbConfigString);
