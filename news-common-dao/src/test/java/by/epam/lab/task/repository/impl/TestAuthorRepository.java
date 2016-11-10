@@ -42,15 +42,13 @@ public class TestAuthorRepository {
 
     @Test
     public void createTest() throws DAOException {
-        Author author = new Author();
-        author.setName(tempName);
-        Long authorId = authorRepository.create(author);
+        Long authorId=authorRepository.create(new Author(1L,tempName,new Timestamp(System.currentTimeMillis())));
+        assertNotNull(authorId);
     }
 
     @Test
     public void readTest() throws DAOException {
-        Author author = authorRepository.read(2L);
-        assertNotNull(author);
+        assertNotNull(authorRepository.read(2L));
     }
 
     @Test
@@ -58,7 +56,6 @@ public class TestAuthorRepository {
         Long authorId = 3L;
         Author author = authorRepository.read(authorId);
         author.setName(tempName);
-        author.setExpired(new Timestamp(System.currentTimeMillis()));
         authorRepository.update(authorId, author);
         Author authorExpected = authorRepository.read(authorId);
         assertTrue(author.equals(authorExpected));
@@ -80,9 +77,6 @@ public class TestAuthorRepository {
 
     @Test
     public void readAllTest() throws DAOException{
-        Author author = new Author();
-        author.setName(tempName);
-        Long authorId= authorRepository.create(author);
         List<Author> authors= authorRepository.readAll();
         assertFalse(authors.isEmpty());
     }

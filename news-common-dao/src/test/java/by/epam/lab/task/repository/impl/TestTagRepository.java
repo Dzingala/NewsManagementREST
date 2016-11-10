@@ -41,7 +41,7 @@ public class TestTagRepository {
     public void createTest() throws DAOException {
         Tag tag = new Tag();
         tag.setName(tempName);
-        Long tagId = tagDAO.create(tag);
+        assertNotNull(tagDAO.create(tag));
     }
     @Test
     public void readTest() throws DAOException {
@@ -74,12 +74,8 @@ public class TestTagRepository {
     }
     @Test
     public void readAllTest() throws DAOException{
-        Tag tag = new Tag();
-        tag.setId(1L);
-        tag.setName(tempName);
-        Long tagId=tagDAO.create(tag);
-        List<Tag> tags=tagDAO.readAll();
-        assertFalse(tags.isEmpty());
+        List<Tag> tagList = tagDAO.readAll();
+        assertNotNull(tagList);
     }
 
 

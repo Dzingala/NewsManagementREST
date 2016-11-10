@@ -42,56 +42,33 @@ public class TestUserRepository {
 
     @Test
     public void createTest() throws DAOException {
-        User user = new User();
-        user.setName(tempName);
-        user.setLogin(tempLogin);
-        user.setPassword(tempPass);
-        user.setRoleId(1L);
+        User user = new User(1L,1L,tempName,tempLogin,tempPass);
         Long userId = userRepository.create(user);
-        assertNotNull(userRepository.read(userId));
+        assertNotNull(userId);
     }
 
     @Test
     public void readTest() throws DAOException {
-        User user = new User();
-        user.setName(tempName);
-        user.setLogin(tempLogin);
-        user.setPassword(tempPass);
-        user.setRoleId(1L);
-        Long userId = userRepository.create(user);
-        user.setId(userId);
-        User newUser = userRepository.read(userId);
-        assertTrue(!newUser.equals(user));
+        User user = userRepository.read(1L);
+        assertNotNull(user);
     }
 
     @Test
     public void updateTest() throws DAOException {
-        User user = new User();
-        user.setName(tempName);
-        user.setLogin(tempLogin);
-        user.setPassword(tempPass);
-        user.setRoleId(1L);
+        User user = new User(1L,1L,tempName,tempLogin,tempPass);
         Long userId = userRepository.create(user);
         user.setId(userId);
         String templog1=tempLogin1;
         user.setLogin(templog1);
         userRepository.update(userId, user);
         User userExpected = userRepository.read(userId);
-        System.out.println(user);
-        System.out.println(userExpected);
         assertTrue( !user.equals(userExpected));
 
     }
 
     @Test(expected = DAOException.class)
     public void deleteTest() throws DAOException {
-
-        User user = new User();
-        user.setId(1L);
-        user.setName(tempName);
-        user.setLogin(tempLogin);
-        user.setPassword(tempPass);
-        user.setRoleId(1L);
+        User user = new User(1L,1L,tempName,tempLogin,tempPass);
         Long userId = userRepository.create(user);
         userRepository.delete(userId);
         assertNull(userRepository.read(userId));
@@ -99,25 +76,13 @@ public class TestUserRepository {
 
     @Test
     public void readIdByLogin() throws DAOException {
-        User user = new User();
-        user.setName(tempName);
-        user.setLogin(tempLogin);
-        user.setPassword(tempPass);
-        user.setRoleId(1L);
+        User user = new User(1L,1L,tempName,tempLogin,tempPass);
         Long userId= userRepository.create(user);
         Long newUserId = userRepository.readIdByLogin(tempLogin);
         assertTrue(userId.longValue()==newUserId.longValue());
     }
     @Test
     public void readAllTest() throws DAOException{
-        User user = new User();
-        user.setId(1L);
-        user.setName(tempName);
-        user.setLogin(tempLogin);
-        user.setPassword(tempPass);
-        user.setRoleId(1L);
-
-        Long userId= userRepository.create(user);
         List<User> users= userRepository.readAll();
         assertFalse(users.isEmpty());
     }

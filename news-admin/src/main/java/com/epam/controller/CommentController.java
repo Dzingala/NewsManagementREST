@@ -34,7 +34,11 @@ public class CommentController {
 
     @RequestMapping(value = "/comment/delete", method = RequestMethod.POST)
     public String deleteComment(@ModelAttribute Comment comment, @RequestParam Long newsId) throws ServiceException {
-        commentService.delete(comment);
+        delete(comment,newsId);
         return "redirect:/news/view/" + newsId;
+    }
+    @RequestMapping(value = "/comment/delete", method = RequestMethod.DELETE)
+    public void delete(@ModelAttribute Comment comment, @RequestParam Long newsId) throws ServiceException {
+        commentService.delete(comment);
     }
 }

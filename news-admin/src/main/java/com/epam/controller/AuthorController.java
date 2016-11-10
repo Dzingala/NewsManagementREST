@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -37,15 +38,22 @@ public class AuthorController {
 
     @RequestMapping(value = "/authors/edit",method = RequestMethod.POST)
     public String updateAuthor(@ModelAttribute Author author) throws ServiceException {
-        authorService.update(author);
+        update(author);
         return "redirect:/authors";
     }
-
+    @RequestMapping(value = "/authors/edit",method = RequestMethod.PUT)
+    public void update(@ModelAttribute Author author) throws ServiceException {
+        authorService.update(author);
+    }
 
     @RequestMapping(value = "/authors/delete", method = RequestMethod.POST)
     public String deleteAuthor(@ModelAttribute Author author) throws ServiceException {
-        authorService.delete(author);
+        delete(author);
         return "redirect:/authors";
+    }
+    @RequestMapping(value = "/authors/delete", method = RequestMethod.DELETE)
+    public void delete(@RequestBody Author author) throws ServiceException {
+        authorService.delete(author);
     }
 
 }

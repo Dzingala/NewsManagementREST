@@ -19,7 +19,7 @@
 
                     <a href="">cancel</a>
 
-                    <sf:form modelAttribute="tag" method="post" action="/tag/delete">
+                    <sf:form modelAttribute="tag" method="delete" action="/tag/delete">
                         <sf:input path="id" type="hidden" value="${tag.id}"/>
                         <input type="submit" name="command" value="delete"/>
                     </sf:form>

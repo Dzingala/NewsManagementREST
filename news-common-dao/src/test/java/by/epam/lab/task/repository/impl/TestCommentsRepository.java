@@ -36,24 +36,12 @@ import static org.junit.Assert.*;
 @DatabaseTearDown(value = "classpath:dataset.xml", type = DatabaseOperation.DELETE_ALL)
 public class TestCommentsRepository {
     @Autowired
-    private NewsRepositoryImpl newsDAO;
-    @Autowired
     private CommentsRepositoryImpl commentDAO;
     private static final String tempCommentText="tempcommenttext";
     @Test
     public void createTest() throws DAOException {
-        Long newsId=newsDAO.create(new News(
-                1,
-                "tempTitle",
-                "tempShortText",
-                "tempFullText",
-                new Timestamp(new java.util.Date().getTime()),
-                new java.sql.Date(Calendar.getInstance().getTime().getTime())));
-        Comment comment = new Comment();
-        comment.setNewsId(newsId);
-        comment.setText(tempCommentText);
-        comment.setCreationDate(new Timestamp(new java.util.Date().getTime()));
-        Long commentId = commentDAO.create(comment);
+        Long commentId=commentDAO.create(new Comment(1L,1L,tempCommentText,new Timestamp(new java.util.Date().getTime())));
+        assertNotNull(commentId);
     }
 
     @Test
@@ -87,12 +75,6 @@ public class TestCommentsRepository {
     }
     @Test
     public void readAllTest() throws DAOException{
-        Comment comment = new Comment();
-        comment.setId(1L);
-        comment.setCreationDate(new Timestamp(new java.util.Date().getTime()));
-        comment.setNewsId(1l);
-        comment.setText(tempCommentText);
-        Long commentId=commentDAO.create(comment);
         List<Comment> comments=commentDAO.readAll();
         assertFalse(comments.isEmpty());
     }

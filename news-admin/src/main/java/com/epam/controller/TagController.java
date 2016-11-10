@@ -8,14 +8,13 @@ import by.epam.lab.task.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes("tag")
 public class TagController {
     @Autowired
     TagService tagService;
@@ -33,23 +32,26 @@ public class TagController {
 
 
     @RequestMapping(value = "/tag/delete", method = RequestMethod.POST)
-    public String deleteTag(@ModelAttribute Tag tag) throws ServiceException {
-        newsService.deleteTag(tag);
+    public String delete(@ModelAttribute Tag tag) throws ServiceException {
+        deleteTag(tag);
         return "redirect:/tags";
     }
-
+    @RequestMapping(value = "/tag/delete", method = RequestMethod.DELETE)
+    public void deleteTag(@RequestBody Tag tag) throws ServiceException {
+        newsService.deleteTag(tag);
+    }
     @RequestMapping(value = "/tag/create", method = RequestMethod.POST)
     public String createTag(@ModelAttribute Tag tag) throws ServiceException {
         tagService.create(tag);
         return "redirect:/tags";
     }
-
-    @RequestMapping(value = "/tag/update", method = RequestMethod.POST)
-    public String updateTag(@ModelAttribute Tag tag) throws ServiceException {
-        tagService.update(tag);
+    @RequestMapping(value = "/tag/update",method = RequestMethod.POST)
+    public String update(@ModelAttribute Tag tag)throws ServiceException{
+        updateTag(tag);
         return "redirect:/tags";
     }
-
-
-
+    @RequestMapping(value = "/tag/update",method = RequestMethod.PUT)
+    public  void updateTag(@RequestBody Tag tag)throws ServiceException{
+        tagService.update(tag);
+    }
 }
