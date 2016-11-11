@@ -41,15 +41,12 @@ public class TestCommentService {
     @Test
     public void createTest() throws DAOException, ServiceException {
         Comment comment = new Comment();
-        Long newsId = 1L;
-        comment.setNewsId(newsId);
         commentService.create(comment);
         Mockito.verify(commentRepository).create(comment);
     }
 
     @Test
     public void deleteTest() throws DAOException, ServiceException {
-
         Comment comment = new Comment();
         commentService.delete(comment);
         Mockito.verify(commentRepository).delete(comment.getId());

@@ -41,7 +41,7 @@ public class TestAuthorService {
     }
     @Test
     public void readTest() throws DAOException, ServiceException {
-        Long authorId=1l;
+        Long authorId=1L;
         authorService.read(authorId);
         Mockito.verify(authorRepository).read(authorId);
     }
@@ -65,9 +65,9 @@ public class TestAuthorService {
     }
     @Test
     public void readAllTest()throws DAOException,ServiceException{
-        Author authorExpected = new Author();
-        ArrayList<Author> authorsExpected=new ArrayList<>();
-        authorsExpected.add(authorExpected);
+        List<Author> authorsExpected=new ArrayList<Author>(){{
+            add(new Author());
+        }};
         Mockito.when(authorRepository.readAll()).thenReturn(authorsExpected);
         List<Author> authors =authorService.readAll();
         assertTrue(authors.equals(authorsExpected));

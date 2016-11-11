@@ -34,8 +34,6 @@ public class TestTagService {
     @Test
     public void createTagTest() throws DAOException, ServiceException {
         Tag tag = new Tag();
-        ArrayList<Tag> tagList = new ArrayList<>();
-        Mockito.when(tagRepository.readAll()).thenReturn(tagList);
         tagService.create(tag);
         Mockito.verify(tagRepository).create(tag);
     }
@@ -49,7 +47,7 @@ public class TestTagService {
 
     @Test
     public void readByIdTest() throws DAOException, ServiceException {
-        Long tagId=1l;
+        Long tagId=1L;
         tagService.readById(tagId);
         Mockito.verify(tagRepository).read(tagId);
     }
@@ -81,9 +79,9 @@ public class TestTagService {
     }
     @Test
     public void readAllTest()throws DAOException,ServiceException{
-        Tag tagExpected = new Tag();
-        ArrayList<Tag> tagsExpected=new ArrayList<>();
-        tagsExpected.add(tagExpected);
+        List<Tag> tagsExpected=new ArrayList<Tag>(){{
+            add(new Tag());
+        }};
         Mockito.when(tagRepository.readAll()).thenReturn(tagsExpected);
         List<Tag> tags =tagService.readAll();
         assertTrue(tags.equals(tagsExpected));
