@@ -29,7 +29,6 @@ public class TestRoleService {
 
     @Test
     public void addTest() throws DAOException, ServiceException {
-
         Role role = new Role();
         roleService.create(role);
         Mockito.verify(roleRepository).create(role);
@@ -37,7 +36,6 @@ public class TestRoleService {
 
     @Test
     public void editTest() throws DAOException, ServiceException {
-
         Role role = new Role();
         roleService.update(role);
         Mockito.verify(roleRepository).update(role.getId(), role);
@@ -45,7 +43,6 @@ public class TestRoleService {
 
     @Test
     public void deleteTest() throws DAOException, ServiceException {
-
         Role role = new Role();
         roleService.delete(role);
         Mockito.verify(roleRepository).delete(role.getId());

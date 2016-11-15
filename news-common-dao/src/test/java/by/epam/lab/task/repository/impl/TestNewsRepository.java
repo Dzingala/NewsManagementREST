@@ -130,6 +130,7 @@ public class TestNewsRepository {
         Long authorId = 3L;
         newsRepository.disjoinNewsWithAuthor(newsId, authorId);
         authorId= authorRepository.readAuthorIdByNewsId(newsId);
+        assertEquals(authorId,(Long)1L);
     }
 
     @Test

@@ -37,7 +37,7 @@ public class TestUserService {
 
     @Test
     public void registrationTest() throws DAOException, ServiceException {
-        Role role = new Role(1l,testName);
+        Role role = new Role(1L,testName);
         User user = new User();
         user.setLogin(testName);
         user.setPassword(testName);
@@ -57,7 +57,7 @@ public class TestUserService {
 
     @Test(expected = ServiceException.class)
     public void loginTest() throws ServiceException, DAOException {
-        Role role = new Role(1L,testName);
+        Role role = new Role();
         User user = new User(role.getId(),1L, testName, testName, testName);
         Mockito.when(userRepository.readIdByLogin(user.getLogin())).thenReturn(user.getId());
         Mockito.when(userRepository.read(user.getId())).thenReturn(user);
@@ -79,8 +79,8 @@ public class TestUserService {
 
     @Test
     public void updateTest() throws ServiceException, DAOException {
-        Role role = new Role(1L, testName);
-        User user = new User(role.getId(),1L,testName, testName, testName);
+        Role role = new Role();
+        User user = new User();
         UserTO userTO = new UserTO(user, role);
         userService.edit(userTO);
         Mockito.verify(userRepository).update(userTO.getUser().getId(), userTO.getUser());

@@ -42,7 +42,7 @@ public class AuthorController {
         return "redirect:/authors";
     }
     @RequestMapping(value = "/authors/edit",method = RequestMethod.PUT)
-    public void update(@ModelAttribute Author author) throws ServiceException {
+    public void update(@RequestBody Author author) throws ServiceException {
         authorService.update(author);
     }
 
