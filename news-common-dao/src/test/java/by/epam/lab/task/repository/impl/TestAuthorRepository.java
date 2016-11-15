@@ -41,18 +41,18 @@ public class TestAuthorRepository {
     private static final String tempName="tempname";
 
     @Test
-    public void createTest() throws DAOException {
+    public void create() throws DAOException {
         Long authorId=authorRepository.create(new Author(1L,tempName,new Timestamp(System.currentTimeMillis())));
         assertNotNull(authorId);
     }
 
     @Test
-    public void readTest() throws DAOException {
+    public void read() throws DAOException {
         assertNotNull(authorRepository.read(2L));
     }
 
     @Test
-    public void updateTest() throws DAOException {
+    public void update() throws DAOException {
         Long authorId = 3L;
         Author author = authorRepository.read(authorId);
         author.setName(tempName);
@@ -62,21 +62,21 @@ public class TestAuthorRepository {
     }
 
     @Test(expected = DAOException.class)
-    public void deleteTest() throws DAOException {
+    public void delete() throws DAOException {
         Long authorId = 3L;
         authorRepository.delete(authorId);
         assertNull(authorRepository.read(authorId));
     }
 
     @Test
-    public void readAuthorIdByNewsIdTest() throws DAOException {
+    public void readAuthorIdByNewsId() throws DAOException {
         Long newsId = 2L;
         Long authorId = authorRepository.readAuthorIdByNewsId(newsId);
         assertNotNull(authorId);
     }
 
     @Test
-    public void readAllTest() throws DAOException{
+    public void readAll() throws DAOException{
         List<Author> authors= authorRepository.readAll();
         assertFalse(authors.isEmpty());
     }

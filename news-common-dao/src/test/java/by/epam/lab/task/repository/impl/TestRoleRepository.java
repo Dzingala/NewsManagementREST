@@ -38,19 +38,19 @@ public class TestRoleRepository {
     private RoleRepositoryImpl roleDAO;
 
     @Test
-    public void createTest() throws DAOException {
+    public void create() throws DAOException {
         Role role = new Role();
         role.setName(tempName);
         assertNotNull(roleDAO.create(role));
     }
 
     @Test
-    public void readTest() throws DAOException{
+    public void read() throws DAOException{
         assertNotNull(roleDAO.read(1L));
     }
 
     @Test
-    public void updateTest() throws DAOException {
+    public void update() throws DAOException {
         Long roleId=1L;
         Role role= roleDAO.read(roleId);
         role.setName(tempName);
@@ -60,14 +60,14 @@ public class TestRoleRepository {
     }
 
     @Test(expected = DAOException.class)
-    public void deleteTest() throws DAOException {
+    public void delete() throws DAOException {
         Long roleId = 1L;
         roleDAO.delete(roleId);
         assertNull(roleDAO.read(roleId));
     }
 
     @Test
-    public void readAllTest() throws DAOException{
+    public void readAll() throws DAOException{
         List<Role> newsList = roleDAO.readAll();
         assertNotNull(newsList);
     }

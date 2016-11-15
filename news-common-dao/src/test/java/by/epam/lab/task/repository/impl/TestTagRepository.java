@@ -38,18 +38,18 @@ public class TestTagRepository {
     private TagRepositoryImpl tagDAO;
 
     @Test
-    public void createTest() throws DAOException {
+    public void create() throws DAOException {
         Tag tag = new Tag();
         tag.setName(tempName);
         assertNotNull(tagDAO.create(tag));
     }
     @Test
-    public void readTest() throws DAOException {
+    public void read() throws DAOException {
         Tag tag = tagDAO.read(1L);
         assertNotNull(tag);
     }
     @Test
-    public void updateTest() throws DAOException {
+    public void update() throws DAOException {
         Long tagId = 1L;
         Tag tag = tagDAO.read(tagId);
         tag.setName(tempName);
@@ -59,21 +59,21 @@ public class TestTagRepository {
     }
 
     @Test
-    public void deleteTest() throws DAOException {
+    public void delete() throws DAOException {
         Long tagId=tagDAO.create(new Tag(1,tempName));
         tagDAO.delete(tagId);
         assertNull(tagDAO.read(tagId));
     }
 
     @Test
-    public void readTagsIdByNewsIdTest() throws DAOException {
+    public void readTagsIdByNewsId() throws DAOException {
         Long newsId = 1L;
         List<Long> tagsId = tagDAO.readTagsIdByNewsId(newsId);
         assertNotNull(tagsId);
 
     }
     @Test
-    public void readAllTest() throws DAOException{
+    public void readAll() throws DAOException{
         List<Tag> tagList = tagDAO.readAll();
         assertNotNull(tagList);
     }

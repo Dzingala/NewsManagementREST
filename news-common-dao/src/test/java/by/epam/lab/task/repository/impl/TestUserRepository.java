@@ -41,20 +41,20 @@ public class TestUserRepository {
     private UserRepositoryImpl userRepository;
 
     @Test
-    public void createTest() throws DAOException {
+    public void create() throws DAOException {
         User user = new User(1L,1L,tempName,tempLogin,tempPass);
         Long userId = userRepository.create(user);
         assertNotNull(userId);
     }
 
     @Test
-    public void readTest() throws DAOException {
+    public void read() throws DAOException {
         User user = userRepository.read(1L);
         assertNotNull(user);
     }
 
     @Test
-    public void updateTest() throws DAOException {
+    public void update() throws DAOException {
         User user = new User(1L,1L,tempName,tempLogin,tempPass);
         Long userId = userRepository.create(user);
         user.setId(userId);
@@ -67,7 +67,7 @@ public class TestUserRepository {
     }
 
     @Test(expected = DAOException.class)
-    public void deleteTest() throws DAOException {
+    public void delete() throws DAOException {
         User user = new User(1L,1L,tempName,tempLogin,tempPass);
         Long userId = userRepository.create(user);
         userRepository.delete(userId);
@@ -82,7 +82,7 @@ public class TestUserRepository {
         assertTrue(userId.longValue()==newUserId.longValue());
     }
     @Test
-    public void readAllTest() throws DAOException{
+    public void readAll() throws DAOException{
         List<User> users= userRepository.readAll();
         assertFalse(users.isEmpty());
     }

@@ -52,21 +52,20 @@ public class TestNewsRepository {
     private static final String tempShortText="tempshorttext";
     private static final String tempFullText="tempfulltext";
     @Test
-    public void createTest() throws DAOException, ParseException {
+    public void create() throws DAOException {
         News news = new News(1L,tempTitle,tempShortText,tempFullText,new Timestamp(new java.util.Date().getTime()),new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         Long newsId = newsRepository.create(news);
         assertNotNull(newsId);
-
     }
 
     @Test
-    public void readTest() throws DAOException {
+    public void read() throws DAOException {
         News news = newsRepository.read(1L);
         assertNotNull(news);
     }
 
     @Test
-    public void updateTest() throws DAOException {
+    public void update() throws DAOException {
         News news = new News(1L,tempTitle,tempShortText,tempFullText,new Timestamp(new java.util.Date().getTime()),new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         Long id = newsRepository.create(news);
         news.setId(id);
@@ -78,26 +77,26 @@ public class TestNewsRepository {
     }
 
     @Test(expected = DAOException.class)
-    public void deleteTest() throws DAOException {
+    public void delete() throws DAOException {
         Long newsId = 3L;
         newsRepository.delete(newsId);
         assertNull(newsRepository.read(newsId));
     }
 
     @Test
-    public void readAllTest() throws DAOException {
+    public void readAll() throws DAOException {
         List<News> newsList = newsRepository.readAll();
         assertNotNull(newsList);
     }
 
     @Test
-    public void countNewsTest() throws DAOException {
+    public void countNews() throws DAOException {
         Long newsAmount = newsRepository.countNews();
         assertNotNull(newsAmount);
     }
 
     @Test
-    public void joinNewsWithAuthorTest() throws DAOException {
+    public void joinNewsWithAuthor() throws DAOException {
         News news = new News(1L,tempTitle,tempShortText,tempFullText,new Timestamp(new java.util.Date().getTime()),new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         Long newsId = newsRepository.create(news);
         Long authorId = 3L;
@@ -107,7 +106,7 @@ public class TestNewsRepository {
     }
 
     @Test
-    public void joinNewsWithTagsTest() throws DAOException {
+    public void joinNewsWithTags() throws DAOException {
         News news = new News(1L,tempTitle,tempShortText,tempFullText,new Timestamp(new java.util.Date().getTime()),new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         Long newsId = newsRepository.create(news);
         Long tagId = 2L;
@@ -117,7 +116,7 @@ public class TestNewsRepository {
     }
 
     @Test
-    public void disjoinNewsWithTagTest() throws DAOException {
+    public void disjoinNewsWithTag() throws DAOException {
         Long newsId = 1L;
         Long tagId = 2L;
         newsRepository.disjoinNewsWithTag(newsId, tagId);
@@ -126,7 +125,7 @@ public class TestNewsRepository {
     }
 
     @Test
-    public void disjoinNewsWithAuthorTest() throws DAOException {
+    public void disjoinNewsWithAuthor() throws DAOException {
         Long newsId = 1L;
         Long authorId = 3L;
         newsRepository.disjoinNewsWithAuthor(newsId, authorId);
@@ -134,14 +133,14 @@ public class TestNewsRepository {
     }
 
     @Test
-    public void readBySortedTest()throws DAOException{
+    public void readBySorted()throws DAOException{
         News news = new News(1L,tempTitle,tempShortText,tempFullText,new Timestamp(new java.util.Date().getTime()),new java.sql.Date(Calendar.getInstance().getTime().getTime()));
         LinkedHashSet<Long> expectedIdSet=new LinkedHashSet<>();
         expectedIdSet.add(news.getId());
         assertTrue(!expectedIdSet.isEmpty());
     }
     @Test
-    public void readBySearchCriteriaTest()throws DAOException{
+    public void readBySearchCriteria()throws DAOException{
         SearchCriteria searchCriteria = new SearchCriteria();
         final Author author = new Author();
         author.setId(1l);

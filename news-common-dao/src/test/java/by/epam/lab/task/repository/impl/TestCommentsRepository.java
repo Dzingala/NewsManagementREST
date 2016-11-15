@@ -39,19 +39,19 @@ public class TestCommentsRepository {
     private CommentsRepositoryImpl commentDAO;
     private static final String tempCommentText="tempcommenttext";
     @Test
-    public void createTest() throws DAOException {
+    public void create() throws DAOException {
         Long commentId=commentDAO.create(new Comment(1L,1L,tempCommentText,new Timestamp(new java.util.Date().getTime())));
         assertNotNull(commentId);
     }
 
     @Test
-    public void readTest() throws DAOException {
+    public void read() throws DAOException {
         Comment comment = commentDAO.read(3L);
         assertNotNull(comment);
     }
 
     @Test
-    public void updateTest() throws DAOException {
+    public void update() throws DAOException {
         Long commentId = 3L;
         Comment comment = commentDAO.read(commentId);
         comment.setText(tempCommentText);
@@ -61,20 +61,20 @@ public class TestCommentsRepository {
     }
 
     @Test(expected = DAOException.class)
-    public void deleteTest() throws DAOException {
+    public void delete() throws DAOException {
         Long commentId = 2L;
         commentDAO.delete(commentId);
         assertNull(commentDAO.read(commentId));
     }
 
     @Test
-    public void findCommentsIdByNewsIdTest() throws DAOException {
+    public void findCommentsIdByNewsId() throws DAOException {
         Long newsId = 4L;
         List<Long> commentsId = commentDAO.readCommentsIdByNewsId(newsId);
         assertNotNull(commentsId);
     }
     @Test
-    public void readAllTest() throws DAOException{
+    public void readAll() throws DAOException{
         List<Comment> comments=commentDAO.readAll();
         assertFalse(comments.isEmpty());
     }
