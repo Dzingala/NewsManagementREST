@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AdminTest {
     @Test
-    public void login() throws InterruptedException {
+    public void login()  {
         String path ="E:\\chromedriver_win32\\chromedriver.exe";
         System.setProperty("webdriver.chrome.driver",path);
         WebDriver webDriver=new ChromeDriver();
@@ -31,7 +31,7 @@ public class AdminTest {
         webDriver.quit();
     }
     @Test
-    public void logout()throws InterruptedException{
+    public void logout(){
         String path ="E:\\chromedriver_win32\\chromedriver.exe";
         System.setProperty("webdriver.chrome.driver", path);
         WebDriver webDriver=new ChromeDriver();
@@ -49,7 +49,7 @@ public class AdminTest {
     }
 
     @Test
-    public void invalidLogin() throws InterruptedException {
+    public void invalidLogin()  {
         String path ="E:\\chromedriver_win32\\chromedriver.exe";
         System.setProperty("webdriver.chrome.driver",path);
         WebDriver webDriver=new ChromeDriver();
@@ -66,7 +66,7 @@ public class AdminTest {
         webDriver.quit();
     }
     @Test
-    public void firstNewsPieceDetails() throws InterruptedException {
+    public void firstNewsPieceDetails()  {
         String path ="E:\\chromedriver_win32\\chromedriver.exe";
         System.setProperty("webdriver.chrome.driver",path);
         WebDriver webDriver=new ChromeDriver();
@@ -81,6 +81,28 @@ public class AdminTest {
         WebElement newsLink = webDriver.findElement(By.linkText("unbelievable"));
         newsLink.click();
         assertTrue(webDriver.findElement(By.tagName("p")).getText().trim().equals("unbelievable"));
+        webDriver.quit();
+    }
+    @Test
+    public void firstNewsPieceCommenting() throws InterruptedException {
+        String path ="E:\\chromedriver_win32\\chromedriver.exe";
+        System.setProperty("webdriver.chrome.driver",path);
+        WebDriver webDriver=new ChromeDriver();
+        webDriver.get("http://localhost:8081");
+        WebElement link=webDriver.findElement(By.linkText("news"));
+        link.click();
+        WebElement userInput=webDriver.findElement(By.id("username"));
+        userInput.sendKeys("login3");
+        WebElement passwordInput= webDriver.findElement(By.id("password"));
+        passwordInput.sendKeys("pass3");
+        webDriver.findElement(By.name("submit")).click();
+        WebElement newsLink = webDriver.findElement(By.linkText("unbelievable"));
+        newsLink.click();
+        WebElement inputComment= webDriver.findElement(By.tagName("textarea"));
+        inputComment.sendKeys("test comment");
+        webDriver.findElement(By.xpath("//input[@name='command' and @value='add']")).submit();
+        WebElement comment = webDriver.findElement(By.xpath("//p[8]"));
+        assertTrue(comment.getText().equals("test comment"));
         webDriver.quit();
     }
 }
