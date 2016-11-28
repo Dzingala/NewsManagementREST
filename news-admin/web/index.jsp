@@ -7,7 +7,7 @@
     <title>SpringMVC Tutorials</title>
 </head>
 
-<body>
+<body id="startPage">
 <h3>Admin's functionality testing</h3>
 <c:url var="page1" value="/page1"/>
 <a href="page1">Page 1 (with the template content)</a><br>

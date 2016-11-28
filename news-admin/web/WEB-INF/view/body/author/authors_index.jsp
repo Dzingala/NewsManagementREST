@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
-<div class="container body-content">
+<div class="container body-content" id="authors-index">
     <h2>Authors</h2>
     <%--<p>--%>
         <%--<c:url var="authorCreation" value="/authors/create"/>--%>
