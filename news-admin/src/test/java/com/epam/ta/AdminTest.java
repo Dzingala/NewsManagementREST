@@ -7,60 +7,56 @@ import org.testng.annotations.Test;
 
 import com.epam.ta.steps.Steps;
 
-public class AdminTest
-{
-	private Steps steps;
-	private final String USERNAME = "login3";
-	private final String PASSWORD = "pass3";
-	private final String USERNAME_INVALID="asdfg1";
-	private final String PASSWORD_INVALID="asdfg1";
+public class AdminTest {
+    private Steps steps;
+    private final String USERNAME = "login3";
+    private final String PASSWORD = "pass3";
+    private final String USERNAME_INVALID = "asdfg1";
+    private final String PASSWORD_INVALID = "asdfg1";
 
-	@BeforeMethod(description = "Init browser")
-	public void setUp()
-	{
-		steps = new Steps();
-		steps.initBrowser();
-	}
+    @BeforeMethod(description = "Init browser")
+    public void setUp() {
+        steps = new Steps();
+        steps.initBrowser();
+    }
 
 
-	@Test(description = "Login to NewsApp")
-	public void oneCanLoginNewsApp()
-	{
-		steps.login(USERNAME, PASSWORD);
-		Assert.assertTrue(steps.isLoggedIn());
-	}
+    @Test(description = "Login to NewsApp")
+    public void oneCanLoginNewsApp() {
+        steps.login(USERNAME, PASSWORD);
+        Assert.assertTrue(steps.isLoggedIn());
+    }
 
-	@Test(description = "Logout from NewsApp")
-	public void oneCanLogoutNewsApp(){
-		steps.login(USERNAME,PASSWORD);
-		steps.logout();
-		Assert.assertTrue(steps.isLoggedOut());
-	}
+    @Test(description = "Logout from NewsApp")
+    public void oneCanLogoutNewsApp() {
+        steps.login(USERNAME, PASSWORD);
+        steps.logout();
+        Assert.assertTrue(steps.isLoggedOut());
+    }
 
-	@Test(description="Test 1st news piece content")
-	public void oneCanWatchDetailedNewsPiece(){
-		steps.login(USERNAME,PASSWORD);
-		steps.openFirstNewsPieceDetails();
-		Assert.assertTrue(steps.checkFirstNewsPieceDetails());
+    @Test(description = "Test 1st news piece content")
+    public void oneCanWatchDetailedNewsPiece() {
+        steps.login(USERNAME, PASSWORD);
+        steps.openFirstNewsPieceDetails();
+        Assert.assertTrue(steps.checkFirstNewsPieceDetails());
 
-	}
+    }
 
-	@Test(description = "Test app login using nonexistent credentials")
-	public void oneCannotLoginUsingWrongCredentials(){
-		steps.login(USERNAME_INVALID,PASSWORD_INVALID);
-		Assert.assertTrue(steps.isLoggedOut());
-	}
+    @Test(description = "Test app login using nonexistent credentials")
+    public void oneCannotLoginUsingWrongCredentials() {
+        steps.login(USERNAME_INVALID, PASSWORD_INVALID);
+        Assert.assertTrue(steps.isLoggedOut());
+    }
 
-	@Test(description="Test main page news count")//We expect at least 4 news on the main page in any case.
-    public void oneCanSeeNews(){
-	    steps.login(USERNAME,PASSWORD);
+    @Test(description = "Test main page news count")//We expect at least 4 news on the main page in any case.
+    public void oneCanSeeNews() {
+        steps.login(USERNAME, PASSWORD);
         Assert.assertTrue(steps.checkMainPageNewsCount());
     }
 
-	@AfterMethod(description = "Stop Browser")
-	public void stopBrowser()
-	{
-		steps.closeDriver();
-	}
+    @AfterMethod(description = "Stop Browser")
+    public void stopBrowser() {
+        steps.closeDriver();
+    }
 
 }
