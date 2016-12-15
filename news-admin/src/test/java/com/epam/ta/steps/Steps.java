@@ -1,5 +1,6 @@
 package com.epam.ta.steps;
 
+import by.epam.lab.task.entity.News;
 import com.epam.ta.driver.DriverSingleton;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +9,9 @@ import org.openqa.selenium.WebDriver;
 import com.epam.ta.pages.DetailedNewsPieceInfoPage;
 import com.epam.ta.pages.LoginPage;
 import com.epam.ta.pages.MainPage;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class Steps
 {
@@ -50,7 +54,11 @@ public class Steps
 		MainPage mainPage = new MainPage(driver);
 		mainPage.clickOnNewsPieceLink();
 	}
-
+	public boolean checkMainPageNewsCount(){
+		MainPage mainPage = new MainPage(driver);
+		List<WebElement> newsRows = mainPage.getNewsElementsList();
+		return newsRows.size()/7  >= 4;//7 "td" tags per piece of news, we expect news amount to be greater than or equal to 4
+	}
     public boolean checkFirstNewsPieceDetails(){
         DetailedNewsPieceInfoPage detailedNewsPieceInfoPage = new DetailedNewsPieceInfoPage(driver);
         return detailedNewsPieceInfoPage.getCurrentPageTitle().equals("News specifically");

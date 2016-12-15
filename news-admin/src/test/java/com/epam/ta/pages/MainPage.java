@@ -1,10 +1,13 @@
 package com.epam.ta.pages;
 
+import by.epam.lab.task.entity.dto.NewsTO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class MainPage extends AbstractPage
 {
@@ -22,6 +25,9 @@ public class MainPage extends AbstractPage
 	@FindBy(linkText = "unbelievable")
 	private WebElement firstNewsPieceLink;
 
+	@FindBy(xpath = "//table[contains(@class,'table')]/tbody")
+	private WebElement newsTable;
+
 	public MainPage(WebDriver driver)
 	{
 		super(driver);
@@ -33,6 +39,9 @@ public class MainPage extends AbstractPage
 		firstNewsPieceLink.click();
 	}
 
+	public List<WebElement> getNewsElementsList(){
+		return newsTable.findElements(By.tagName("td"));
+	}
 	public void logout(){
 		logoutButton.click();
 	}
