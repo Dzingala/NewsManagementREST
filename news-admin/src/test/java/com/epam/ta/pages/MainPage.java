@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -28,12 +29,24 @@ public class MainPage extends AbstractPage
 	@FindBy(xpath = "//table[contains(@class,'table')]/tbody")
 	private WebElement newsTable;
 
+    @FindBy(xpath="//select[1]")
+    private WebElement authorSelect;
+
+    @FindBy(xpath="//input[@value='Search']")
+    private WebElement searchButton;
+
 	public MainPage(WebDriver driver)
 	{
 		super(driver);
 		PageFactory.initElements(this.driver, this);
 	}
 
+    public List<WebElement> getAuthorsNews(String authorName){
+        Select dropdown = new Select(authorSelect);
+        dropdown.selectByValue(authorName);
+        searchButton.submit();
+        return newsTable.findElements(By.tagName("td"));
+    }
 	public void clickOnNewsPieceLink()
 	{
 		firstNewsPieceLink.click();

@@ -72,4 +72,10 @@ public class Steps
 		DetailedNewsPieceInfoPage detailedNewsPieceInfoPage = new DetailedNewsPieceInfoPage(driver);
 		return detailedNewsPieceInfoPage.getFirstComment().equals("comment");
 	}
+    public boolean isValidNewsAmountByAuthor(String authorName){
+        MainPage mainPage = new MainPage(driver);
+        List<WebElement> newsRows = mainPage.getNewsElementsList();
+        List<WebElement> authorsNews = mainPage.getAuthorsNews(authorName);
+        return authorsNews.size()<=newsRows.size();
+    }
 }

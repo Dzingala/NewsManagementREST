@@ -14,7 +14,7 @@ public class AdminTest {
     private final String USERNAME_INVALID = "asdfg1";
     private final String PASSWORD_INVALID = "asdfg1";
     private final String COMMENT="comment";
-
+    private final String AUTHOR_NAME="Jack";
     @BeforeMethod(description = "Init browser")
     public void setUp() {
         steps = new Steps();
@@ -61,6 +61,13 @@ public class AdminTest {
         steps.openFirstNewsPieceDetails();
         steps.commentFirstNewsPiece(COMMENT);
         Assert.assertTrue(steps.doesFirstCommentExistAndActual());
+    }
+
+    @Test(description="Find Jack's news")
+    public void oneCanSearchForJacksNews(){
+        steps.login(USERNAME,PASSWORD);
+        Assert.assertTrue(steps.isValidNewsAmountByAuthor(AUTHOR_NAME));
+
     }
 
     @AfterMethod(description = "Stop Browser")
