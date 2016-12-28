@@ -13,6 +13,7 @@ public class AdminTest {
     private final String PASSWORD = "pass3";
     private final String USERNAME_INVALID = "asdfg1";
     private final String PASSWORD_INVALID = "asdfg1";
+    private final String COMMENT="comment";
 
     @BeforeMethod(description = "Init browser")
     public void setUp() {
@@ -52,6 +53,14 @@ public class AdminTest {
     public void oneCanSeeNews() {
         steps.login(USERNAME, PASSWORD);
         Assert.assertTrue(steps.checkMainPageNewsCount());
+    }
+
+    @Test(description= "Comment 1st news piece")//It's fixed that the 1st piece of news always exist
+    public void oneCanSeeJacksNews(){
+        steps.login(USERNAME,PASSWORD);
+        steps.openFirstNewsPieceDetails();
+        steps.commentFirstNewsPiece(COMMENT);
+        Assert.assertTrue(steps.doesFirstCommentExistAndActual());
     }
 
     @AfterMethod(description = "Stop Browser")

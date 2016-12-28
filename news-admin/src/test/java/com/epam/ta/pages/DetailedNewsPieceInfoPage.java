@@ -22,17 +22,31 @@ public class DetailedNewsPieceInfoPage extends AbstractPage
 	@FindBy(xpath = "//a[@data-pjax='#js-repo-pjax-container']")
 	private WebElement linkCurrentRepository;
 
+	@FindBy(xpath = "//form[@modelAttribute='comment']//textarea")
+	private WebElement commentTextArea;
+
+	@FindBy(xpath = "//form[@modelAttribute='comment']//input[@value='add']")
+	private WebElement commentSubmit;
+
+	@FindBy(xpath = "//p[5]")//The first comment is always located in the 5th paragraph
+	private WebElement firstCommentParagraph;
+
 	public DetailedNewsPieceInfoPage(WebDriver driver)
 	{
 		super(driver);
 		PageFactory.initElements(this.driver, this);
 	}
-
+	public String getFirstComment(){
+		return firstCommentParagraph.getText();
+	}
 	public String getCurrentPageTitle(){
 		return driver.getTitle();
 	}
 
-
+	public void commentFirstNewsPiece(String comment){
+		commentTextArea.sendKeys(comment);
+		commentSubmit.submit();
+	}
 
 	public String getCurrentRepositoryName()
 	{

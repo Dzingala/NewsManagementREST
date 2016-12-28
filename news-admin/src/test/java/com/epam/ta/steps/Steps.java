@@ -64,5 +64,12 @@ public class Steps
         return detailedNewsPieceInfoPage.getCurrentPageTitle().equals("News specifically");
     }
 
-
+	public void commentFirstNewsPiece(String comment){
+    	DetailedNewsPieceInfoPage detailedNewsPieceInfoPage = new DetailedNewsPieceInfoPage(driver);
+		detailedNewsPieceInfoPage.commentFirstNewsPiece(comment);
+	}
+	public boolean doesFirstCommentExistAndActual(){
+		DetailedNewsPieceInfoPage detailedNewsPieceInfoPage = new DetailedNewsPieceInfoPage(driver);
+		return detailedNewsPieceInfoPage.getFirstComment().equals("comment");
+	}
 }
