@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
-<div class="container body-content">
+<div class="container body-content" id="news-index">
     <h2>News</h2>
     <sf:form modelAttribute="searchCriteria" method="get" action="/news">
 

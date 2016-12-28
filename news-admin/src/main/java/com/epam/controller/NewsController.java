@@ -33,7 +33,7 @@ public class NewsController {
     @Autowired
     TagService tagService;
 
-    @RequestMapping(value = {"/news", "/news/{page}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/news", "/news/{page}","/news/list"}, method = RequestMethod.GET)
     public String getNews(ModelMap model,
                           @PathVariable Optional<Long> page,
                           @ModelAttribute SearchCriteria searchCriteria

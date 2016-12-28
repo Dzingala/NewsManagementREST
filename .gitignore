@@ -14,3 +14,9 @@ target/
 out/
 classes/
 */logs/
+
+# Eclipse ignorance
+
+*.project
+*.classpath
+*.settings

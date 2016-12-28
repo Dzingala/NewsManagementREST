@@ -5,6 +5,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<div id="login-index">
 <security:authorize access="isAnonymous()">
     <c:if test="${param.error != null}">
         <p>Invalid credentials. Something went wrong.</p>
@@ -27,3 +28,4 @@
 <security:authorize access="!hasRole('ROLE_ADMIN')">
     text for not admins only.
 </security:authorize>
+</div>

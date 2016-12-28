@@ -9,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
+<div id="news-full">
 <p>
     ${newsTO.news.title}
 </p>
@@ -47,3 +47,4 @@
         <input type="submit" name="command" value="add"/>
     </sf:form>
 </p>
+</div>
