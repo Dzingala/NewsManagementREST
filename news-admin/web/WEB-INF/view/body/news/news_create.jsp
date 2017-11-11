@@ -40,4 +40,6 @@
 
 
 </sf:form>
+<c:url var="back" value="/news"/>
+<a href="${back}">Back to news</a>
 </div>

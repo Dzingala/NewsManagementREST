@@ -4,6 +4,7 @@ import by.epam.lab.task.entity.*;
 import by.epam.lab.task.entity.dto.NewsTO;
 import by.epam.lab.task.entity.dto.NewsTORecord;
 import by.epam.lab.task.exceptions.service.ServiceException;
+import by.epam.lab.task.head.NewsAuthorService;
 import by.epam.lab.task.service.AuthorService;
 import by.epam.lab.task.service.CommentService;
 import by.epam.lab.task.service.NewsService;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ import java.util.Optional;
 
 @Controller
 public class NewsController {
+    @Resource(name="newsAuthorServiceBeanName")
+    NewsAuthorService newsAuthorServiceBean;
     @Autowired
     NewsService newsService;
     @Autowired
@@ -70,8 +74,8 @@ public class NewsController {
         news.setCreationDate(new Timestamp(System.currentTimeMillis()));
         news.setModificationDate(new Date(Calendar.getInstance().getTime().getTime()));
         newsTORecord.setNews(news);
-        newsService.createNews(newsTORecord);
-        return "redirect:/news/add";
+        newsAuthorServiceBean.createNews(newsTORecord);
+        return "redirect:/news/creation";
     }
 
     @RequestMapping(value = "/news/creation", method = RequestMethod.GET)

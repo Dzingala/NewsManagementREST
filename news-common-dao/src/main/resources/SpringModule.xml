@@ -7,5 +7,6 @@
     <context:annotation-config/>
     <context:component-scan base-package="by.epam.lab.task"/>
     <context:property-placeholder location="classpath:JdbcConfig.properties"/>
+    <bean id="newsAuthorDAO" class="by.epam.lab.task.dao.impl.NewsAuthorDAOImpl" name="authorDAO"/>
 
 </beans>

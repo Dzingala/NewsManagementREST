@@ -33,3 +33,11 @@
         <input type="submit" name="command" value="add"/>
     </sf:form>
 </div>
+<c:url value="/logout" var="logoutUrl" />
+<form action="${logoutUrl}" method="post" id="logoutForm">
+    <input type="hidden" name="${_csrf.parameterName}"
+           value="${_csrf.token}" />
+    <div>
+        <input name="submit" type="submit" value="Exit"/>
+    </div>
+</form>
