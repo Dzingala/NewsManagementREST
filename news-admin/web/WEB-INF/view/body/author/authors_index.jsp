@@ -63,3 +63,7 @@
     <input type="submit" name="command" value="add"/>
 
 </sf:form>
+
+<sf:form method="post" action="/logout">
+    <input type="submit" value="Logout"/>
+</sf:form>

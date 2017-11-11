@@ -21,6 +21,8 @@ public class LoginController {
 
     @RequestMapping(value = "/logout")
     public String logoutPage(ModelMap model){
-        return "login_index";
+        model.addAttribute("user", new User());
+
+        return "redirect:/login_index";
     }
 }
