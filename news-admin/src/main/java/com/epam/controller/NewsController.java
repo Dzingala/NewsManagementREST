@@ -114,7 +114,6 @@ public class NewsController {
         return "news_full";
     }
 
-
     @RequestMapping(value = "/news/edit/{newsId}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable Long newsId,
                               ModelMap model) throws ServiceException {

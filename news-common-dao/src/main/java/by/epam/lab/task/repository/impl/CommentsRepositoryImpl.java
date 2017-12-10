@@ -32,7 +32,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     public void setDriverClassName(String dbConfigString){
         logger.debug("Connected to the database:");
         logger.debug(dbConfigString);
-        logger.debug("@Value data got:\n" +
+        logger.debug("@Value data:\n" +
                 "Driver: "+DBDRIVER+"\n" +
                 "Url: "+DBURL+"\n" +
                 "Username: "+ DBUSER+"\n" +

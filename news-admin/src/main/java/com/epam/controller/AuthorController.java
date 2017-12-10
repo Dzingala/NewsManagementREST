@@ -35,12 +35,12 @@ public class AuthorController {
         return "redirect:/authors";
     }
 
-
     @RequestMapping(value = "/authors/edit",method = RequestMethod.POST)
     public String updateAuthor(@ModelAttribute Author author) throws ServiceException {
         update(author);
         return "redirect:/authors";
     }
+
     @RequestMapping(value = "/authors/edit",method = RequestMethod.PUT)
     public void update(@RequestBody Author author) throws ServiceException {
         authorService.update(author);
@@ -51,6 +51,7 @@ public class AuthorController {
         delete(author);
         return "redirect:/authors";
     }
+
     @RequestMapping(value = "/authors/delete", method = RequestMethod.DELETE)
     public void delete(@RequestBody Author author) throws ServiceException {
         authorService.delete(author);

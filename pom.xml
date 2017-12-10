@@ -102,7 +102,7 @@
             <dependency>
                 <groupId>by.epam.services</groupId>
                 <artifactId>news-common-service</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${application.version}</version>
             </dependency>
 
             <!-- DAO module -->
